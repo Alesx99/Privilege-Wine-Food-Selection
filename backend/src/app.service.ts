@@ -611,27 +611,37 @@ export class AppService {
   // ==========================================
   async importXmlInvoice(xmlContent: string): Promise<any> {
     try {
-      // Very simple XML regex parser since we are in node and don't want XML parser library bloat
+      // Helper to find a tag value with optional namespace prefix
       const getTagValue = (xml: string, tag: string): string => {
-        const regex = new RegExp(`<${tag}>([^<]*)<\/${tag}>`, 'i');
+        if (!xml) return '';
+        const regex = new RegExp(`<([a-zA-Z0-9]+:)?${tag}\\b[^>]*>([^<]*)<\\/\\1?${tag}>`, 'i');
         const match = xml.match(regex);
-        return match ? match[1].trim() : '';
+        return match ? match[2].trim() : '';
+      };
+
+      // Helper to extract a section with optional namespace prefix
+      const getSection = (xml: string, tag: string): string => {
+        if (!xml) return '';
+        const regex = new RegExp(`<([a-zA-Z0-9]+:)?${tag}\\b[^>]*>([\\s\\S]*?)<\\/\\1?${tag}>`, 'i');
+        const match = xml.match(regex);
+        return match ? match[2] : '';
       };
 
       // Extract Supplier (CedentePrestatore)
-      const cedenteSection = xmlContent.split('</CedentePrestatore>')[0];
+      const cedenteSection = getSection(xmlContent, 'CedentePrestatore');
       const supplierName = getTagValue(cedenteSection, 'Denominazione');
       const supplierVat = getTagValue(cedenteSection, 'IdCodice');
       const supplierAddress = getTagValue(cedenteSection, 'Indirizzo') + ', ' + getTagValue(cedenteSection, 'CAP') + ' ' + getTagValue(cedenteSection, 'Comune');
 
-      // Extract Document Headers
-      const bodySection = xmlContent.split('<FatturaElettronicaBody>')[1];
+      // Extract Document Headers (FatturaElettronicaBody)
+      const bodySection = getSection(xmlContent, 'FatturaElettronicaBody');
       const docDate = getTagValue(bodySection, 'Data');
       const docNumber = getTagValue(bodySection, 'Numero');
-      const totalAmount = Number(getTagValue(bodySection, 'ImportoTotaleDocumento')) || 0.00;
+
+      const finalDocDate = docDate || new Date().toISOString().split('T')[0];
 
       if (!supplierVat || !docNumber) {
-        throw new BadRequestException('Formato XML Fattura Elettronica non valido o non riconosciuto.');
+        throw new BadRequestException('Formato XML Fattura Elettronica non valido o non riconosciuto (Partita IVA o Numero documento mancanti).');
       }
 
       // Check if Supplier exists, if not create
@@ -645,7 +655,7 @@ export class AppService {
           type: 'supplier',
           name: supplierName || 'FORNITORE IMPORTATO',
           vat_number: supplierVat,
-          address: supplierAddress,
+          address: supplierAddress || 'Indirizzo non specificato',
           sdi_code: '0000000',
         });
       }
@@ -657,24 +667,23 @@ export class AppService {
         throw new BadRequestException(`La fattura n. ${docNumber} per il fornitore ${supplier.name} è già stata importata.`);
       }
 
-      // Extract Items
+      // Extract Items using regex to match DettaglioLinee (robust against namespaces)
       const items: any[] = [];
-      const lines = xmlContent.split('<DettaglioLinee>');
-      lines.shift(); // remove header part
+      const detailRegex = /<([a-zA-Z0-9]+:)?DettaglioLinee\b[^>]*>([\s\S]*?)<\/\1?DettaglioLinee>/gi;
+      const detailMatches = [...xmlContent.matchAll(detailRegex)];
 
-      for (const line of lines) {
-        const cleanedLine = line.split('</DettaglioLinee>')[0];
+      for (const match of detailMatches) {
+        const cleanedLine = match[2];
         const desc = getTagValue(cleanedLine, 'Descrizione');
         const qty = Number(getTagValue(cleanedLine, 'Quantita')) || 0;
         const price = Number(getTagValue(cleanedLine, 'PrezzoUnitario')) || 0;
-        const total = Number(getTagValue(cleanedLine, 'PrezzoTotale')) || 0;
         const vat = Number(getTagValue(cleanedLine, 'AliquotaIVA')) || 22.00;
 
         // Discount percent extraction
         let discount = 0;
-        if (cleanedLine.includes('<ScontoMaggiorazione>')) {
-          const discountSec = cleanedLine.split('</ScontoMaggiorazione>')[0];
-          discount = Number(getTagValue(discountSec, 'Percentuale')) || 0;
+        const scontoSection = getSection(cleanedLine, 'ScontoMaggiorazione');
+        if (scontoSection) {
+          discount = Number(getTagValue(scontoSection, 'Percentuale')) || 0;
         }
 
         // We skip informational lines (0 qty or 0 price) unless it's a 100% discount free item
@@ -682,16 +691,26 @@ export class AppService {
           continue;
         }
 
-        // Extract SKU from supplier code
+        // Extract SKU from supplier code or general article code (robust against namespaces)
         let sku = '';
-        if (cleanedLine.includes('CodiceArt. fornitore')) {
-          const skuSection = cleanedLine.split('CodiceArt. fornitore')[1];
-          sku = getTagValue(skuSection, 'CodiceValore');
-        } else if (cleanedLine.includes('<CodiceArticolo>')) {
-          // fallback to any Article Code value
-          const skuSection = cleanedLine.split('</CodiceArticolo>')[0];
-          sku = getTagValue(skuSection, 'CodiceValore');
+        const codiceArticoloRegex = /<([a-zA-Z0-9]+:)?CodiceArticolo\b[^>]*>([\s\S]*?)<\/\1?CodiceArticolo>/gi;
+        const artMatches = [...cleanedLine.matchAll(codiceArticoloRegex)];
+        
+        for (const artMatch of artMatches) {
+          const artSection = artMatch[2];
+          const tipo = getTagValue(artSection, 'CodiceTipo');
+          const valore = getTagValue(artSection, 'CodiceValore');
+          if (tipo.toLowerCase().includes('fornitore')) {
+            sku = valore;
+            break;
+          }
         }
+        
+        // If not found, use the first CodiceArticolo value as fallback
+        if (!sku && artMatches.length > 0) {
+          sku = getTagValue(artMatches[0][2], 'CodiceValore');
+        }
+
         if (!sku) {
           // generate temporary SKU if empty
           sku = 'IMP-' + Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -749,7 +768,7 @@ export class AppService {
           unit_price: price,
           discount_percent: discount,
           vat_percent: vat,
-          lot_number: 'LOT-' + docDate.replace(/-/g, ''),
+          lot_number: 'LOT-' + finalDocDate.replace(/-/g, ''),
         });
       }
 
@@ -757,7 +776,7 @@ export class AppService {
       const newDocument = await this.saveDocument({
         type: 'invoice_purchase',
         number: docNumber,
-        date: docDate,
+        date: finalDocDate,
         partner_id: supplier.id,
         status: 'draft', // Saved as draft so user can review it before completing
         items,
@@ -766,7 +785,7 @@ export class AppService {
       return newDocument;
     } catch (err) {
       this.logger.error('Failed to import XML Invoice:', err);
-      throw new BadRequestException('Errore durante l\'importazione del file XML: ' + err.message);
+      throw new BadRequestException(err instanceof BadRequestException ? err.message : 'Errore durante l\'importazione del file XML: ' + (err?.message || err));
     }
   }
 }
