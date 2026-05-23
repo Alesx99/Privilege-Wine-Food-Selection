@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?><!--Generato da e-Bill Tracking - Tekne il 2026-04-27 14:46:27.1588300+02:00--><p:FatturaElettronica xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SistemaEmittente="Essenzia" versione="FPR12" xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 https://www.fatturapa.gov.it/export/documenti/fatturapa/v1.2.1/Schema_del_file_xml_FatturaPA_versione_1.2.1a.xsd">
+  <FatturaElettronicaHeader>
+    <DatiTrasmissione>
+      <IdTrasmittente>
+        <IdPaese>IT</IdPaese>
+        <IdCodice>07207660486</IdCodice>
+      </IdTrasmittente>
+      <ProgressivoInvio>36878408</ProgressivoInvio>
+      <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+      <CodiceDestinatario>0000000</CodiceDestinatario>
+      <ContattiTrasmittente>
+        <Telefono>05719988</Telefono>
+        <Email>project.sdv_varhub@vargroup.it</Email>
+      </ContattiTrasmittente>
+      <PECDestinatario>cortese.tommaso@arubapec.it</PECDestinatario>
+    </DatiTrasmissione>
+    <CedentePrestatore>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>03510940723</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>03510940723</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>COLLI DELLA MURGIA S.S.A.</Denominazione>
+        </Anagrafica>
+        <RegimeFiscale>RF01</RegimeFiscale>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>C.DA ZINGARIELLO, C.P. 87</Indirizzo>
+        <CAP>70024</CAP>
+        <Comune>GRAVINA IN PUGLIA</Comune>
+        <Provincia>BA</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+      <Contatti>
+        <Telefono>080 3261271</Telefono>
+        <Fax>080 3261271</Fax>
+        <Email>info@collidellamurgia.it</Email>
+      </Contatti>
+    </CedentePrestatore>
+    <CessionarioCommittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>09127380724</IdCodice>
+        </IdFiscaleIVA>
+        <Anagrafica>
+          <Denominazione>PRIVILEGE DI CORTESE TOMMASO</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>CORSO VITTORIO EMANUELE II 48</Indirizzo>
+        <CAP>70032</CAP>
+        <Comune>BITONTO</Comune>
+        <Provincia>BA</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+    </CessionarioCommittente>
+    <TerzoIntermediarioOSoggettoEmittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>07207660486</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>07207660486</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>TEKNE SRL</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+    </TerzoIntermediarioOSoggettoEmittente>
+    <SoggettoEmittente>TZ</SoggettoEmittente>
+  </FatturaElettronicaHeader>
+  <FatturaElettronicaBody>
+    <DatiGenerali>
+      <DatiGeneraliDocumento>
+        <TipoDocumento>TD01</TipoDocumento>
+        <Divisa>EUR</Divisa>
+        <Data>2026-04-23</Data>
+        <Numero>2026-RFN-0000331</Numero>
+        <ImportoTotaleDocumento>1276.06</ImportoTotaleDocumento>
+        <Causale>Fattura accompagnatoria</Causale>
+      </DatiGeneraliDocumento>
+      <DatiTrasporto>
+        <MezzoTrasporto>VETTORE</MezzoTrasporto>
+        <CausaleTrasporto>VENDITA</CausaleTrasporto>
+        <NumeroColli>31</NumeroColli>
+        <UnitaMisuraPeso>KG</UnitaMisuraPeso>
+        <PesoLordo>250.00</PesoLordo>
+        <PesoNetto>135.00</PesoNetto>
+        <DataInizioTrasporto>2026-04-23</DataInizioTrasporto>
+        <IndirizzoResa>
+          <Indirizzo>CORSO VITTORIO EMANUELE II 48</Indirizzo>
+          <CAP>70032</CAP>
+          <Comune>BITONTO</Comune>
+          <Provincia>BA</Provincia>
+          <Nazione>IT</Nazione>
+        </IndirizzoResa>
+      </DatiTrasporto>
+    </DatiGenerali>
+    <DatiBeniServizi>
+      <DettaglioLinee>
+        <NumeroLinea>1</NumeroLinea>
+        <Descrizione>VINO SPUMANTE BIANCO DI QUALITA' AMORE PROTETTO CL.75 GR13</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>14.10</PrezzoUnitario>
+        <PrezzoTotale>84.60</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>2</NumeroLinea>
+        <Descrizione>VINO ROSSO IGP PUGLIA 'SELVATO' - CL. 75 - GR.13,5- 2022</Descrizione>
+        <Quantita>18.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>6.60</PrezzoUnitario>
+        <PrezzoTotale>118.80</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>3</NumeroLinea>
+        <Descrizione>VINO BIANCO IGP PUGLIA 'ERBACEO' CL.75 GR. 12 - 2025</Descrizione>
+        <Quantita>42.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>6.60</PrezzoUnitario>
+        <PrezzoTotale>277.20</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>4</NumeroLinea>
+        <Descrizione>VINO BIANCO IGP PUGLIA 'TUFJANO' -CL.75 -GR.12,5 - 2025</Descrizione>
+        <Quantita>18.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>7.80</PrezzoUnitario>
+        <PrezzoTotale>140.40</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>5</NumeroLinea>
+        <Descrizione>VINO  IGP PUGLIA CHARDONNAY DOLINE - CL. 75 - GR.13 - 2025</Descrizione>
+        <Quantita>36.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.00</PrezzoUnitario>
+        <PrezzoTotale>180.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>6</NumeroLinea>
+        <Descrizione>VINO  IGP PUGLIA GRECO DOLINE - CL. 75 - GR.12,5 - 2025</Descrizione>
+        <Quantita>30.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.00</PrezzoUnitario>
+        <PrezzoTotale>150.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>7</NumeroLinea>
+        <Descrizione>VINO  IGP PUGLIA ROSATO AGLIANICO DOLINE ,CL. 75  GR.13 - 2025</Descrizione>
+        <Quantita>30.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.00</PrezzoUnitario>
+        <PrezzoTotale>150.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>8</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: SECCHIELLO</Descrizione>
+        <Quantita>3.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>9</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO PAGAMENTO</Descrizione>
+        <PrezzoUnitario>-55.05</PrezzoUnitario>
+        <PrezzoTotale>-55.05</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DatiRiepilogo>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <ImponibileImporto>1045.95</ImponibileImporto>
+        <Imposta>230.11</Imposta>
+        <EsigibilitaIVA>I</EsigibilitaIVA>
+      </DatiRiepilogo>
+    </DatiBeniServizi>
+    <DatiPagamento>
+      <CondizioniPagamento>TP02</CondizioniPagamento>
+      <DettaglioPagamento>
+        <ModalitaPagamento>MP02</ModalitaPagamento>
+        <DataScadenzaPagamento>2026-04-23</DataScadenzaPagamento>
+        <ImportoPagamento>1276.06</ImportoPagamento>
+        <CodicePagamento>mezzo agente rimessa diretta</CodicePagamento>
+      </DettaglioPagamento>
+    </DatiPagamento>
+  </FatturaElettronicaBody>
+<ds:Signature Id="id-2c7a66176c5a75050c98a6a5fb252cdf" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2002/06/xmldsig-filter2"><dsig-xpath:XPath xmlns:dsig-xpath="http://www.w3.org/2002/06/xmldsig-filter2" Filter="subtract">/descendant::ds:Signature</dsig-xpath:XPath></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>MUBMZ55iOL4KPwr3eWNMFr8grlvVP381hqcEuxTXWbc=</ds:DigestValue></ds:Reference><ds:Reference URI="#keyinfo-id-2c7a66176c5a75050c98a6a5fb252cdf"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>XynPCtDSgg5/GxSMk+jDSXqCgfJooIbtSWwVsUkmK4A=</ds:DigestValue></ds:Reference><ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xades-id-2c7a66176c5a75050c98a6a5fb252cdf"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>M4FfhVh6/GUTpM9cyvjg/9RFp59qTm/PP56ESMAglDM=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue Id="value-id-2c7a66176c5a75050c98a6a5fb252cdf">e7ucOIcR/7lwWo9ifyYds0vrm5oYwgq9XcXSH43A2422omVtjS2h/6ntPj37VyDps0jAoM/dwneetVJVfEWc+ue8cxu+K/+V0S9MWwrNhwY14t8pEk52AAp0fjRbIURftFFFcyH5sS89GoCo0P/fCbzImkqXjxiavkx/rTgvrLPFHPvYW+hKQxsnDf8QQtQu3mCsiaXmup+bD2rc47bloe8HjZFnF4C894PDZcQ0AF9z44tsrIEuKKAth+OddhSSAXoJZEZjn7MMvrlfZCby0XayWVOHFXnZC0qs4v9WpQhg4sLe7U/aHJOi/K7YAHPVWSvA2ouwbvXkapKDmkW0Mw==</ds:SignatureValue><ds:KeyInfo Id="keyinfo-id-2c7a66176c5a75050c98a6a5fb252cdf"><ds:X509Data><ds:X509Certificate>MIIHWDCCBkCgAwIBAgIIS8ZO0Ru9JBEwDQYJKoZIhvcNAQELBQAwfTELMAkGA1UEBhMCSVQxJDAiBgNVBAoMG05hbWlyaWFsIFMucC5BLi8wMjA0NjU3MDQyNjEgMB4GA1UECwwXQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxJjAkBgNVBAMMHU5hbWlyaWFsIENBIEZpcm1hIFF1YWxpZmljYXRhMB4XDTI1MDIyODA5NDYwMFoXDTI4MDIyNzIzMDAwMFowgY8xCzAJBgNVBAYTAklUMREwDwYDVQQEDAhHVUlERVRUSTERMA8GA1UEKgwIR0lBTkxVQ0ExHzAdBgNVBAUTFlRJTklULUdEVEdMQzYyTTA1SDIyM0oxGjAYBgNVBAMMEUdVSURFVFRJIEdJQU5MVUNBMR0wGwYDVQQuExRBVUdHMjAyNTAyMjg2MjA4NzgzNDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAODSkJyz89fPyA96ZMhQKGPYfa860k2Lf+FA3in2EE8c+tgoTJHyiIP+6V7tRdu/EW8domLisPf/UNMz1wTwHbxlk8QQ0UaVX4242g5vHBbKeANQfgLrrfqJ1hjxT0OSPdudA6fvmLXkpz6cNJinPgRuPfbs1dxVKOkBlmnql4rec3wOanLIbTViNHYogyMxdB9a3wCqFLhQunqlzo4fmj4aW4ZAG5EKpYZhzo3e52+PebAxxIDt/GrvcKSj7fdVjoK250ctLpukMPVcy8KWvS0ZLQun5bfFiqzenc5LUlrfryEGqg2BXMMlQHdyjpFmKieVjkMDE7Rf9c9WHzXFTHkCAwEAAaOCA8cwggPDMIGcBggrBgEFBQcBAQSBjzCBjDBRBggrBgEFBQcwAoZFaHR0cHM6Ly9kb2NzLm5hbWlyaWFsdHNwLmNvbS9kb2N1bWVudHMvTmFtaXJpYWxDQUZpcm1hUXVhbGlmaWNhdGEuY3J0MDcGCCsGAQUFBzABhitodHRwOi8vb2NzcC5uYW1pcmlhbHRzcC5jb20vb2NzcC9jZXJ0c3RhdHVzMB0GA1UdDgQWBBTyD5iHVgR4vwlH7hMGtQVlyVLbGzAfBgNVHSMEGDAWgBRj/e3mjGJHSM/qCUFzdhHiZGJ7EDCBzQYIKwYBBQUHAQMEgcAwgb0wCAYGBACORgEBMAsGBgQAjkYBAwIBFDAIBgYEAI5GAQQwEwYGBACORgEGMAkGBwQAjkYBBgEwgYQGBgQAjkYBBTB6MDsWNWh0dHBzOi8vZG9jcy5uYW1pcmlhbHRzcC5jb20vZG9jdW1lbnRzL1BEUy9QRFNfZW4ucGRmEwJlbjA7FjVodHRwczovL2RvY3MubmFtaXJpYWx0c3AuY29tL2RvY3VtZW50cy9QRFMvUERTX2l0LnBkZhMCaXQwggG4BgNVHSAEggGvMIIBqzAJBgcEAIvsQAECMAgGBgQAj3oBAjCCAZIGCysGAQQBgpprAQEDMIIBgTApBggrBgEFBQcCARYdaHR0cHM6Ly9kb2NzLm5hbWlyaWFsdHNwLmNvbS8wggFSBggrBgEFBQcCAjCCAUQeggFAAEkAbAAgAHAAcgBlAHMAZQBuAHQAZQAgAGMAZQByAHQAaQBmAGkAYwBhAHQAbwAgAOgAIAB2AGEAbABpAGQAbwAgAHMAbwBsAG8AIABwAGUAcgAgAGYAaQByAG0AZQAgAGEAcABwAG8AcwB0AGUAIABjAG8AbgAgAHAAcgBvAGMAZQBkAHUAcgBhACAAYQB1AHQAbwBtAGEAdABpAGMAYQAuAC8AVABoAGkAcwAgAGMAZQByAHQAaQBmAGkAYwBhAHQAZQAgAG0AYQB5ACAAbwBuAGwAeQAgAGIAZQAgAHUAcwBlAGQAIABmAG8AcgAgAHUAbgBhAHQAdABlAG4AZABlAGQALwBhAHUAdABvAG0AYQB0AGUAZAAgAGQAaQBnAGkAdABhAGwAIABzAGkAZwBuAGEAdAB1AHIAZQBzAC4wRgYDVR0fBD8wPTA7oDmgN4Y1aHR0cDovL2NybC5uYW1pcmlhbHRzcC5jb20vRmlybWFDZXJ0YVF1YWxpZmljYXRhMS5jcmwwDgYDVR0PAQH/BAQDAgZAMA0GCSqGSIb3DQEBCwUAA4IBAQBBs/qnMsmJJ3JQniif6BkZWVdbhBWXosaofxD1cERS6Et6dcS7DvxDfibRzKGcQNrhyWFKsgOY7Wja/V87O5G75y6uJGLieDOh7a//g3LqSnqRgY4dAubioLmW4Rip37xp2UF5b2W9BqHw3U7B9GiD8vWG2WOgC1hwy+5ifIoAbmDi1fw522Z3PH7Wdn9Z+3E9HYTDjJg/vcsgMUZluswE2/PgS9uAooUszHgZ7IVFBmLM/JmdfVA/+3I8XcCr0i8PLaS1owrcm3kpZmLCvtkLfJaJ4KipqjJuRCEIv7bxWlT9yFy0M5AI7OEDSTSlds5LCkWg5MpUgX1tuaRrMNXZ</ds:X509Certificate></ds:X509Data></ds:KeyInfo><ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Target="#id-2c7a66176c5a75050c98a6a5fb252cdf"><xades:SignedProperties Id="xades-id-2c7a66176c5a75050c98a6a5fb252cdf"><xades:SignedSignatureProperties><xades:SigningTime>2026-04-27T12:47:06Z</xades:SigningTime><xades:SigningCertificateV2><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>1gf8/Y+bdGKbeJSEqmWNqV9llessf5eNx++1AZHcRmM=</ds:DigestValue></xades:CertDigest><xades:IssuerSerialV2>MIGOMIGBpH8wfTELMAkGA1UEBhMCSVQxJDAiBgNVBAoMG05hbWlyaWFsIFMucC5BLi8wMjA0NjU3MDQyNjEgMB4GA1UECwwXQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxJjAkBgNVBAMMHU5hbWlyaWFsIENBIEZpcm1hIFF1YWxpZmljYXRhAghLxk7RG70kEQ==</xades:IssuerSerialV2></xades:Cert></xades:SigningCertificateV2></xades:SignedSignatureProperties><xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#null"><xades:MimeType>application/octet-stream</xades:MimeType></xades:DataObjectFormat></xades:SignedDataObjectProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object></ds:Signature></p:FatturaElettronica>

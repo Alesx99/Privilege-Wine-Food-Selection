@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="fatturapa_v1.2.xsl"?>
+<p:FatturaElettronica xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" versione="FPR12">
+  <FatturaElettronicaHeader>
+    <DatiTrasmissione>
+      <IdTrasmittente>
+        <IdPaese>IT</IdPaese>
+        <IdCodice>01378570350</IdCodice>
+      </IdTrasmittente>
+      <ProgressivoInvio>005A002X4H</ProgressivoInvio>
+      <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+      <CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+      <PECDestinatario>CORTESE.TOMMASO@ARUBAPEC.IT</PECDestinatario>
+    </DatiTrasmissione>
+    <CedentePrestatore>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>12054020156</IdCodice>
+        </IdFiscaleIVA>
+        <Anagrafica>
+          <Denominazione>Moët Hennessy Italia SpA</Denominazione>
+        </Anagrafica>
+        <RegimeFiscale>RF01</RegimeFiscale>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>Via Tonale</Indirizzo>
+        <NumeroCivico>26</NumeroCivico>
+        <CAP>20125</CAP>
+        <Comune>Milano</Comune>
+        <Provincia>MI</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+      <IscrizioneREA>
+        <Ufficio>MI</Ufficio>
+        <NumeroREA>1525737</NumeroREA>
+        <CapitaleSociale>1100000.00</CapitaleSociale>
+        <SocioUnico>SM</SocioUnico>
+        <StatoLiquidazione>LN</StatoLiquidazione>
+      </IscrizioneREA>
+    </CedentePrestatore>
+    <CessionarioCommittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>09127380724</IdCodice>
+        </IdFiscaleIVA>
+        <Anagrafica>
+          <Denominazione>CORTESE TOMMASO</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>CORSO VITTORIO EMANUELE II 48</Indirizzo>
+        <CAP>70032</CAP>
+        <Comune>BITONTO</Comune>
+        <Provincia>BA</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+    </CessionarioCommittente>
+    <TerzoIntermediarioOSoggettoEmittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>12187220962</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>12187220962</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>IDC - Indicom Document Care SpA</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+    </TerzoIntermediarioOSoggettoEmittente>
+    <SoggettoEmittente>TZ</SoggettoEmittente>
+  </FatturaElettronicaHeader>
+  <FatturaElettronicaBody>
+    <DatiGenerali>
+      <DatiGeneraliDocumento>
+        <TipoDocumento>TD01</TipoDocumento>
+        <Divisa>EUR</Divisa>
+        <Data>2026-04-20</Data>
+        <Numero>4701549153</Numero>
+        <ImportoTotaleDocumento>658.80</ImportoTotaleDocumento>
+        <Causale>NOME AGENTE : I64032 LG AGENCY SRL</Causale>
+        <Causale>CONTRIBUTO AMBIENTALE CONAI ASSOLTO</Causale>
+        <Causale>Le condizioni generali di vendita sono consultabili sul sito www.moethennessy.it</Causale>
+        <Causale>MC mail_not_in_db@indicom.it</Causale>
+      </DatiGeneraliDocumento>
+      <DatiDDT>
+        <NumeroDDT>105317</NumeroDDT>
+        <DataDDT>2026-04-17</DataDDT>
+      </DatiDDT>
+      <DatiTrasporto>
+        <TipoResa>DDP</TipoResa>
+        <IndirizzoResa>
+          <Indirizzo>CORSO VITTORIO EMANUELE II 48</Indirizzo>
+          <CAP>70032</CAP>
+          <Comune>BITONTO</Comune>
+          <Provincia>BA</Provincia>
+          <Nazione>IT</Nazione>
+        </IndirizzoResa>
+      </DatiTrasporto>
+    </DatiGenerali>
+    <DatiBeniServizi>
+      <DettaglioLinee>
+        <NumeroLinea>1</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>SAP</CodiceTipo>
+          <CodiceValore>1117173</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>GC G DE GALOUPET ORG 25 75CL C6 TPIN</Descrizione>
+        <Quantita>60.00</Quantita>
+        <UnitaMisura>COL</UnitaMisura>
+        <PrezzoUnitario>16.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Importo>7.00</Importo>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>540.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DatiRiepilogo>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <ImponibileImporto>540.00</ImponibileImporto>
+        <Imposta>118.80</Imposta>
+      </DatiRiepilogo>
+    </DatiBeniServizi>
+    <DatiPagamento>
+      <CondizioniPagamento>TP02</CondizioniPagamento>
+      <DettaglioPagamento>
+        <Beneficiario>Moët Hennessy Italia SpA</Beneficiario>
+        <ModalitaPagamento>MP05</ModalitaPagamento>
+        <DataRiferimentoTerminiPagamento>2026-04-20</DataRiferimentoTerminiPagamento>
+        <GiorniTerminiPagamento>71</GiorniTerminiPagamento>
+        <DataScadenzaPagamento>2026-06-30</DataScadenzaPagamento>
+        <ImportoPagamento>658.80</ImportoPagamento>
+        <IstitutoFinanziario>INTESA SANPAOLO SPA</IstitutoFinanziario>
+        <IBAN>IT04P0306901631100000009480</IBAN>
+        <ABI>03069</ABI>
+        <CAB>01631</CAB>
+        <BIC>BCITITMMXXX</BIC>
+      </DettaglioPagamento>
+    </DatiPagamento>
+  </FatturaElettronicaBody>
+</p:FatturaElettronica>

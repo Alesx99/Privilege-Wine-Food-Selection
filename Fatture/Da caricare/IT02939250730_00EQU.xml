@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:FatturaElettronica xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" versione="FPR12">
+	<FatturaElettronicaHeader>
+		<DatiTrasmissione>
+			<IdTrasmittente>
+				<IdPaese>IT</IdPaese>
+				<IdCodice>08245660017</IdCodice>
+			</IdTrasmittente>
+			<ProgressivoInvio>43631</ProgressivoInvio>
+			<FormatoTrasmissione>FPR12</FormatoTrasmissione>
+			<CodiceDestinatario>0000000</CodiceDestinatario>
+			<PECDestinatario>cortese.tommaso@arubapec.it</PECDestinatario>
+		</DatiTrasmissione>
+		<CedentePrestatore>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>02939250730</IdCodice>
+				</IdFiscaleIVA>
+				<CodiceFiscale>02939250730</CodiceFiscale>
+				<Anagrafica>
+					<Denominazione>FELLINE SOCIETA&apos; AGRICOLA A RL</Denominazione>
+					<CodEORI>IT02939250730</CodEORI>
+				</Anagrafica>
+				<RegimeFiscale>RF01</RegimeFiscale>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>STRADA COMUNALE SANTO STASI I,</Indirizzo>
+				<CAP>74024</CAP>
+				<Comune>MANDURIA</Comune>
+				<Provincia>TA</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+			<IscrizioneREA>
+				<Ufficio>TA</Ufficio>
+				<NumeroREA>180748</NumeroREA>
+				<CapitaleSociale>10000.00</CapitaleSociale>
+				<SocioUnico>SM</SocioUnico>
+				<StatoLiquidazione>LN</StatoLiquidazione>
+			</IscrizioneREA>
+			<Contatti>
+				<Telefono>+39 099 9711</Telefono>
+				<Fax>+39 099 9711</Fax>
+				<Email>luigi@agricolafelline.it</Email>
+			</Contatti>
+		</CedentePrestatore>
+		<CessionarioCommittente>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>09127380724</IdCodice>
+				</IdFiscaleIVA>
+				<CodiceFiscale>CRTTMS81D20F262M</CodiceFiscale>
+				<Anagrafica>
+					<Nome>TOMMASO</Nome>
+					<Cognome>CORTESE</Cognome>
+				</Anagrafica>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>CORSO VITTORIO EMANUELE, 48</Indirizzo>
+				<CAP>70032</CAP>
+				<Comune>BITONTO</Comune>
+				<Provincia>BA</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+		</CessionarioCommittente>
+	</FatturaElettronicaHeader>
+	<FatturaElettronicaBody>
+		<DatiGenerali>
+			<DatiGeneraliDocumento>
+				<TipoDocumento>TD01</TipoDocumento>
+				<Divisa>EUR</Divisa>
+				<Data>2026-04-24</Data>
+				<Numero>162 IT</Numero>
+				<ImportoTotaleDocumento>566.15</ImportoTotaleDocumento>
+				<Causale>FATTURA</Causale>
+			</DatiGeneraliDocumento>
+			<DatiTrasporto>
+				<DatiAnagraficiVettore>
+					<IdFiscaleIVA>
+						<IdPaese>IT</IdPaese>
+						<IdCodice>04097700720</IdCodice>
+					</IdFiscaleIVA>
+					<CodiceFiscale>04097700720</CodiceFiscale>
+					<Anagrafica>
+						<Denominazione>NUOVO TRASPORTO ITALIANO SPA</Denominazione>
+					</Anagrafica>
+				</DatiAnagraficiVettore>
+				<CausaleTrasporto>VENDITA</CausaleTrasporto>
+				<NumeroColli>12</NumeroColli>
+				<Descrizione>CARTONI</Descrizione>
+				<UnitaMisuraPeso>KG</UnitaMisuraPeso>
+				<PesoLordo>99.6</PesoLordo>
+				<PesoNetto>54.0</PesoNetto>
+				<DataInizioTrasporto>2026-04-24</DataInizioTrasporto>
+				<IndirizzoResa>
+					<Indirizzo>CORSO VITTORIO EMANUELE, 48</Indirizzo>
+					<CAP>70032</CAP>
+					<Comune>BITONTO</Comune>
+					<Provincia>BA</Provincia>
+					<Nazione>IT</Nazione>
+				</IndirizzoResa>
+			</DatiTrasporto>
+		</DatiGenerali>
+		<DatiBeniServizi>
+			<DettaglioLinee>
+				<NumeroLinea>1</NumeroLinea>
+				<Descrizione>ODV n. 238 del 22/04/26</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>2</NumeroLinea>
+				<Descrizione>POLIGNANO PUGLIA I.G.P. ROSATO 2025 L 0,75</Descrizione>
+				<Quantita>60.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>7.90</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>15.00</Percentuale>
+				</ScontoMaggiorazione>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>6.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>378.73</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>3</NumeroLinea>
+				<Descrizione>SUM SALENTO IGP SUSUM.22 L 0,750</Descrizione>
+				<Quantita>12.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>8.90</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>15.00</Percentuale>
+				</ScontoMaggiorazione>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>6.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>85.33</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>4</NumeroLinea>
+				<Descrizione>PREAVVISO DI CONSEGNA AL N. 3294668960 ORARI DI CONSEGNA DALLE 8.30 ALLE 12.30</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DatiRiepilogo>
+				<AliquotaIVA>22.00</AliquotaIVA>
+				<ImponibileImporto>464.06</ImponibileImporto>
+				<Imposta>102.09</Imposta>
+				<EsigibilitaIVA>I</EsigibilitaIVA>
+				<RiferimentoNormativo>22% - GENERICO</RiferimentoNormativo>
+			</DatiRiepilogo>
+		</DatiBeniServizi>
+		<DatiPagamento>
+			<CondizioniPagamento>TP02</CondizioniPagamento>
+			<DettaglioPagamento>
+				<ModalitaPagamento>MP05</ModalitaPagamento>
+				<DataRiferimentoTerminiPagamento>2026-04-24</DataRiferimentoTerminiPagamento>
+				<GiorniTerminiPagamento>1</GiorniTerminiPagamento>
+				<DataScadenzaPagamento>2026-04-25</DataScadenzaPagamento>
+				<ImportoPagamento>566.15</ImportoPagamento>
+				<IstitutoFinanziario>BPER BANCA S.P.A.</IstitutoFinanziario>
+				<IBAN>IT28Y0538701626000049110276</IBAN>
+				<ABI>05387</ABI>
+				<CAB>01626</CAB>
+				<BIC>BPMOIT22XXX</BIC>
+			</DettaglioPagamento>
+		</DatiPagamento>
+	</FatturaElettronicaBody>
+</p:FatturaElettronica>
+

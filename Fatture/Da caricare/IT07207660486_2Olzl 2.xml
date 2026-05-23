@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?><!--Generato da e-Bill Tracking - Tekne il 2026-03-17 18:43:20.1167903+01:00--><p:FatturaElettronica xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SistemaEmittente="Essenzia" versione="FPR12" xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 https://www.fatturapa.gov.it/export/documenti/fatturapa/v1.2.1/Schema_del_file_xml_FatturaPA_versione_1.2.1a.xsd">
+  <FatturaElettronicaHeader>
+    <DatiTrasmissione>
+      <IdTrasmittente>
+        <IdPaese>IT</IdPaese>
+        <IdCodice>07207660486</IdCodice>
+      </IdTrasmittente>
+      <ProgressivoInvio>35457041</ProgressivoInvio>
+      <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+      <CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+      <ContattiTrasmittente>
+        <Telefono>05719988</Telefono>
+        <Email>project.sdv_varhub@vargroup.it</Email>
+      </ContattiTrasmittente>
+    </DatiTrasmissione>
+    <CedentePrestatore>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>00544630759</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>00544630759</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>AZIENDA VINICOLA CANTELE S.R.L.</Denominazione>
+        </Anagrafica>
+        <RegimeFiscale>RF01</RegimeFiscale>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>S.P. 365 km 1</Indirizzo>
+        <CAP>73010</CAP>
+        <Comune>Guagnano</Comune>
+        <Provincia>LE</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+      <IscrizioneREA>
+        <Ufficio>LE</Ufficio>
+        <NumeroREA>108460</NumeroREA>
+        <CapitaleSociale>51480.00</CapitaleSociale>
+        <SocioUnico>SM</SocioUnico>
+        <StatoLiquidazione>LN</StatoLiquidazione>
+      </IscrizioneREA>
+      <Contatti>
+        <Telefono>0832-705010</Telefono>
+        <Fax>0832-705003</Fax>
+      </Contatti>
+    </CedentePrestatore>
+    <CessionarioCommittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>09127380724</IdCodice>
+        </IdFiscaleIVA>
+        <Anagrafica>
+          <Denominazione>PRIVILEGE DI CORTESE TOMMASO</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>C.SO VITTORIO EMANUELE II, 48</Indirizzo>
+        <CAP>70032</CAP>
+        <Comune>BITONTO</Comune>
+        <Provincia>BA</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+    </CessionarioCommittente>
+    <TerzoIntermediarioOSoggettoEmittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>07207660486</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>07207660486</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>TEKNE SRL</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+    </TerzoIntermediarioOSoggettoEmittente>
+    <SoggettoEmittente>TZ</SoggettoEmittente>
+  </FatturaElettronicaHeader>
+  <FatturaElettronicaBody>
+    <DatiGenerali>
+      <DatiGeneraliDocumento>
+        <TipoDocumento>TD24</TipoDocumento>
+        <Divisa>EUR</Divisa>
+        <Data>2026-03-11</Data>
+        <Numero>2026-RFN-0000638</Numero>
+        <ImportoTotaleDocumento>963.78</ImportoTotaleDocumento>
+        <Causale>FATTURA DI VENDITA DIFFERITA</Causale>
+        <Causale>consegna entro e non oltre il 12/03 PER EVENTO</Causale>
+      </DatiGeneraliDocumento>
+      <DatiOrdineAcquisto>
+        <IdDocumento>361</IdDocumento>
+        <Data>2026-03-09</Data>
+      </DatiOrdineAcquisto>
+      <DatiDDT>
+        <NumeroDDT>2026-DDT-0000616</NumeroDDT>
+        <DataDDT>2026-03-10</DataDDT>
+      </DatiDDT>
+    </DatiGenerali>
+    <DatiBeniServizi>
+      <DettaglioLinee>
+        <NumeroLinea>1</NumeroLinea>
+        <Descrizione>CLASSICA SUSUMANIELLO PUGLIA IGP LT 0,75</Descrizione>
+        <Quantita>120.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.95</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>10.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>642.60</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2024 2024</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>2</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: CLASSICA SUSUMANIELLO PUGLIA IGP LT 0,75</Descrizione>
+        <Quantita>30.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.95</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2024 2024</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>3</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: CNTL PRIMITIVO PUGLIA IGP LT 0,75</Descrizione>
+        <Quantita>12.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.95</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2024 2024</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>4</NumeroLinea>
+        <Descrizione>CNTL CHARDONNAY IGP PUGLIA LT 0,75</Descrizione>
+        <Quantita>30.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.45</PrezzoUnitario>
+        <PrezzoTotale>163.50</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2025 2025</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>5</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: CNTL CHARDONNAY IGP PUGLIA LT 0,75</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>5.45</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2025 2025</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>6</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: (AST) FANOI NEGROAMARO SALENTO IGP 0,75 LT</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>18.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2019 2019</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>7</NumeroLinea>
+        <Descrizione>SCATOLA CARTONE CONTENENTE</Descrizione>
+        <Quantita>2.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>8</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: SECCHIELLO PLAST.TRASP. BONGO BOWL CANTELE</Descrizione>
+        <Quantita>2.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>9</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: KIT DROPSTOP MIX 4 PZ</Descrizione>
+        <Quantita>5.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>10</NumeroLinea>
+        <Descrizione>DEPLIANT VERSIONE ITALIA</Descrizione>
+        <Quantita>25.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>11</NumeroLinea>
+        <Descrizione>PL PALLET LEGNO 80 X 120 (HT) A RENDERE</Descrizione>
+        <Quantita>1.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>12</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO PAGAMENTO</Descrizione>
+        <PrezzoUnitario>-16.12</PrezzoUnitario>
+        <PrezzoTotale>-16.12</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DatiRiepilogo>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <ImponibileImporto>789.98</ImponibileImporto>
+        <Imposta>173.80</Imposta>
+        <EsigibilitaIVA>I</EsigibilitaIVA>
+      </DatiRiepilogo>
+    </DatiBeniServizi>
+    <DatiPagamento>
+      <CondizioniPagamento>TP02</CondizioniPagamento>
+      <DettaglioPagamento>
+        <ModalitaPagamento>MP05</ModalitaPagamento>
+        <DataScadenzaPagamento>2026-05-11</DataScadenzaPagamento>
+        <ImportoPagamento>963.78</ImportoPagamento>
+        <IstitutoFinanziario>BANCA FIDEURAM</IstitutoFinanziario>
+        <IBAN>IT52S0329601601000067609256</IBAN>
+        <ABI>03296</ABI>
+        <CAB>01601</CAB>
+        <CodicePagamento>RIMESSA DIRETTA 60 GG DF SC. 2%</CodicePagamento>
+      </DettaglioPagamento>
+    </DatiPagamento>
+  </FatturaElettronicaBody>
+<ds:Signature Id="id-ddcce69a753e8d5376b11bece355ec1b" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2002/06/xmldsig-filter2"><dsig-xpath:XPath xmlns:dsig-xpath="http://www.w3.org/2002/06/xmldsig-filter2" Filter="subtract">/descendant::ds:Signature</dsig-xpath:XPath></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>Odavffa1qbjxcHr8Un68XU/AcVVlZOabbfNPrDQlMuE=</ds:DigestValue></ds:Reference><ds:Reference URI="#keyinfo-id-ddcce69a753e8d5376b11bece355ec1b"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>R6m84PxXCdhU3XMZ15Ry0rOj1ISjoHLrLn8g9A7DNiM=</ds:DigestValue></ds:Reference><ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xades-id-ddcce69a753e8d5376b11bece355ec1b"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>w0KAzxLL/h1lwaXoMIY7SSG6bR5Br2hB3oOTbC36+vg=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue Id="value-id-ddcce69a753e8d5376b11bece355ec1b">CiNOP1R/7yO3oIE0eompqGJYD/ep/Ghffyzjrg9KdRPWIV9gyTydQJrxFSch/+6in6sNJHUysywQ23uPdA7zz1SlS5IEYQ7pYj4+E1UNly8yXlVUD9IqJUmZIXDj+68mBpi/nV0SUgb0OIUy+obW/uRsqQWd05xjBnmmifvPlSTv0TnYKJvym2K9rpB2KC7a4V04TXYbsHoDdmh2z6J3h0bW7rZFyhXe2cb6bxIQEbBbwugzW2Dbytf1v38RXZvqxFKdwPHllroqDoCr+6htAKowd6jwuXm59i1rWg0a9jh60XavqyLsaGyx3RjBDitfkkDPGUJPF0suT1b8jG5Jqw==</ds:SignatureValue><ds:KeyInfo Id="keyinfo-id-ddcce69a753e8d5376b11bece355ec1b"><ds:X509Data><ds:X509Certificate>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</ds:X509Certificate></ds:X509Data></ds:KeyInfo><ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Target="#id-ddcce69a753e8d5376b11bece355ec1b"><xades:SignedProperties Id="xades-id-ddcce69a753e8d5376b11bece355ec1b"><xades:SignedSignatureProperties><xades:SigningTime>2026-03-17T17:44:47Z</xades:SigningTime><xades:SigningCertificateV2><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>1gf8/Y+bdGKbeJSEqmWNqV9llessf5eNx++1AZHcRmM=</ds:DigestValue></xades:CertDigest><xades:IssuerSerialV2>MIGOMIGBpH8wfTELMAkGA1UEBhMCSVQxJDAiBgNVBAoMG05hbWlyaWFsIFMucC5BLi8wMjA0NjU3MDQyNjEgMB4GA1UECwwXQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxJjAkBgNVBAMMHU5hbWlyaWFsIENBIEZpcm1hIFF1YWxpZmljYXRhAghLxk7RG70kEQ==</xades:IssuerSerialV2></xades:Cert></xades:SigningCertificateV2></xades:SignedSignatureProperties><xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#null"><xades:MimeType>application/octet-stream</xades:MimeType></xades:DataObjectFormat></xades:SignedDataObjectProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object></ds:Signature></p:FatturaElettronica>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><p:FatturaElettronica xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" versione="FPR12">
+  <FatturaElettronicaHeader>
+    <DatiTrasmissione>
+      <IdTrasmittente><IdPaese>IT</IdPaese><IdCodice>05006900962</IdCodice></IdTrasmittente>
+      <ProgressivoInvio>AA743</ProgressivoInvio>
+      <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+      <CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+      
+    </DatiTrasmissione>
+    <CedentePrestatore>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>02215130994</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>02215130994</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>Fine Spirits S.R.L.</Denominazione>
+        </Anagrafica>
+        <RegimeFiscale>RF01</RegimeFiscale>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>Via XII Ottobre 2/195 piano 19°</Indirizzo>
+        <CAP>16121</CAP>
+        <Comune>Genova</Comune>
+        <Provincia>GE</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+      <Contatti>
+        <Telefono>010321615</Telefono>
+        <Fax>0103042868</Fax>
+        <Email>info@finespirits.it</Email>
+      </Contatti>
+    </CedentePrestatore>
+    <CessionarioCommittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>09127380724</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>CRTTMS81D20F262M</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>PRIVILEGE DI CORTESE TOMMASO CAFE'&amp;WINE </Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>CORSO VITTORIO EMANUELE II  48 </Indirizzo>
+        <CAP>70032</CAP>
+        <Comune>BITONTO</Comune>
+        <Provincia>BA</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+    </CessionarioCommittente>
+  </FatturaElettronicaHeader>
+  <FatturaElettronicaBody>
+    <DatiGenerali>
+      <DatiGeneraliDocumento>
+        <TipoDocumento>TD01</TipoDocumento>
+        <Divisa>EUR</Divisa>
+        <Data>2026-04-10</Data>
+        <Numero>0001547</Numero>
+        <ImportoTotaleDocumento>508.76</ImportoTotaleDocumento>
+        <Causale>CORSO VITTORIO EMANUELE II  48</Causale>
+      </DatiGeneraliDocumento>
+    </DatiGenerali>
+    <DatiBeniServizi>
+      <DettaglioLinee>
+        <NumeroLinea>1</NumeroLinea>
+        <Descrizione>tax preavv telefonico 1 gg prima 329.4668960</Descrizione>
+        <Quantita>0.00000000</Quantita>
+        <PrezzoUnitario>0.00000000</PrezzoUnitario>
+        <PrezzoTotale>0.00000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>2</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A06323</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>APIUM GRAPEFRUIT GIN 40° cl 70</Descrizione>
+        <Quantita>8.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>8.28000000</PrezzoUnitario>
+        <PrezzoTotale>66.24000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>3</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A06323 - APIUM GRAPEFRUIT GIN 40° cl 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>23.60000000</PrezzoUnitario>
+        <PrezzoTotale>23.60000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>4</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>NAT121</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>RUM NATION - METICHO  CHOCOLATE &amp; TOFFEE " RUM SPIRIT DRINK" 40° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>22.40000000</PrezzoUnitario>
+        <PrezzoTotale>22.40000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>5</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo NAT121 - RUM NATION - METICHO  CHOCOLATE &amp; TOFFEE " RUM SPIRIT DRINK" 40° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>2.95000000</PrezzoUnitario>
+        <PrezzoTotale>2.95000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>6</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A06506</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>MILLONARIO N°15 RESERVA ESPECIAL AST. 40° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>26.50000000</PrezzoUnitario>
+        <PrezzoTotale>26.50000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>7</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A06506 - MILLONARIO N°15 RESERVA ESPECIAL AST. 40° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>2.95000000</PrezzoUnitario>
+        <PrezzoTotale>2.95000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>8</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>ASTMILLONARIO</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>ASTUCCIO MILLONARIO</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>PZ</UnitaMisura>
+        <PrezzoUnitario>1.00000000</PrezzoUnitario>
+        <PrezzoTotale>1.00000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>9</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A00792</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>HERENCIA DE SANCHEZ ESPADIN 42° cl 70</Descrizione>
+        <Quantita>3.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>23.80000000</PrezzoUnitario>
+        <PrezzoTotale>71.40000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>10</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A00792 - HERENCIA DE SANCHEZ ESPADIN 42° cl 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>9.27000000</PrezzoUnitario>
+        <PrezzoTotale>9.27000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>11</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A06784</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>SMOKEHEAD UNFILTERED 46° CL 70</Descrizione>
+        <Quantita>2.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>31.70000000</PrezzoUnitario>
+        <PrezzoTotale>63.40000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>12</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A06784 - SMOKEHEAD UNFILTERED 46° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>6.76000000</PrezzoUnitario>
+        <PrezzoTotale>6.76000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>13</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A05257</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>SMOKEHEAD TEQUILA CASK TERMINADO 43° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>44.70000000</PrezzoUnitario>
+        <PrezzoTotale>44.70000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>14</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A05257 - SMOKEHEAD TEQUILA CASK TERMINADO 43° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>3.17000000</PrezzoUnitario>
+        <PrezzoTotale>3.17000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>15</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A04492</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>SCARABUS ISLAY SINGLE MALT SCOTCH WHISKY 46° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>25.50000000</PrezzoUnitario>
+        <PrezzoTotale>25.50000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>16</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A04492 - SCARABUS ISLAY SINGLE MALT SCOTCH WHISKY 46° CL 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>3.38000000</PrezzoUnitario>
+        <PrezzoTotale>3.38000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>17</NumeroLinea>
+        <CodiceArticolo>
+          <CodiceTipo>FORN</CodiceTipo>
+          <CodiceValore>A02143</CodiceValore>
+        </CodiceArticolo>
+        <Descrizione>MARS KASEI 40° cl 70</Descrizione>
+        <Quantita>2.00000000</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>24.50000000</PrezzoUnitario>
+        <PrezzoTotale>49.00000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>18</NumeroLinea>
+        <Descrizione>Tassa Alcool e/o Contrassegno per l'articolo A02143 - MARS KASEI 40° cl 70</Descrizione>
+        <Quantita>1.00000000</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>5.90000000</PrezzoUnitario>
+        <PrezzoTotale>5.90000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>19</NumeroLinea>
+        <Descrizione>Rif. Ord.Cli. 2026/0001606  del 09/04/2026</Descrizione>
+        <Quantita>0.00000000</Quantita>
+        <PrezzoUnitario>0.00000000</PrezzoUnitario>
+        <PrezzoTotale>0.00000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>20</NumeroLinea>
+        <Descrizione>Imposta di bollo assolta in modo virtuale ai sensi dell'articolo 15 del D.P.R. 642/1972 e del D.M. 17/06/2014</Descrizione>
+        <Quantita>0.00000000</Quantita>
+        <PrezzoUnitario>0.00000000</PrezzoUnitario>
+        <PrezzoTotale>0.00000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>21</NumeroLinea>
+        <Descrizione>Sconto Sul Documento</Descrizione>
+        <PrezzoUnitario>-11.10000000</PrezzoUnitario>
+        <PrezzoTotale>-11.10000000</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DatiRiepilogo>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <ImponibileImporto>417.02</ImponibileImporto>
+        <Imposta>91.74</Imposta>
+        <EsigibilitaIVA>I</EsigibilitaIVA>
+      </DatiRiepilogo>
+    </DatiBeniServizi>
+    <DatiPagamento>
+      <CondizioniPagamento>TP02</CondizioniPagamento>
+      <DettaglioPagamento>
+        <ModalitaPagamento>MP02</ModalitaPagamento>
+        <DataRiferimentoTerminiPagamento>2026-04-10</DataRiferimentoTerminiPagamento>
+        <GiorniTerminiPagamento>45</GiorniTerminiPagamento>
+        <DataScadenzaPagamento>2026-05-25</DataScadenzaPagamento>
+        <ImportoPagamento>508.76</ImportoPagamento>
+      </DettaglioPagamento>
+    </DatiPagamento>
+  </FatturaElettronicaBody>
+</p:FatturaElettronica>

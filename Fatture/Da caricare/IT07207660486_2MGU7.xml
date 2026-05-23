@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?><!--Generato da e-Bill Tracking - Tekne il 2026-03-03 15:27:37.8121665+01:00--><p:FatturaElettronica xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SistemaEmittente="Essenzia" versione="FPR12" xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 https://www.fatturapa.gov.it/export/documenti/fatturapa/v1.2.1/Schema_del_file_xml_FatturaPA_versione_1.2.1a.xsd">
+  <FatturaElettronicaHeader>
+    <DatiTrasmissione>
+      <IdTrasmittente>
+        <IdPaese>IT</IdPaese>
+        <IdCodice>07207660486</IdCodice>
+      </IdTrasmittente>
+      <ProgressivoInvio>34859259</ProgressivoInvio>
+      <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+      <CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+      <ContattiTrasmittente>
+        <Telefono>05719988</Telefono>
+        <Email>project.sdv_varhub@vargroup.it</Email>
+      </ContattiTrasmittente>
+    </DatiTrasmissione>
+    <CedentePrestatore>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>00544630759</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>00544630759</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>AZIENDA VINICOLA CANTELE S.R.L.</Denominazione>
+        </Anagrafica>
+        <RegimeFiscale>RF01</RegimeFiscale>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>S.P. 365 km 1</Indirizzo>
+        <CAP>73010</CAP>
+        <Comune>Guagnano</Comune>
+        <Provincia>LE</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+      <IscrizioneREA>
+        <Ufficio>LE</Ufficio>
+        <NumeroREA>108460</NumeroREA>
+        <CapitaleSociale>51480.00</CapitaleSociale>
+        <SocioUnico>SM</SocioUnico>
+        <StatoLiquidazione>LN</StatoLiquidazione>
+      </IscrizioneREA>
+      <Contatti>
+        <Telefono>0832-705010</Telefono>
+        <Fax>0832-705003</Fax>
+      </Contatti>
+    </CedentePrestatore>
+    <CessionarioCommittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>09127380724</IdCodice>
+        </IdFiscaleIVA>
+        <Anagrafica>
+          <Denominazione>PRIVILEGE DI CORTESE TOMMASO</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>C.SO VITTORIO EMANUELE II, 48</Indirizzo>
+        <CAP>70032</CAP>
+        <Comune>BITONTO</Comune>
+        <Provincia>BA</Provincia>
+        <Nazione>IT</Nazione>
+      </Sede>
+    </CessionarioCommittente>
+    <TerzoIntermediarioOSoggettoEmittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA>
+          <IdPaese>IT</IdPaese>
+          <IdCodice>07207660486</IdCodice>
+        </IdFiscaleIVA>
+        <CodiceFiscale>07207660486</CodiceFiscale>
+        <Anagrafica>
+          <Denominazione>TEKNE SRL</Denominazione>
+        </Anagrafica>
+      </DatiAnagrafici>
+    </TerzoIntermediarioOSoggettoEmittente>
+    <SoggettoEmittente>TZ</SoggettoEmittente>
+  </FatturaElettronicaHeader>
+  <FatturaElettronicaBody>
+    <DatiGenerali>
+      <DatiGeneraliDocumento>
+        <TipoDocumento>TD24</TipoDocumento>
+        <Divisa>EUR</Divisa>
+        <Data>2026-03-03</Data>
+        <Numero>2026-RFN-0000562</Numero>
+        <ImportoTotaleDocumento>1267.82</ImportoTotaleDocumento>
+        <Causale>FATTURA DI VENDITA DIFFERITA</Causale>
+      </DatiGeneraliDocumento>
+      <DatiOrdineAcquisto>
+        <IdDocumento>316</IdDocumento>
+        <Data>2026-02-27</Data>
+      </DatiOrdineAcquisto>
+      <DatiDDT>
+        <NumeroDDT>2026-DDT-0000562</NumeroDDT>
+        <DataDDT>2026-03-03</DataDDT>
+      </DatiDDT>
+    </DatiGenerali>
+    <DatiBeniServizi>
+      <DettaglioLinee>
+        <NumeroLinea>1</NumeroLinea>
+        <Descrizione>SCATOLA CARTONE CONTENENTE</Descrizione>
+        <Quantita>5.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>2</NumeroLinea>
+        <Descrizione>(AST) FANOI NEGROAMARO SALENTO IGP 0,75 LT</Descrizione>
+        <Quantita>10.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>18.00</PrezzoUnitario>
+        <PrezzoTotale>180.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2019 2019</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>3</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: (AST) FANOI NEGROAMARO SALENTO IGP 0,75 LT</Descrizione>
+        <Quantita>2.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>18.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2019 2019</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>4</NumeroLinea>
+        <Descrizione>(AST) FANOI PRIMITIVO SALENTO IGP 0,75 LT</Descrizione>
+        <Quantita>10.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>18.00</PrezzoUnitario>
+        <PrezzoTotale>180.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2022 2022</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>5</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: (AST) FANOI PRIMITIVO SALENTO IGP 0,75 LT</Descrizione>
+        <Quantita>2.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>18.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2022 2022</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>6</NumeroLinea>
+        <Descrizione>(AST) ROHESIA SPUM. ROSE'  PAS DOSE'  LT 0,75</Descrizione>
+        <Quantita>5.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>15.00</PrezzoUnitario>
+        <PrezzoTotale>75.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2018 2018</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>7</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: (AST) ROHESIA SPUM. ROSE'  PAS DOSE'  LT 0,75</Descrizione>
+        <Quantita>1.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>15.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2018 2018</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>8</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: CM AMATIVO SAL. IGT ROSSO LT 1,50 (CASS.LEGNO NERA)</Descrizione>
+        <Quantita>1.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>35.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2023 2023</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>9</NumeroLinea>
+        <Descrizione>TERESA MANARA SALICE SAL. DOP NEGROAM. RISERVA LT 0,75</Descrizione>
+        <Quantita>24.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>9.90</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>5.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>225.72</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2022 2022</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>10</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: TERESA MANARA PRIMITIVO SALENTO IGP LT 0,75</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>9.90</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2023 2023</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>11</NumeroLinea>
+        <Descrizione>AMATIVO ROSSO SALENTO IGP LT 0,75</Descrizione>
+        <Quantita>30.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>10.90</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>5.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>310.65</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2024 2024</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>12</NumeroLinea>
+        <Descrizione>TERESA MANARA VT CHARDONNAY IGP SALENTO LT 0,75</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>BT</UnitaMisura>
+        <PrezzoUnitario>11.90</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>5.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>67.83</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <AltriDatiGestionali>
+          <TipoDato>Variabile</TipoDato>
+          <RiferimentoTesto>ANNATA Annata 2024 2024</RiferimentoTesto>
+        </AltriDatiGestionali>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>13</NumeroLinea>
+        <Descrizione>SCATOLA CARTONE CONTENENTE</Descrizione>
+        <Quantita>2.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>14</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: VC VALIG.LITOGR. CANTELE 2 BT 0,75</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>15</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: VC VALIG.LITOGR.CANTELE 3 BT 0,75</Descrizione>
+        <Quantita>6.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>16</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: VC SHOPPER LITOGR. CANTELE PER BAULETTO NERO</Descrizione>
+        <Quantita>10.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>1.15</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>17</NumeroLinea>
+        <TipoCessionePrestazione>SC</TipoCessionePrestazione>
+        <Descrizione>SCONTO MERCE: SECCHIELLO PLAST. NERO - CANTELE</Descrizione>
+        <Quantita>2.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <ScontoMaggiorazione>
+          <Tipo>SC</Tipo>
+          <Percentuale>100.00</Percentuale>
+        </ScontoMaggiorazione>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>18</NumeroLinea>
+        <Descrizione>PL PALLET LEGNO 80 X 120 (HT) A RENDERE</Descrizione>
+        <Quantita>1.00</Quantita>
+        <UnitaMisura>NR</UnitaMisura>
+        <PrezzoUnitario>0.00</PrezzoUnitario>
+        <PrezzoTotale>0.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DatiRiepilogo>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <ImponibileImporto>1039.20</ImponibileImporto>
+        <Imposta>228.62</Imposta>
+        <EsigibilitaIVA>I</EsigibilitaIVA>
+      </DatiRiepilogo>
+    </DatiBeniServizi>
+    <DatiPagamento>
+      <CondizioniPagamento>TP02</CondizioniPagamento>
+      <DettaglioPagamento>
+        <ModalitaPagamento>MP05</ModalitaPagamento>
+        <DataScadenzaPagamento>2026-05-31</DataScadenzaPagamento>
+        <ImportoPagamento>1267.82</ImportoPagamento>
+        <IstitutoFinanziario>BANCA FIDEURAM</IstitutoFinanziario>
+        <IBAN>IT52S0329601601000067609256</IBAN>
+        <ABI>03296</ABI>
+        <CAB>01601</CAB>
+        <CodicePagamento>RIMESSA DIRETTA 60 GG FM</CodicePagamento>
+      </DettaglioPagamento>
+    </DatiPagamento>
+  </FatturaElettronicaBody>
+<ds:Signature Id="id-fe9d6c710e9492dd32ea77e7a833c5c2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2002/06/xmldsig-filter2"><dsig-xpath:XPath xmlns:dsig-xpath="http://www.w3.org/2002/06/xmldsig-filter2" Filter="subtract">/descendant::ds:Signature</dsig-xpath:XPath></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>5zphNQHioeFOI3rgRMMTVlLUkVzTe+mJJsePmk2F6rU=</ds:DigestValue></ds:Reference><ds:Reference URI="#keyinfo-id-fe9d6c710e9492dd32ea77e7a833c5c2"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>L9SNMc9LaKb0FTH4ZdfdcIIrmVAQ+D0oQ2V1SWQt+zY=</ds:DigestValue></ds:Reference><ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xades-id-fe9d6c710e9492dd32ea77e7a833c5c2"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>H1CWSB5bll8CSX9TPyvRct7QRvvU0t35BSvi/kTbxOg=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue Id="value-id-fe9d6c710e9492dd32ea77e7a833c5c2">ufpSWAnbE6SNkVm29dF6vFGb+Q/9F2ZYNl+yDxoaI0dqt1dy4vwHSOFcVoo68t65q2iALuU1Ub2BVbEWJE3SVla0mhhqEmuMBIGLhPxKIFgOXvkUv3/5mLqITan96mTwmFISkbWbNBNLkRqGOWBiEBriN50J5c20UM2WVRiY6N3XN11Ly3uwcP9TIo0fXd5MY/n6tXWobvt0Mdp4KnsueP/XKuEIbZNQm+uHr6N2k85BArNWJLSNfzrVyT68jl0qbChzlCciL208u41OI+t7DgCCX/R/DwZo2DZh02K1xAxfWGOtBgvYQ3SscSbUZZh/577hEKWVv/FnxosREZJskw==</ds:SignatureValue><ds:KeyInfo Id="keyinfo-id-fe9d6c710e9492dd32ea77e7a833c5c2"><ds:X509Data><ds:X509Certificate>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</ds:X509Certificate></ds:X509Data></ds:KeyInfo><ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Target="#id-fe9d6c710e9492dd32ea77e7a833c5c2"><xades:SignedProperties Id="xades-id-fe9d6c710e9492dd32ea77e7a833c5c2"><xades:SignedSignatureProperties><xades:SigningTime>2026-03-03T14:28:46Z</xades:SigningTime><xades:SigningCertificateV2><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>1gf8/Y+bdGKbeJSEqmWNqV9llessf5eNx++1AZHcRmM=</ds:DigestValue></xades:CertDigest><xades:IssuerSerialV2>MIGOMIGBpH8wfTELMAkGA1UEBhMCSVQxJDAiBgNVBAoMG05hbWlyaWFsIFMucC5BLi8wMjA0NjU3MDQyNjEgMB4GA1UECwwXQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxJjAkBgNVBAMMHU5hbWlyaWFsIENBIEZpcm1hIFF1YWxpZmljYXRhAghLxk7RG70kEQ==</xades:IssuerSerialV2></xades:Cert></xades:SigningCertificateV2></xades:SignedSignatureProperties><xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#null"><xades:MimeType>application/octet-stream</xades:MimeType></xades:DataObjectFormat></xades:SignedDataObjectProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object></ds:Signature></p:FatturaElettronica>

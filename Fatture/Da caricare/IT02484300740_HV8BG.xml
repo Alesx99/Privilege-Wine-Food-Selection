@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<p:FatturaElettronica xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" versione="FPR12">
+	<FatturaElettronicaHeader>
+		<DatiTrasmissione>
+			<IdTrasmittente>
+				<IdPaese>IT</IdPaese>
+				<IdCodice>08245660017</IdCodice>
+			</IdTrasmittente>
+			<ProgressivoInvio>0000000557</ProgressivoInvio>
+			<FormatoTrasmissione>FPR12</FormatoTrasmissione>
+			<CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+		</DatiTrasmissione>
+		<CedentePrestatore>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>02484300740</IdCodice>
+				</IdFiscaleIVA>
+				<CodiceFiscale>02484300740</CodiceFiscale>
+				<Anagrafica>
+					<Denominazione>SOCIETA' AGRICOLA MARILU' Srl</Denominazione>
+				</Anagrafica>
+				<RegimeFiscale>RF01</RegimeFiscale>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>VIA GIORDANO BRUNO, 4</Indirizzo>
+				<CAP>72100</CAP>
+				<Comune>BRINDISI</Comune>
+				<Provincia>BR</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+			<IscrizioneREA>
+				<Ufficio>BR</Ufficio>
+				<NumeroREA>149401</NumeroREA>
+				<SocioUnico>SM</SocioUnico>
+				<StatoLiquidazione>LN</StatoLiquidazione>
+			</IscrizioneREA>
+			<Contatti>
+				<Email>spedizioni@agricolamarilu.it</Email>
+			</Contatti>
+		</CedentePrestatore>
+		<CessionarioCommittente>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>09127380724</IdCodice>
+				</IdFiscaleIVA>
+				<Anagrafica>
+					<Denominazione>PRIVILEGE DI TOMMASO CORTESE</Denominazione>
+				</Anagrafica>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>C.SO VITTORIO EMANUELE II 48</Indirizzo>
+				<CAP>70032</CAP>
+				<Comune>BITONTO</Comune>
+				<Provincia>BA</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+		</CessionarioCommittente>
+	</FatturaElettronicaHeader>
+	<FatturaElettronicaBody>
+		<DatiGenerali>
+			<DatiGeneraliDocumento>
+				<TipoDocumento>TD01</TipoDocumento>
+				<Divisa>EUR</Divisa>
+				<Data>2026-04-13</Data>
+				<Numero>2026-2RFN-0000019</Numero>
+				<ImportoTotaleDocumento>632.45</ImportoTotaleDocumento>
+				<Causale>FATTURA ACCOMPAGNATORIA</Causale>
+				<Causale>ORARIO Consegna: 9.30/13</Causale>
+			</DatiGeneraliDocumento>
+			<DatiOrdineAcquisto>
+				<IdDocumento>33</IdDocumento>
+				<Data>2026-04-09</Data>
+			</DatiOrdineAcquisto>
+			<DatiTrasporto>
+				<DatiAnagraficiVettore>
+					<IdFiscaleIVA>
+						<IdPaese>IT</IdPaese>
+						<IdCodice>04097700720</IdCodice>
+					</IdFiscaleIVA>
+					<CodiceFiscale>04097700720</CodiceFiscale>
+					<Anagrafica>
+						<Denominazione>NUOVO TRASPORTO ITALIANO s.p.a</Denominazione>
+					</Anagrafica>
+				</DatiAnagraficiVettore>
+				<MezzoTrasporto>VETTORE</MezzoTrasporto>
+				<CausaleTrasporto>VENDITA</CausaleTrasporto>
+				<NumeroColli>27</NumeroColli>
+				<UnitaMisuraPeso>KG</UnitaMisuraPeso>
+				<PesoLordo>194.40</PesoLordo>
+				<PesoNetto>121.50</PesoNetto>
+				<IndirizzoResa>
+					<Indirizzo>C.SO VITTORIO EMANUELE II 48</Indirizzo>
+					<CAP>70032</CAP>
+					<Comune>BITONTO</Comune>
+					<Provincia>BA</Provincia>
+					<Nazione>IT</Nazione>
+				</IndirizzoResa>
+			</DatiTrasporto>
+		</DatiGenerali>
+		<DatiBeniServizi>
+			<DettaglioLinee>
+				<NumeroLinea>1</NumeroLinea>
+				<Descrizione>BOTTIGLIE DA LT. 0,75 DI VINO IGP SALENTO BIANCO CHARDONNAY 'MARMORELLE'</Descrizione>
+				<Quantita>30.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<PrezzoTotale>144.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>2</NumeroLinea>
+				<Descrizione>BOTTIGLIE DA LT. 0,75 DI VINO IGP SALENTO ROSSO NEGROAMARO-SUSUMANIELLO 'MARMORELLE'</Descrizione>
+				<Quantita>42.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<PrezzoTotale>201.60000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>3</NumeroLinea>
+				<Descrizione>BOTTIGLIE DA LT. 0,75 DI VINO IGP SALENTO ROSATO NEGROAMARO-SUSUMANIELLO 'MARMORELLE'</Descrizione>
+				<Quantita>30.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<PrezzoTotale>144.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>4</NumeroLinea>
+				<Descrizione>BOTTIGLIE DA LT. 0,75 DI VINO IGP VALLE D'ITRIA BIANCO VERDECA 'MARMORELLE'</Descrizione>
+				<Quantita>18.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<PrezzoTotale>86.40000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>5</NumeroLinea>
+				<TipoCessionePrestazione>SC</TipoCessionePrestazione>
+				<Descrizione>SCONTO MERCE: BOTTIGLIE DA LT. 0,75 DI VINO IGP SALENTO BIANCO CHARDONNAY 'MARMORELLE'</Descrizione>
+				<Quantita>12.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>100.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>0.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>6</NumeroLinea>
+				<TipoCessionePrestazione>SC</TipoCessionePrestazione>
+				<Descrizione>SCONTO MERCE: BOTTIGLIE DA LT. 0,75 DI VINO IGP SALENTO ROSSO NEGROAMARO-SUSUMANIELLO 'MARMORELLE'</Descrizione>
+				<Quantita>12.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>100.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>0.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>7</NumeroLinea>
+				<TipoCessionePrestazione>SC</TipoCessionePrestazione>
+				<Descrizione>SCONTO MERCE: BOTTIGLIE DA LT. 0,75 DI VINO IGP SALENTO ROSATO NEGROAMARO-SUSUMANIELLO 'MARMORELLE'</Descrizione>
+				<Quantita>12.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>100.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>0.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>8</NumeroLinea>
+				<TipoCessionePrestazione>SC</TipoCessionePrestazione>
+				<Descrizione>SCONTO MERCE: BOTTIGLIE DA LT. 0,75 DI VINO IGP VALLE D'ITRIA BIANCO VERDECA 'MARMORELLE'</Descrizione>
+				<Quantita>6.00000000</Quantita>
+				<UnitaMisura>PZ</UnitaMisura>
+				<PrezzoUnitario>4.80000000</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>100.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>0.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>9</NumeroLinea>
+				<TipoCessionePrestazione>SC</TipoCessionePrestazione>
+				<Descrizione>SCONTO PAGAMENTO</Descrizione>
+				<PrezzoUnitario>-57.60000000</PrezzoUnitario>
+				<PrezzoTotale>-57.60000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DatiRiepilogo>
+				<AliquotaIVA>22.00</AliquotaIVA>
+				<ImponibileImporto>518.40</ImponibileImporto>
+				<Imposta>114.05</Imposta>
+				<EsigibilitaIVA>I</EsigibilitaIVA>
+			</DatiRiepilogo>
+		</DatiBeniServizi>
+		<DatiPagamento>
+			<CondizioniPagamento>TP02</CondizioniPagamento>
+			<DettaglioPagamento>
+				<ModalitaPagamento>MP05</ModalitaPagamento>
+				<DataScadenzaPagamento>2026-04-30</DataScadenzaPagamento>
+				<ImportoPagamento>632.45</ImportoPagamento>
+				<IstitutoFinanziario>BANCA DI CRED. COOP.  DI SAN MARZANO</IstitutoFinanziario>
+				<IBAN>IT80V0881779190002000034995</IBAN>
+				<ABI>08817</ABI>
+				<CAB>79190</CAB>
+				<CodicePagamento>BONIFICO BANCARIO ANTICIPATO SCONTO 10%</CodicePagamento>
+			</DettaglioPagamento>
+		</DatiPagamento>
+	</FatturaElettronicaBody>
+</p:FatturaElettronica>

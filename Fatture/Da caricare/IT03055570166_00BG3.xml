@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:FatturaElettronica xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" versione="FPR12">
+	<FatturaElettronicaHeader>
+		<DatiTrasmissione>
+			<IdTrasmittente>
+				<IdPaese>IT</IdPaese>
+				<IdCodice>08245660017</IdCodice>
+			</IdTrasmittente>
+			<ProgressivoInvio>69356</ProgressivoInvio>
+			<FormatoTrasmissione>FPR12</FormatoTrasmissione>
+			<CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+		</DatiTrasmissione>
+		<CedentePrestatore>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>03055570166</IdCodice>
+				</IdFiscaleIVA>
+				<CodiceFiscale>03055570166</CodiceFiscale>
+				<Anagrafica>
+					<Denominazione>QUADRA S.R.L. SOCIETA&apos; AGRICOLA</Denominazione>
+				</Anagrafica>
+				<RegimeFiscale>RF01</RegimeFiscale>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>VIA S.EUSEBIO, 1</Indirizzo>
+				<CAP>25033</CAP>
+				<Comune>COLOGNE</Comune>
+				<Provincia>BS</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+		</CedentePrestatore>
+		<CessionarioCommittente>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>09127380724</IdCodice>
+				</IdFiscaleIVA>
+				<CodiceFiscale>CRTTMS81D20F262M</CodiceFiscale>
+				<Anagrafica>
+					<Nome>TOMMASO</Nome>
+					<Cognome>PRIVILEGE DI CORTESE</Cognome>
+				</Anagrafica>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>CORSO VITTORIO EMANUELE II  N. 48</Indirizzo>
+				<CAP>70032</CAP>
+				<Comune>BITONTO</Comune>
+				<Provincia>BA</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+		</CessionarioCommittente>
+	</FatturaElettronicaHeader>
+	<FatturaElettronicaBody>
+		<DatiGenerali>
+			<DatiGeneraliDocumento>
+				<TipoDocumento>TD01</TipoDocumento>
+				<Divisa>EUR</Divisa>
+				<Data>2026-03-30</Data>
+				<Numero>256</Numero>
+				<ImportoTotaleDocumento>2468.85</ImportoTotaleDocumento>
+				<Causale>FATTURA</Causale>
+			</DatiGeneraliDocumento>
+			<DatiTrasporto>
+				<IndirizzoResa>
+					<Indirizzo>CORSO VITTORIO EMANUELE II  N. 48</Indirizzo>
+					<CAP>70032</CAP>
+					<Comune>BITONTO</Comune>
+					<Provincia>BA</Provincia>
+					<Nazione>IT</Nazione>
+				</IndirizzoResa>
+			</DatiTrasporto>
+		</DatiGenerali>
+		<DatiBeniServizi>
+			<DettaglioLinee>
+				<NumeroLinea>1</NumeroLinea>
+				<Descrizione>DDT n. 000245 - 30/03/2026</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>2</NumeroLinea>
+				<Descrizione>Trasporto a cura del Vettore - Porto: FRANCO</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>3</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FCSABRU075</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>BRUT 0,75</Descrizione>
+				<Quantita>36.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>15.60</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>421.20</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>4</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FC21SAM075</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>SATEN 2021 0,75</Descrizione>
+				<Quantita>18.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>18.60</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>251.10</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>5</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FCR020R075DMI</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>ROSE&apos; 2020</Descrizione>
+				<Quantita>30.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>18.60</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>418.50</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>6</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FC19ERM075</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>ERETIQ 2019</Descrizione>
+				<Quantita>6.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>24.10</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>108.45</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>7</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FCBN18B0751</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>FRANCIACORTA BLANC DE NOIR 2018 D.ZERO RIS. BT</Descrizione>
+				<Quantita>18.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>22.60</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>305.10</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>8</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FCDEB19B075</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>FRANCIACORTA EXTRA BRUT 2018 RISERVA Q119 BOTT.</Descrizione>
+				<Quantita>18.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>20.60</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>278.10</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>9</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FCDZ11B075ORMAE</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>FRANCIACORTA ORMAE DOSAGGIO ZERO RISERVA 2011</Descrizione>
+				<Quantita>6.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>28.30</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>127.35</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>10</NumeroLinea>
+				<Descrizione>BOTTIGLIA ASTUCCIATA</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>11</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FCSA11B0751</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>FRANCIACORTA SATEN 2011 RISERVA BOTTIGLIA</Descrizione>
+				<Quantita>6.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>25.30</PrezzoUnitario>
+				<ScontoMaggiorazione>
+					<Tipo>SC</Tipo>
+					<Percentuale>25.00</Percentuale>
+				</ScontoMaggiorazione>
+				<PrezzoTotale>113.85</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>12</NumeroLinea>
+				<Descrizione>BOTTIGLIA ASTUCCIATA</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>13</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FC19SAM150</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>FRANCIACORTA SATEN 2019 MAGNUM</Descrizione>
+				<Quantita>1.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>14</NumeroLinea>
+				<CodiceArticolo>
+					<CodiceTipo>NS. CODICE</CodiceTipo>
+					<CodiceValore>FC21SAM075</CodiceValore>
+				</CodiceArticolo>
+				<Descrizione>SATEN 2021 0,75</Descrizione>
+				<Quantita>1.00</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>15</NumeroLinea>
+				<Descrizione>2 SPUMANTIERE + 6 STOPPER OMAGGIO (2 COLLI)</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>16</NumeroLinea>
+				<Descrizione>DUE SECCHIELLI OMAGGIO (2 COLLI)</Descrizione>
+				<PrezzoUnitario>0.00</PrezzoUnitario>
+				<PrezzoTotale>0.00</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DatiRiepilogo>
+				<AliquotaIVA>22.00</AliquotaIVA>
+				<ImponibileImporto>2023.65</ImponibileImporto>
+				<Imposta>445.20</Imposta>
+				<EsigibilitaIVA>I</EsigibilitaIVA>
+				<RiferimentoNormativo>22% - GENERICO</RiferimentoNormativo>
+			</DatiRiepilogo>
+		</DatiBeniServizi>
+		<DatiPagamento>
+			<CondizioniPagamento>TP02</CondizioniPagamento>
+			<DettaglioPagamento>
+				<ModalitaPagamento>MP01</ModalitaPagamento>
+				<DataRiferimentoTerminiPagamento>2026-03-31</DataRiferimentoTerminiPagamento>
+				<GiorniTerminiPagamento>61</GiorniTerminiPagamento>
+				<DataScadenzaPagamento>2026-05-31</DataScadenzaPagamento>
+				<ImportoPagamento>2468.85</ImportoPagamento>
+				<IstitutoFinanziario>BANCO BPM S.P.A.</IstitutoFinanziario>
+				<IBAN>IT13I0503454390000000008610</IBAN>
+				<ABI>05034</ABI>
+				<CAB>54390</CAB>
+				<BIC>BAPPIT21AF4</BIC>
+			</DettaglioPagamento>
+		</DatiPagamento>
+	</FatturaElettronicaBody>
+</p:FatturaElettronica>
+

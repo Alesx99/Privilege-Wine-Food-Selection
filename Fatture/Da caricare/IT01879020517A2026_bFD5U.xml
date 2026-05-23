@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:FatturaElettronica versione="FPR12" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 fatturaordinaria_v1.2.xsd ">
+	<FatturaElettronicaHeader>
+		<DatiTrasmissione>
+			<IdTrasmittente>
+				<IdPaese>IT</IdPaese>
+				<IdCodice>01879020517</IdCodice>
+			</IdTrasmittente>
+			<ProgressivoInvio>06991</ProgressivoInvio>
+			<FormatoTrasmissione>FPR12</FormatoTrasmissione>
+			<CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+		</DatiTrasmissione>
+		<CedentePrestatore>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>02330050739</IdCodice>
+				</IdFiscaleIVA>
+				<CodiceFiscale>FNIGFR64S22L049A</CodiceFiscale>
+				<Anagrafica>
+					<Nome>GIANFRANCO</Nome>
+					<Cognome>FINO</Cognome>
+				</Anagrafica>
+				<RegimeFiscale>RF01</RegimeFiscale>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>C.DA LELLA SN</Indirizzo>
+				<NumeroCivico>12</NumeroCivico>
+				<CAP>74024</CAP>
+				<Comune>MANDURIA</Comune>
+				<Provincia>TA</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+		</CedentePrestatore>
+		<CessionarioCommittente>
+			<DatiAnagrafici>
+				<IdFiscaleIVA>
+					<IdPaese>IT</IdPaese>
+					<IdCodice>09127380724</IdCodice>
+				</IdFiscaleIVA>
+				<Anagrafica>
+					<Denominazione>PRIVILEGE DI CORTESE TOMMASO CAFEWINE</Denominazione>
+				</Anagrafica>
+			</DatiAnagrafici>
+			<Sede>
+				<Indirizzo>CORSO VITTORIO EMANUELE II N. 48</Indirizzo>
+				<CAP>70032</CAP>
+				<Comune>BITONTO</Comune>
+				<Provincia>BA</Provincia>
+				<Nazione>IT</Nazione>
+			</Sede>
+		</CessionarioCommittente>
+	</FatturaElettronicaHeader>
+	<FatturaElettronicaBody>
+		<DatiGenerali>
+			<DatiGeneraliDocumento>
+				<TipoDocumento>TD01</TipoDocumento>
+				<Divisa>EUR</Divisa>
+				<Data>2026-03-03</Data>
+				<Numero>36</Numero>
+				<ImportoTotaleDocumento>688.08</ImportoTotaleDocumento>
+			</DatiGeneraliDocumento>
+			<DatiOrdineAcquisto>
+				<IdDocumento>28</IdDocumento>
+				<Data>2026-03-02</Data>
+			</DatiOrdineAcquisto>
+		</DatiGenerali>
+		<DatiBeniServizi>
+			<DettaglioLinee>
+				<NumeroLinea>1</NumeroLinea>
+				<Descrizione>ORDINE N. 28 DEL 02/03/2026</Descrizione>
+				<PrezzoUnitario>0.000000</PrezzoUnitario>
+				<PrezzoTotale>0.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>2</NumeroLinea>
+				<Descrizione>ES 2023 SALENTO PRIMITIVO IGT DA 750 ML L.ES 2023/4</Descrizione>
+				<Quantita>12.00000000</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>38.000000</PrezzoUnitario>
+				<PrezzoTotale>456.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+				<AltriDatiGestionali>
+					<TipoDato>LOTTO-ART</TipoDato>
+					<RiferimentoTesto>L ES2023/4</RiferimentoTesto>
+				</AltriDatiGestionali>
+			</DettaglioLinee>
+			<DettaglioLinee>
+				<NumeroLinea>3</NumeroLinea>
+				<Descrizione>SEDICIMILA 2024 SALENTO FIANO  IGT DA 750 L. SDM 2024</Descrizione>
+				<Quantita>6.00000000</Quantita>
+				<UnitaMisura>BT</UnitaMisura>
+				<PrezzoUnitario>18.000000</PrezzoUnitario>
+				<PrezzoTotale>108.00000000</PrezzoTotale>
+				<AliquotaIVA>22.00</AliquotaIVA>
+			</DettaglioLinee>
+			<DatiRiepilogo>
+				<AliquotaIVA>22.00</AliquotaIVA>
+				<ImponibileImporto>564.00</ImponibileImporto>
+				<Imposta>124.08</Imposta>
+				<EsigibilitaIVA>I</EsigibilitaIVA>
+			</DatiRiepilogo>
+		</DatiBeniServizi>
+	</FatturaElettronicaBody>
+</p:FatturaElettronica>

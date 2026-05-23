@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><ns3:FatturaElettronica xmlns:ns3="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#" versione="FPR12">
+    <FatturaElettronicaHeader>
+        <DatiTrasmissione>
+            <IdTrasmittente>
+                <IdPaese>IT</IdPaese>
+                <IdCodice>01641790702</IdCodice>
+            </IdTrasmittente>
+            <ProgressivoInvio>000058zoga</ProgressivoInvio>
+            <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+            <CodiceDestinatario>KRRH6B9</CodiceDestinatario>
+            <ContattiTrasmittente>
+                <Telefono>0874-60561</Telefono>
+            </ContattiTrasmittente>
+        </DatiTrasmissione>
+        <CedentePrestatore>
+            <DatiAnagrafici>
+                <IdFiscaleIVA>
+                    <IdPaese>IT</IdPaese>
+                    <IdCodice>08009230726</IdCodice>
+                </IdFiscaleIVA>
+                <CodiceFiscale>08009230726</CodiceFiscale>
+                <Anagrafica>
+                    <Denominazione>Enologo per amore s.r.l. società agricola</Denominazione>
+                </Anagrafica>
+                <RegimeFiscale>RF01</RegimeFiscale>
+            </DatiAnagrafici>
+            <Sede>
+                <Indirizzo>Via Cesare Battisti, 16</Indirizzo>
+                <CAP>70013</CAP>
+                <Comune>Castellana Grotte</Comune>
+                <Provincia>BA</Provincia>
+                <Nazione>IT</Nazione>
+            </Sede>
+            <IscrizioneREA>
+                <Ufficio>BA</Ufficio>
+                <NumeroREA>597762</NumeroREA>
+                <CapitaleSociale>1500.00</CapitaleSociale>
+                <SocioUnico>SU</SocioUnico>
+                <StatoLiquidazione>LN</StatoLiquidazione>
+            </IscrizioneREA>
+        </CedentePrestatore>
+        <CessionarioCommittente>
+            <DatiAnagrafici>
+                <IdFiscaleIVA>
+                    <IdPaese>IT</IdPaese>
+                    <IdCodice>09127380724</IdCodice>
+                </IdFiscaleIVA>
+                <Anagrafica>
+                    <Denominazione>PRIVILEGE DI CORTESE TOMMASO</Denominazione>
+                </Anagrafica>
+            </DatiAnagrafici>
+            <Sede>
+                <Indirizzo>C.SO VITTORIO EMANUELE II N 48</Indirizzo>
+                <CAP>70032</CAP>
+                <Comune>Bitonto</Comune>
+                <Provincia>BA</Provincia>
+                <Nazione>IT</Nazione>
+            </Sede>
+        </CessionarioCommittente>
+        <TerzoIntermediarioOSoggettoEmittente>
+            <DatiAnagrafici>
+                <IdFiscaleIVA>
+                    <IdPaese>IT</IdPaese>
+                    <IdCodice>01641790702</IdCodice>
+                </IdFiscaleIVA>
+                <CodiceFiscale>01641790702</CodiceFiscale>
+                <Anagrafica>
+                    <Denominazione>TEAMSYSTEM SERVICE SRL</Denominazione>
+                </Anagrafica>
+            </DatiAnagrafici>
+        </TerzoIntermediarioOSoggettoEmittente>
+        <SoggettoEmittente>TZ</SoggettoEmittente>
+    </FatturaElettronicaHeader>
+    <FatturaElettronicaBody>
+        <DatiGenerali>
+            <DatiGeneraliDocumento>
+                <TipoDocumento>TD01</TipoDocumento>
+                <Divisa>EUR</Divisa>
+                <Data>2026-04-30</Data>
+                <Numero>241</Numero>
+                <ImportoTotaleDocumento>1111.18</ImportoTotaleDocumento>
+            </DatiGeneraliDocumento>
+            <DatiDDT>
+                <NumeroDDT>282</NumeroDDT>
+                <DataDDT>2026-04-21</DataDDT>
+            </DatiDDT>
+        </DatiGenerali>
+        <DatiBeniServizi>
+            <DettaglioLinee>
+                <NumeroLinea>1</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>27</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>Chakra Rosso 2023 // DOC Gioia del Colle Primitivo</Descrizione>
+                <Quantita>18.00</Quantita>
+                <UnitaMisura>750 ml</UnitaMisura>
+                <PrezzoUnitario>15.80</PrezzoUnitario>
+                <PrezzoTotale>284.40</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DettaglioLinee>
+                <NumeroLinea>2</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>48</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>Chakra Rosato 2025 // IGT Puglia Primitivo Rosato</Descrizione>
+                <Quantita>24.00</Quantita>
+                <UnitaMisura>750 ml</UnitaMisura>
+                <PrezzoUnitario>9.00</PrezzoUnitario>
+                <PrezzoTotale>216.00</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DettaglioLinee>
+                <NumeroLinea>3</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>68</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>Chakra Verde 2025 // IGT Valle d'Itria Verdeca</Descrizione>
+                <Quantita>6.00</Quantita>
+                <UnitaMisura>750 ml</UnitaMisura>
+                <PrezzoUnitario>9.00</PrezzoUnitario>
+                <PrezzoTotale>54.00</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DettaglioLinee>
+                <NumeroLinea>4</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>27</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>Chakra Rosso 2023 // DOC Gioia del Colle Primitivo OMAGGIO</Descrizione>
+                <Quantita>6.00</Quantita>
+                <UnitaMisura>750 ml</UnitaMisura>
+                <PrezzoUnitario>15.80</PrezzoUnitario>
+                <ScontoMaggiorazione>
+                    <Tipo>SC</Tipo>
+                    <Percentuale>100.00</Percentuale>
+                </ScontoMaggiorazione>
+                <PrezzoTotale>0.00</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DettaglioLinee>
+                <NumeroLinea>5</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>68</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>Chakra Verde 2025 // IGT Valle d'Itria Verdeca OMAGGIO</Descrizione>
+                <Quantita>6.00</Quantita>
+                <UnitaMisura>750 ml</UnitaMisura>
+                <PrezzoUnitario>9.00</PrezzoUnitario>
+                <ScontoMaggiorazione>
+                    <Tipo>SC</Tipo>
+                    <Percentuale>100.00</Percentuale>
+                </ScontoMaggiorazione>
+                <PrezzoTotale>0.00</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DettaglioLinee>
+                <NumeroLinea>6</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>GC3</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>I GIOCHI - CASSA LEGNO MISTA 3 BOTT // 1 Bott 0.75 Iocus 2021- 1 bott 0.75 Mimicri 2022 - 1 bott 0.75 Enigma 2022</Descrizione>
+                <Quantita>3.00</Quantita>
+                <UnitaMisura>PEZZI</UnitaMisura>
+                <PrezzoUnitario>75.00</PrezzoUnitario>
+                <PrezzoTotale>225.00</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DettaglioLinee>
+                <NumeroLinea>7</NumeroLinea>
+                <CodiceArticolo>
+                    <CodiceTipo>INTERNO</CodiceTipo>
+                    <CodiceValore>GM22</CodiceValore>
+                </CodiceArticolo>
+                <Descrizione>I GIOCHI - METODO CLASSICO MIMICRI 2022 // Metodo Classico Rosato - Mimicri 2022</Descrizione>
+                <Quantita>6.00</Quantita>
+                <UnitaMisura>750 ml</UnitaMisura>
+                <PrezzoUnitario>21.90</PrezzoUnitario>
+                <PrezzoTotale>131.40</PrezzoTotale>
+                <AliquotaIVA>22.00</AliquotaIVA>
+            </DettaglioLinee>
+            <DatiRiepilogo>
+                <AliquotaIVA>22.00</AliquotaIVA>
+                <ImponibileImporto>910.80</ImponibileImporto>
+                <Imposta>200.38</Imposta>
+            </DatiRiepilogo>
+        </DatiBeniServizi>
+        <DatiPagamento>
+            <CondizioniPagamento>TP02</CondizioniPagamento>
+            <DettaglioPagamento>
+                <ModalitaPagamento>MP05</ModalitaPagamento>
+                <DataScadenzaPagamento>2026-06-29</DataScadenzaPagamento>
+                <ImportoPagamento>1111.18</ImportoPagamento>
+                <IstitutoFinanziario>BCC Castellana Grotte</IstitutoFinanziario>
+                <IBAN>IT07O0846941440000000035009</IBAN>
+            </DettaglioPagamento>
+        </DatiPagamento>
+    </FatturaElettronicaBody>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="id-d274bd14ba07ea6320ae699a7a502af7"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2002/06/xmldsig-filter2"><dsig-xpath:XPath xmlns:dsig-xpath="http://www.w3.org/2002/06/xmldsig-filter2" Filter="subtract">/descendant::ds:Signature</dsig-xpath:XPath></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>+BGI2hDXsFgBcrD0nA2l41J83kBvP/BlwYzn5CKBmmU=</ds:DigestValue></ds:Reference><ds:Reference URI="#keyinfo-id-d274bd14ba07ea6320ae699a7a502af7"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>PBmS4beNScBQWQHAohKb/cCrZIwp1OLt8T7EqN5Cutk=</ds:DigestValue></ds:Reference><ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xades-id-d274bd14ba07ea6320ae699a7a502af7"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>uYNFqUwVFmvxZ9aZDCpeGwLjGDxXiObgr2lYLh24FnU=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue Id="value-id-d274bd14ba07ea6320ae699a7a502af7">o0ivbvoXbuKwBWTxrMRifShOrwj8SoxO6u1ksLtEU5lPt+Ca1gvIF1qubysFZDGwPynXd1twkhMs3XjjFIMnpDu+HytHQbSHFv9dgKoZkqWNc3R4TX1qwm1Kr6J3xYn8uetCmjeREY4Ao5A1QbmHCIRrPWubo3CwgDPiaTbqVcMtUoCNwDlTAts2OouWSKTtTMFHM9vOn+Bf0UdFdCR3U9I8/flujKjZ6pDZBk/ElzKppVM7gGXKOQu9hS3uymPdNPNt9mjkfzWknC41R1mNa/YB8txtYvyukOnk26YJXOwLtgsWKR0OPSwfX8dQ9/jNkPBDZClDpcVsYRp++98spw==</ds:SignatureValue><ds:KeyInfo Id="keyinfo-id-d274bd14ba07ea6320ae699a7a502af7"><ds:X509Data><ds:X509Certificate>MIIIjDCCB3SgAwIBAgIIYZGl5P1VK6EwDQYJKoZIhvcNAQELBQAwfTELMAkGA1UEBhMCSVQxJDAiBgNVBAoMG05hbWlyaWFsIFMucC5BLi8wMjA0NjU3MDQyNjEgMB4GA1UECwwXQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxJjAkBgNVBAMMHU5hbWlyaWFsIENBIEZpcm1hIFF1YWxpZmljYXRhMB4XDTI1MTIwOTEzMzEwMFoXDTI4MTIwNzIzMDAwMFowgYsxCzAJBgNVBAYTAklUMRAwDgYDVQQEDAdOT1JFTExJMRAwDgYDVQQqDAdDQVJNSU5FMR8wHQYDVQQFExZUSU5JVC1OUkxDTU42OEwwMkwxMTNWMRgwFgYDVQQDDA9OT1JFTExJIENBUk1JTkUxHTAbBgNVBC4TFEFVTkMyMDI1MTIwOTI5OTY1MjA3MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsSSBjZed3rO+EhAWQkES1cTvk5CJmvNtAJEWTiflalgT+178Xgf8NXjQmf+bszfFJJkTYzGvT3G0Fi0hk8QvEmg+ign0qhHTDhVK3fQe6gvh/h+IsXe8MfPBnZP9z2te3aIuzVSda97V9JWOPADuWmm9lbkP2e3K7wofIFA+O0gTdEWyP0+x8JSqLm0sGKd6UvfnCVYBjBxKxuAiDduNF79s/fcWc3XBcc0ihbkWP2egyVdjia3lKE5WUym8msgWLosaDzGGcLoMNC4H1zc01nzaQLtPQyaY1IK/wQr5BgCtrTVJmkDo+9lVyQAz59o5Yf/Fm4v3bsWJhgU9zGEQ3QIDAQABo4IE/zCCBPswgZwGCCsGAQUFBwEBBIGPMIGMMFEGCCsGAQUFBzAChkVodHRwczovL2RvY3MubmFtaXJpYWx0c3AuY29tL2RvY3VtZW50cy9OYW1pcmlhbENBRmlybWFRdWFsaWZpY2F0YS5jcnQwNwYIKwYBBQUHMAGGK2h0dHA6Ly9vY3NwLm5hbWlyaWFsdHNwLmNvbS9vY3NwL2NlcnRzdGF0dXMwHQYDVR0OBBYEFLTAnxggN5/H6f+kXqDQL8I7rE7GMB8GA1UdIwQYMBaAFGP97eaMYkdIz+oJQXN2EeJkYnsQMIHNBggrBgEFBQcBAwSBwDCBvTAIBgYEAI5GAQEwCwYGBACORgEDAgEUMAgGBgQAjkYBBDATBgYEAI5GAQYwCQYHBACORgEGATCBhAYGBACORgEFMHowOxY1aHR0cHM6Ly9kb2NzLm5hbWlyaWFsdHNwLmNvbS9kb2N1bWVudHMvUERTL1BEU19lbi5wZGYTAmVuMDsWNWh0dHBzOi8vZG9jcy5uYW1pcmlhbHRzcC5jb20vZG9jdW1lbnRzL1BEUy9QRFNfaXQucGRmEwJpdDCCAvAGA1UdIASCAucwggLjMIIBNAYEK0wQBTCCASowggEmBggrBgEFBQcCAjCCARgeggEUAEMAZQByAHQAaQBmAGkAYwBhAHQAZQAgAGkAcwBzAHUAZQBkACAAdABoAHIAbwB1AGcAaAAgAFMAaQBzAHQAZQBtAGEAIABQAHUAYgBiAGwAaQBjAG8AIABkAGkAIABJAGQAZQBuAHQAaQB0AOAAIABEAGkAZwBpAHQAYQBsAGUAIAAoAFMAUABJAEQAKQAgAGQAaQBnAGkAdABhAGwAIABpAGQAZQBuAHQAaQB0AHkALABuAG8AdAAgAHUAcwBhAGIAbABlACAAdABvACAAcgBlAHEAdQBpAHIAZQAgAG8AdABoAGUAcgAgAFMAUABJAEQAIABkAGkAZwBpAHQAYQBsACAAaQBkAGUAbgB0AGkAdAB5MAkGBwQAi+xAAQIwCAYGBACPegECMIIBkgYLKwYBBAGCmmsBAQMwggGBMCkGCCsGAQUFBwIBFh1odHRwczovL2RvY3MubmFtaXJpYWx0c3AuY29tLzCCAVIGCCsGAQUFBwICMIIBRB6CAUAASQBsACAAcAByAGUAcwBlAG4AdABlACAAYwBlAHIAdABpAGYAaQBjAGEAdABvACAA6AAgAHYAYQBsAGkAZABvACAAcwBvAGwAbwAgAHAAZQByACAAZgBpAHIAbQBlACAAYQBwAHAAbwBzAHQAZQAgAGMAbwBuACAAcAByAG8AYwBlAGQAdQByAGEAIABhAHUAdABvAG0AYQB0AGkAYwBhAC4ALwBUAGgAaQBzACAAYwBlAHIAdABpAGYAaQBjAGEAdABlACAAbQBhAHkAIABvAG4AbAB5ACAAYgBlACAAdQBzAGUAZAAgAGYAbwByACAAdQBuAGEAdAB0AGUAbgBkAGUAZAAvAGEAdQB0AG8AbQBhAHQAZQBkACAAZABpAGcAaQB0AGEAbAAgAHMAaQBnAG4AYQB0AHUAcgBlAHMALjBGBgNVHR8EPzA9MDugOaA3hjVodHRwOi8vY3JsLm5hbWlyaWFsdHNwLmNvbS9GaXJtYUNlcnRhUXVhbGlmaWNhdGExLmNybDAOBgNVHQ8BAf8EBAMCBkAwDQYJKoZIhvcNAQELBQADggEBAHi+IRyi5H/q/6Xx1hIYliwUZ9OedpvnRql7l1A+cJ8bADQWesGIkRrIpPMnVIQq2IwFdMBbqbC/LpNKuYn4Scv+ip/qgPjCo4VzAJVr0ffyK9Ni3CpQts6eAsABkj+sJdrFFUXQANs2h4XKoEBBq4r0tu+hjJv9fTjobsTnh+1BmgUAoJmbtBuDEAq9PoTWgtY7BgtI99nxYRhMDWWd1UcuHHtS8tNC+QV8gtQELd59NUysfMYToU44BIhT7ojW5NZyAPJI0EzozRfa43UklSpWmPPvhl7Y/Xjl9qNVONgnB9ttJbheJ60iWQT8701skGAFRtBEa6ULiE21plGAYbk=</ds:X509Certificate></ds:X509Data></ds:KeyInfo><ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Target="#id-d274bd14ba07ea6320ae699a7a502af7"><xades:SignedProperties Id="xades-id-d274bd14ba07ea6320ae699a7a502af7"><xades:SignedSignatureProperties><xades:SigningTime>2026-05-08T09:22:36Z</xades:SigningTime><xades:SigningCertificateV2><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>Z4er3PQF8cWhED/rqXw5S5DHQB7aTduyM4oabKLVnus=</ds:DigestValue></xades:CertDigest><xades:IssuerSerialV2>MIGOMIGBpH8wfTELMAkGA1UEBhMCSVQxJDAiBgNVBAoMG05hbWlyaWFsIFMucC5BLi8wMjA0NjU3MDQyNjEgMB4GA1UECwwXQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxJjAkBgNVBAMMHU5hbWlyaWFsIENBIEZpcm1hIFF1YWxpZmljYXRhAghhkaXk/VUroQ==</xades:IssuerSerialV2></xades:Cert></xades:SigningCertificateV2></xades:SignedSignatureProperties><xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#null"><xades:MimeType>application/octet-stream</xades:MimeType></xades:DataObjectFormat></xades:SignedDataObjectProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object></ds:Signature></ns3:FatturaElettronica>
