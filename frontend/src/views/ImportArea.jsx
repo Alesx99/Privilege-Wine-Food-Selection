@@ -47,60 +47,86 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
         throw new Error('Il file non è un XML valido.');
       }
 
+      // Helper to find first element by local name and get text content
+      const getTagValue = (parent, tag) => {
+        if (!parent) return '';
+        const els = parent.getElementsByTagNameNS('*', tag);
+        return els.length > 0 ? els[0].textContent.trim() : '';
+      };
+
+      // Helper to find first element by local name
+      const getElement = (parent, tag) => {
+        if (!parent) return null;
+        const els = parent.getElementsByTagNameNS('*', tag);
+        return els.length > 0 ? els[0] : null;
+      };
+
       // 1. Extract Supplier (CedentePrestatore)
-      const denominazione = xmlDoc.querySelector('CedentePrestatore Anagrafica Denominazione')?.textContent || 
-                            ((xmlDoc.querySelector('CedentePrestatore Anagrafica Nome')?.textContent || '') + ' ' + 
-                             (xmlDoc.querySelector('CedentePrestatore Anagrafica Cognome')?.textContent || ''));
-      const vatCode = xmlDoc.querySelector('CedentePrestatore IdCodice')?.textContent || '';
-      const indirizzo = xmlDoc.querySelector('CedentePrestatore Sede Indirizzo')?.textContent || '';
-      const comune = xmlDoc.querySelector('CedentePrestatore Sede Comune')?.textContent || '';
-      const cap = xmlDoc.querySelector('CedentePrestatore Sede CAP')?.textContent || '';
-      const provincia = xmlDoc.querySelector('CedentePrestatore Sede Provincia')?.textContent || '';
+      const cedente = getElement(xmlDoc, 'CedentePrestatore');
+      if (!cedente) throw new Error('Sezione CedentePrestatore mancante.');
+
+      const anagrafica = getElement(cedente, 'Anagrafica');
+      const denominazione = anagrafica ? (getTagValue(anagrafica, 'Denominazione') || 
+                            (getTagValue(anagrafica, 'Nome') + ' ' + getTagValue(anagrafica, 'Cognome')).trim()) : 'FORNITORE SCONOSCIUTO';
+      
+      const vatCode = getTagValue(cedente, 'IdCodice');
+      const sede = getElement(cedente, 'Sede');
+      const indirizzo = sede ? getTagValue(sede, 'Indirizzo') : '';
+      const comune = sede ? getTagValue(sede, 'Comune') : '';
+      const cap = sede ? getTagValue(sede, 'CAP') : '';
+      const provincia = sede ? getTagValue(sede, 'Provincia') : '';
       const address = `${indirizzo}, ${cap} ${comune} (${provincia})`;
 
       // 2. Extract Document Headers
-      const number = xmlDoc.querySelector('DatiGeneraliDocumento Numero')?.textContent || '';
-      const date = xmlDoc.querySelector('DatiGeneraliDocumento Data')?.textContent || '';
-      const totalAmount = Number(xmlDoc.querySelector('DatiGeneraliDocumento ImportoTotaleDocumento')?.textContent) || 0;
+      const datiGenerali = getElement(xmlDoc, 'DatiGeneraliDocumento');
+      const number = datiGenerali ? getTagValue(datiGenerali, 'Numero') : '';
+      const date = datiGenerali ? getTagValue(datiGenerali, 'Data') : '';
+      const totalAmount = datiGenerali ? Number(getTagValue(datiGenerali, 'ImportoTotaleDocumento')) || 0 : 0;
 
       // 3. Extract Items
-      const detailLines = xmlDoc.querySelectorAll('DettaglioLinee');
+      const detailLines = xmlDoc.getElementsByTagNameNS('*', 'DettaglioLinee');
       const items = [];
 
-      detailLines.forEach((line) => {
-        const desc = line.querySelector('Descrizione')?.textContent || '';
-        const qty = Number(line.querySelector('Quantita')?.textContent) || 0;
-        const price = Number(line.querySelector('PrezzoUnitario')?.textContent) || 0;
-        const lineTotal = Number(line.querySelector('PrezzoTotale')?.textContent) || 0;
-        const vat = Number(line.querySelector('AliquotaIVA')?.textContent) || 22;
+      for (let i = 0; i < detailLines.length; i++) {
+        const line = detailLines[i];
+        const desc = getTagValue(line, 'Descrizione');
+        const qty = Number(getTagValue(line, 'Quantita')) || 0;
+        const price = Number(getTagValue(line, 'PrezzoUnitario')) || 0;
+        const lineTotal = Number(getTagValue(line, 'PrezzoTotale')) || 0;
+        const vat = Number(getTagValue(line, 'AliquotaIVA')) || 22;
 
         // Skip descriptive/info lines with no quantity
-        if (qty === 0 || (price === 0 && !desc.includes('sconto') && !desc.includes('omaggio'))) {
-          return;
+        if (qty === 0 || (price === 0 && !desc.toLowerCase().includes('sconto') && !desc.toLowerCase().includes('omaggio'))) {
+          continue;
         }
 
         // Discount
         let discount = 0;
-        const discountMag = line.querySelector('ScontoMaggiorazione');
+        const discountMag = getElement(line, 'ScontoMaggiorazione');
         if (discountMag) {
-          const type = discountMag.querySelector('Tipo')?.textContent;
+          const type = getTagValue(discountMag, 'Tipo');
           if (type === 'SC') {
-            discount = Number(discountMag.querySelector('Percentuale')?.textContent) || 0;
+            discount = Number(getTagValue(discountMag, 'Percentuale')) || 0;
           }
         }
 
         // SKU
         let sku = '';
-        const articleCodes = line.querySelectorAll('CodiceArticolo');
-        articleCodes.forEach((code) => {
-          const type = code.querySelector('CodiceTipo')?.textContent || '';
-          const val = code.querySelector('CodiceValore')?.textContent || '';
-          if (type.includes('fornitore')) {
+        const articleCodes = line.getElementsByTagNameNS('*', 'CodiceArticolo');
+        for (let j = 0; j < articleCodes.length; j++) {
+          const code = articleCodes[j];
+          const type = getTagValue(code, 'CodiceTipo');
+          const val = getTagValue(code, 'CodiceValore');
+          if (type.toLowerCase().includes('fornitore')) {
             sku = val;
+            break;
           } else if (!sku && type === 'INTRA') {
             sku = val;
           }
-        });
+        }
+        if (!sku && articleCodes.length > 0) {
+          sku = getTagValue(articleCodes[0], 'CodiceValore');
+        }
         if (!sku) {
           sku = 'IMP-' + Math.random().toString(36).substring(2, 8).toUpperCase();
         }
@@ -133,10 +159,10 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
           vintage,
           discounted_cost: itemDiscountedCost
         });
-      });
+      }
 
       return {
-        supplier: { name: denominazione.trim() || 'Fornitore Sconosciuto', vat_number: vatCode, address },
+        supplier: { name: denominazione, vat_number: vatCode, address },
         header: { number, date, total_amount: totalAmount },
         items
       };
