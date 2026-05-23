@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Plus, Search, Edit2, Trash2, Download } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Products({ products, onSave, onDelete }) {
   const [search, setSearch] = useState('');
@@ -108,7 +109,7 @@ export default function Products({ products, onSave, onDelete }) {
   };
 
   const handleExportCsv = () => {
-    window.open('http://localhost:3001/api/export/products', '_blank');
+    window.open(`${API_BASE_URL}/api/export/products`, '_blank');
   };
 
   // Preview calculated prices in modal

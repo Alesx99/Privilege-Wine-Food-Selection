@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Plus, Search, FileText, Download, Trash2, CheckCircle2, RotateCcw, XCircle, ArrowLeft } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Documents({ 
   documents, 
@@ -41,7 +42,7 @@ export default function Documents({
 
   const fetchDocDetail = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/documents/${id}`);
+      const res = await fetch(`${API_BASE_URL}/api/documents/${id}`);
       if (!res.ok) throw new Error('Impossibile caricare il documento.');
       const data = await res.json();
       setViewingDoc(data);
@@ -79,7 +80,7 @@ export default function Documents({
     }
 
     try {
-      const res = await fetch(`http://localhost:3001/api/calculate-price?partnerId=${partnerId}&productId=${prodId}`);
+      const res = await fetch(`${API_BASE_URL}/api/calculate-price?partnerId=${partnerId}&productId=${prodId}`);
       if (!res.ok) throw new Error('Errore nel calcolo del prezzo.');
       const priceData = await res.json();
 
@@ -162,7 +163,7 @@ export default function Documents({
   };
 
   const handleDownloadPdf = (docId, docNum) => {
-    window.open(`http://localhost:3001/api/documents/${docId}/pdf`, '_blank');
+    window.open(`${API_BASE_URL}/api/documents/${docId}/pdf`, '_blank');
   };
 
   const changeStatus = (id, newStatus) => {

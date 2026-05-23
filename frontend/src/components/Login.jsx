@@ -25,7 +25,7 @@ export default function Login({ onLogin, onCancel }) {
       <div className="login-card">
         <div className="login-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
           <img 
-            src="/logo.jpeg" 
+            src={`${import.meta.env.BASE_URL}logo.jpeg`} 
             alt="Privilege Selection Logo" 
             style={{ width: '100%', maxWidth: '180px', height: 'auto', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '8px' }} 
           />

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Plus, Search, Edit2, Trash2, Download } from 'lucide-react';
 import { z } from 'zod';
+import { API_BASE_URL } from '../config';
 
 // Zod Schema for Partner validation
 const partnerSchema = z.object({
@@ -119,7 +120,7 @@ export default function Partners({ partners, priceLists, onSave, onDelete }) {
   };
 
   const handleExportCsv = () => {
-    window.open('http://localhost:3001/api/export/partners', '_blank');
+    window.open(`${API_BASE_URL}/api/export/partners`, '_blank');
   };
 
   const getPriceListName = (listId) => {

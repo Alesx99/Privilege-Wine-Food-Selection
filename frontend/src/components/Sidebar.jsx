@@ -21,7 +21,7 @@ export default function Sidebar({ activePage, setActivePage, onLogout }) {
     <aside className="sidebar">
       <div className="sidebar-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '24px', padding: '8px' }}>
         <img 
-          src="/logo.jpeg" 
+          src={`${import.meta.env.BASE_URL}logo.jpeg`} 
           alt="Privilege Selection Logo" 
           style={{ width: '100%', maxWidth: '150px', height: 'auto', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.05)' }} 
         />

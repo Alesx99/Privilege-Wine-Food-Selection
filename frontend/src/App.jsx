@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from './config';
 import Sidebar from './components/Sidebar';
 import Dashboard from './views/Dashboard';
 import Products from './views/Products';
@@ -26,10 +27,10 @@ export default function App() {
     try {
       setLoading(true);
       const [prodRes, partRes, docRes, listRes] = await Promise.all([
-        fetch('http://localhost:3001/api/products'),
-        fetch('http://localhost:3001/api/partners'),
-        fetch('http://localhost:3001/api/documents'),
-        fetch('http://localhost:3001/api/price-lists'),
+        fetch(`${API_BASE_URL}/api/products`),
+        fetch(`${API_BASE_URL}/api/partners`),
+        fetch(`${API_BASE_URL}/api/documents`),
+        fetch(`${API_BASE_URL}/api/price-lists`),
       ]);
 
       if (!prodRes.ok || !partRes.ok || !docRes.ok || !listRes.ok) {
@@ -59,7 +60,7 @@ export default function App() {
   // --- PRODUCT CRUD ACTION ---
   const handleSaveProduct = async (productData) => {
     try {
-      const res = await fetch('http://localhost:3001/api/products', {
+      const res = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(productData),
@@ -74,7 +75,7 @@ export default function App() {
 
   const handleDeleteProduct = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/products/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/products/${id}`, {
         method: 'DELETE',
       });
 
@@ -88,7 +89,7 @@ export default function App() {
   // --- PARTNER CRUD ACTION ---
   const handleSavePartner = async (partnerData) => {
     try {
-      const res = await fetch('http://localhost:3001/api/partners', {
+      const res = await fetch(`${API_BASE_URL}/api/partners`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(partnerData),
@@ -103,7 +104,7 @@ export default function App() {
 
   const handleDeletePartner = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/partners/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/partners/${id}`, {
         method: 'DELETE',
       });
 
@@ -117,7 +118,7 @@ export default function App() {
   // --- DOCUMENT CRUD ACTION ---
   const handleSaveDocument = async (docData) => {
     try {
-      const res = await fetch('http://localhost:3001/api/documents', {
+      const res = await fetch(`${API_BASE_URL}/api/documents`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(docData),
@@ -135,7 +136,7 @@ export default function App() {
 
   const handleDeleteDocument = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/documents/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/documents/${id}`, {
         method: 'DELETE',
       });
 
@@ -150,7 +151,7 @@ export default function App() {
 
   const handleUpdateDocStatus = async (id, status) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/documents/${id}/status`, {
+      const res = await fetch(`${API_BASE_URL}/api/documents/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
@@ -169,7 +170,7 @@ export default function App() {
   const handleApproveAllDrafts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:3001/api/documents/approve-all-drafts', {
+      const res = await fetch(`${API_BASE_URL}/api/documents/approve-all-drafts`, {
         method: 'POST',
       });
 

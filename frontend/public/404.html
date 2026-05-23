@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Privilege Selection — Redirect</title>
+  <script>
+    // GitHub Pages SPA workaround.
+    // Quando GitHub Pages riceve una richiesta per un percorso che non esiste,
+    // serve questo file 404.html. Lo script redirige verso index.html
+    // preservando il percorso originale come query parameter, in modo che
+    // il client-side router possa gestirlo.
+    const pathSegmentsToKeep = 1; // numero di segmenti del base path (/Privilege-Wine-Food-Selection/)
+    const l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    );
+  </script>
+</head>
+<body></body>
+</html>

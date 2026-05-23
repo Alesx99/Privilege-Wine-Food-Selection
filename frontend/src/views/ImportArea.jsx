@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { API_BASE_URL } from '../config';
 import { 
   UploadCloud, 
   CheckCircle2, 
@@ -197,7 +198,7 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3001/api/import/xml', {
+      const res = await fetch(`${API_BASE_URL}/api/import/xml`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ xml: xmlContent })
@@ -321,7 +322,7 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
         }
 
         // Chiamata all'endpoint NestJS
-        const res = await fetch('http://localhost:3001/api/import/xml', {
+        const res = await fetch(`${API_BASE_URL}/api/import/xml`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ xml: xmlText })

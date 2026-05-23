@@ -6,8 +6,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   // Abilita CORS per collegarsi con il frontend React
+  const allowedOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : ['http://localhost:5173', 'http://localhost:5174', 'https://alesx99.github.io'];
+  
   app.enableCors({
-    origin: '*', // Consentiamo tutte le origini per sviluppo locale
+    origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

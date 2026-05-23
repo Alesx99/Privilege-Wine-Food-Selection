@@ -39,7 +39,7 @@ export default function ClientCatalog({ products, onLoginClick }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <div className="client-brand" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px' }} onClick={handleHomeClick}>
             <img 
-              src="/logo.jpeg" 
+              src={`${import.meta.env.BASE_URL}logo.jpeg`} 
               alt="Privilege Selection Logo" 
               style={{ height: '40px', width: 'auto', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(255,255,255,0.05)' }} 
             />

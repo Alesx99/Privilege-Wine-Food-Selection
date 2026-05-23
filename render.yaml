@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: privilege-backend
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false  # Da configurare manualmente nel dashboard Render
+      - key: SUPABASE_KEY
+        sync: false  # Da configurare manualmente nel dashboard Render
