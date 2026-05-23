@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { API_BASE_URL } from '../config';
+import { API_BASE_URL, handleFetchError } from '../config';
 import { 
   UploadCloud, 
   CheckCircle2, 
@@ -242,7 +242,7 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
       setSelectedDocId(savedDoc.id);
       setActivePage('documents');
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Importazione documento'));
     } finally {
       setLoading(false);
     }
@@ -372,7 +372,7 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
         setBulkFiles(prev => prev.map(f => f.id === item.id ? { 
           ...f, 
           status: 'error', 
-          errorMsg: err.message 
+          errorMsg: handleFetchError(err, 'Importazione file')
         } : f));
       }
     }

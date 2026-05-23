@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API_BASE_URL } from './config';
+import { API_BASE_URL, handleFetchError } from './config';
 import Sidebar from './components/Sidebar';
 import Dashboard from './views/Dashboard';
 import Products from './views/Products';
@@ -69,7 +69,7 @@ export default function App() {
       if (!res.ok) throw new Error("Errore nel salvataggio del prodotto.");
       await loadAllData();
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Salvataggio prodotto'));
     }
   };
 
@@ -82,7 +82,7 @@ export default function App() {
       if (!res.ok) throw new Error("Errore nell'eliminazione del prodotto.");
       await loadAllData();
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Eliminazione prodotto'));
     }
   };
 
@@ -98,7 +98,7 @@ export default function App() {
       if (!res.ok) throw new Error("Errore nel salvataggio del partner.");
       await loadAllData();
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Salvataggio partner'));
     }
   };
 
@@ -111,7 +111,7 @@ export default function App() {
       if (!res.ok) throw new Error("Errore nell'eliminazione del partner.");
       await loadAllData();
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Eliminazione partner'));
     }
   };
 
@@ -130,7 +130,7 @@ export default function App() {
       setSelectedDocId(saved.id);
       setActivePage('documents');
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Salvataggio documento'));
     }
   };
 
@@ -144,7 +144,7 @@ export default function App() {
       await loadAllData();
       return true;
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Eliminazione documento'));
       return false;
     }
   };
@@ -163,7 +163,7 @@ export default function App() {
       }
       await loadAllData();
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Aggiornamento stato documento'));
     }
   };
 
@@ -183,7 +183,7 @@ export default function App() {
       alert(`Approvazione completata con successo! Approvate ${result.count} bozze di documenti.`);
       await loadAllData();
     } catch (err) {
-      alert(err.message);
+      alert(handleFetchError(err, 'Approvazione massiva dei documenti'));
     } finally {
       setLoading(false);
     }
