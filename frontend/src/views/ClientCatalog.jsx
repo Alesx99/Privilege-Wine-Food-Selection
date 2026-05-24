@@ -143,6 +143,11 @@ export default function ClientCatalog({ products, onLoginClick }) {
           )}
         </div>
       </div>
+      <footer className="client-footer" style={{ textAlign: 'center', padding: '24px', borderTop: '1px solid var(--border-color)', marginTop: 'auto' }}>
+        <p className="muted-text" style={{ fontSize: '0.75rem', margin: 0, opacity: 0.6 }}>
+          © 2026 Alesx99. Tutti i diritti riservati. Proprietà esclusiva del software.
+        </p>
+      </footer>
     </div>
   );
 }

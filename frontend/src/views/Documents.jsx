@@ -166,6 +166,14 @@ export default function Documents({
     window.open(`${API_BASE_URL}/api/documents/${docId}/pdf`, '_blank');
   };
 
+  const handleDownloadSian = (docId) => {
+    window.open(`${API_BASE_URL}/api/documents/${docId}/sian`, '_blank');
+  };
+
+  const handleDownloadAccise = (docId) => {
+    window.open(`${API_BASE_URL}/api/documents/${docId}/accise`, '_blank');
+  };
+
   const changeStatus = (id, newStatus) => {
     onUpdateStatus(id, newStatus);
   };
@@ -198,13 +206,29 @@ export default function Documents({
               <ArrowLeft size={16} />
               <span>Indietro</span>
             </button>
-            <div className="flex-row">
+             <div className="flex-row" style={{ gap: '8px' }}>
               <button 
                 className="btn btn-secondary btn-sm"
                 onClick={() => handleDownloadPdf(viewingDoc.id, viewingDoc.number)}
               >
                 <Download size={16} />
-                <span>Scarica PDF</span>
+                <span>PDF</span>
+              </button>
+              
+              <button 
+                className="btn btn-secondary btn-sm"
+                style={{ borderColor: 'rgba(56,189,248,0.3)', color: 'var(--accent-light)' }}
+                onClick={() => handleDownloadSian(viewingDoc.id)}
+              >
+                <span>SIAN XML</span>
+              </button>
+
+              <button 
+                className="btn btn-secondary btn-sm"
+                style={{ borderColor: 'rgba(244,63,94,0.3)', color: 'var(--status-danger)' }}
+                onClick={() => handleDownloadAccise(viewingDoc.id)}
+              >
+                <span>Accise e-AD</span>
               </button>
               
               {viewingDoc.status === 'draft' ? (

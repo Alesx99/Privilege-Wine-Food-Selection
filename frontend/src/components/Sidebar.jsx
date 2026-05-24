@@ -5,6 +5,8 @@ import {
   Users, 
   FileText, 
   UploadCloud,
+  Landmark,
+  DollarSign,
   LogOut
 } from 'lucide-react';
 
@@ -12,10 +14,14 @@ export default function Sidebar({ activePage, setActivePage, onLogout }) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'products', label: 'Magazzino Vini', icon: Wine },
+    { id: 'warehouses', label: 'Depositi', icon: Landmark },
     { id: 'partners', label: 'Anagrafiche', icon: Users },
+    { id: 'agents', label: 'Agenti & Provvigioni', icon: DollarSign },
     { id: 'documents', label: 'Documenti', icon: FileText },
     { id: 'import', label: 'Import Area', icon: UploadCloud },
+    { id: 'reconciliation', label: 'Riconciliazione', icon: Landmark },
   ];
+
 
   return (
     <aside className="sidebar">
@@ -67,6 +73,14 @@ export default function Sidebar({ activePage, setActivePage, onLogout }) {
             </a>
           </li>
         </ul>
+        <div style={{ padding: '12px 16px 4px 16px', textAlign: 'center', borderTop: '1px dashed rgba(255,255,255,0.03)', marginTop: '12px' }}>
+          <p className="muted-text" style={{ fontSize: '0.65rem', margin: 0, fontWeight: 'bold' }}>
+            © Alesx99
+          </p>
+          <p className="muted-text" style={{ fontSize: '0.58rem', margin: '2px 0 0 0', opacity: 0.5 }}>
+            Proprietà Esclusiva
+          </p>
+        </div>
       </div>
     </aside>
   );

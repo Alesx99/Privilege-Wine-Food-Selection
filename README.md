@@ -90,3 +90,13 @@ Nella sezione **Import Area** del menu laterale, puoi testare il parser drag & d
    - Viene inserito il prodotto nel catalogo (se non presente, con SKU `6441MA` ed etichetta corrispondente).
    - Viene creata la fattura di acquisto collegata in stato **Bozza (draft)**.
 4. Sarai reindirizzato alla pagina dei documenti per esaminarla. Cliccando su **Approva & Carica Stock**, lo stato passerà a `completed` ed il database caricherà fisicamente 36 bottiglie nel magazzino dei vini!
+
+---
+
+## 🔒 Proprietà e Licenza
+
+Questo software è proprietà esclusiva di **Alesx99**. 
+Tutti i diritti sono riservati. La copia, distribuzione, modifica o riproduzione non autorizzata di questo codice e dei file associati, con qualsiasi mezzo, è severamente vietata senza previo consenso scritto del proprietario del copyright.
+
+Vedi il file [LICENSE](file:///Users/alessio/Desktop/Gestionale%20Fatture%20e%20Magazzino/LICENSE) per maggiori informazioni.
+

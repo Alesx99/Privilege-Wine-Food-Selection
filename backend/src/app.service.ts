@@ -1,6 +1,9 @@
 import { Injectable, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
 import { SupabaseService } from './supabase.service';
-import { MockStore, Product, Partner, PriceList, Document, DocumentItem } from './mock-store';
+import { MockStore, Product, Partner, PriceList, Document, DocumentItem, Warehouse, Agent, AgentCommission } from './mock-store';
+import { SianService } from './sian.service';
+import { AcciseService } from './accise.service';
+import { ReconciliationService } from './reconciliation.service';
 
 @Injectable()
 export class AppService {
@@ -9,7 +12,11 @@ export class AppService {
   constructor(
     private readonly supabaseService: SupabaseService,
     private readonly mockStore: MockStore,
+    private readonly sianService: SianService,
+    private readonly acciseService: AcciseService,
+    private readonly reconciliationService: ReconciliationService,
   ) {}
+
 
   // --- HELPER DI SUPABASE ---
   private useSupabase(): boolean {
@@ -788,4 +795,155 @@ export class AppService {
       throw new BadRequestException(err instanceof BadRequestException ? err.message : 'Errore durante l\'importazione del file XML: ' + (err?.message || err));
     }
   }
+
+  // ==========================================
+  // 6. ENTRATE / MULTI-DEPOSITO (ENTERPRISE)
+  // ==========================================
+  async getWarehouses(): Promise<any[]> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client.from('warehouses').select('*').order('name', { ascending: true });
+      if (error) throw new BadRequestException(error.message);
+      return data;
+    }
+    return this.mockStore.warehouses;
+  }
+
+  // ==========================================
+  // 7. MODULO AGENTI & PROVVIGIONI (ENTERPRISE)
+  // ==========================================
+  async getAgents(): Promise<any[]> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client.from('agents').select('*').order('name', { ascending: true });
+      if (error) throw new BadRequestException(error.message);
+      return data;
+    }
+    return this.mockStore.agents;
+  }
+
+  async saveAgent(agentData: any): Promise<any> {
+    const isEdit = !!agentData.id;
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const payload = {
+        name: agentData.name,
+        email: agentData.email,
+        phone: agentData.phone,
+        vat_number: agentData.vat_number,
+        default_commission_percent: Number(agentData.default_commission_percent) || 10.00,
+      };
+
+      let result;
+      if (isEdit) {
+        result = await client.from('agents').update(payload).eq('id', agentData.id).select().single();
+      } else {
+        result = await client.from('agents').insert([payload]).select().single();
+      }
+      if (result.error) throw new BadRequestException(result.error.message);
+      return result.data;
+    }
+
+    if (isEdit) {
+      const idx = this.mockStore.agents.findIndex(a => a.id === agentData.id);
+      if (idx === -1) throw new NotFoundException('Agente non trovato');
+      this.mockStore.agents[idx] = {
+        ...this.mockStore.agents[idx],
+        ...agentData,
+        default_commission_percent: Number(agentData.default_commission_percent) || 10.00
+      };
+      return this.mockStore.agents[idx];
+    } else {
+      const newAgent: Agent = {
+        id: crypto.randomUUID(),
+        name: agentData.name,
+        email: agentData.email,
+        phone: agentData.phone,
+        vat_number: agentData.vat_number,
+        default_commission_percent: Number(agentData.default_commission_percent) || 10.00,
+        created_at: new Date().toISOString()
+      };
+      this.mockStore.agents.push(newAgent);
+      return newAgent;
+    }
+  }
+
+  async getCommissions(): Promise<any[]> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client.from('agent_commissions').select('*, agent:agents(name)');
+      if (error) throw new BadRequestException(error.message);
+      return data;
+    }
+    return this.mockStore.agentCommissions.map(c => {
+      const agent = this.mockStore.agents.find(a => a.id === c.agent_id);
+      return {
+        ...c,
+        agent: agent ? { name: agent.name } : null
+      };
+    });
+  }
+
+  // ==========================================
+  // 8. ADEMPIMENTI SIAN & ACCISE EXPORT
+  // ==========================================
+  async exportSianXml(documentId: string): Promise<string> {
+    const doc = await this.getDocumentById(documentId);
+    if (!doc.items || doc.items.length === 0) {
+      throw new BadRequestException('Il documento non ha articoli da dichiarare.');
+    }
+    
+    const firstItem = doc.items[0];
+    const xml = this.sianService.generateSianXml({
+      id: doc.id,
+      operationType: doc.type === 'invoice_purchase' || doc.type === 'ddt_in' ? 'ARRICCHIMENTO' : 'DECLASSAMENTO',
+      date: doc.date,
+      productSku: firstItem.product_sku || 'SKU-UNKNOWN',
+      quantityLiters: firstItem.quantity * 0.75,
+      alcoholVolume: 12.50,
+      lotNumber: firstItem.lot_number || 'LOT-MOCK'
+    });
+    return xml;
+  }
+
+  async exportAcciseXml(documentId: string): Promise<string> {
+    const doc = await this.getDocumentById(documentId);
+    if (!doc.items || doc.items.length === 0) {
+      throw new BadRequestException('Il documento non ha articoli per il tracciato e-AD.');
+    }
+    const firstItem = doc.items[0];
+    const xml = this.acciseService.generateEadXml({
+      id: doc.id,
+      senderAcciseCode: 'IT00CANTINAPRIV1',
+      receiverAcciseCode: doc.partner?.sdi_code || 'ITDOGANATX000',
+      transporterName: doc.partner?.name || 'VETTORE LOGISTICO',
+      wineType: 'SPUMANTE',
+      quantityLiters: firstItem.quantity * 0.75,
+      alcoholVolume: 12.00,
+      cnCode: '22042180',
+      grossWeightKg: firstItem.quantity * 1.3,
+      netWeightKg: firstItem.quantity * 0.75
+    });
+    return xml;
+  }
+
+  // ==========================================
+  // 9. RICONCILIAZIONE BANCARIA
+  // ==========================================
+  async reconcileBankFile(fileContent: string): Promise<any[]> {
+    const transactions = this.reconciliationService.parseCbiFile(fileContent);
+    const documents = await this.getDocuments();
+    const openInvoices = documents.filter(d => d.status !== 'cancelled');
+    
+    const results = this.reconciliationService.reconcileTransactions(transactions, openInvoices);
+
+    for (const res of results) {
+      if (res.status === 'reconciled' && res.matchedInvoiceId) {
+        this.logger.log(`Autoconciliato pagamento per fattura ${res.matchedInvoiceNumber}`);
+      }
+    }
+
+    return results;
+  }
 }
+

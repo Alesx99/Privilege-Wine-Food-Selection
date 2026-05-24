@@ -8,6 +8,9 @@ import Documents from './views/Documents';
 import ImportArea from './views/ImportArea';
 import Login from './components/Login';
 import ClientCatalog from './views/ClientCatalog';
+import Warehouses from './views/Warehouses';
+import Agents from './views/Agents';
+import Reconciliation from './views/Reconciliation';
 
 export default function App() {
   const [userRole, setUserRole] = useState(() => localStorage.getItem('privilege_user_role') || null);
@@ -249,6 +252,12 @@ export default function App() {
             setSelectedDocId={setSelectedDocId}
           />
         );
+      case 'warehouses':
+        return <Warehouses />;
+      case 'agents':
+        return <Agents />;
+      case 'reconciliation':
+        return <Reconciliation />;
       default:
         return <div>Pagina non trovata</div>;
     }

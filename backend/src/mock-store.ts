@@ -19,36 +19,11 @@ export interface Product {
   updated_at: string;
 }
 
-export interface Partner {
-  id: string;
-  type: 'client' | 'supplier' | 'both';
-  name: string;
-  vat_number: string;
-  tax_code?: string;
-  sdi_code: string;
-  email?: string;
-  address?: string;
-  phone?: string;
-  created_at: string;
-}
-
 export interface PriceList {
   id: string;
   name: string;
   markup_percent: number;
   created_at: string;
-}
-
-export interface Document {
-  id: string;
-  type: 'order_supplier' | 'ddt_in' | 'ddt_out' | 'stock_load' | 'invoice_sale' | 'invoice_purchase';
-  number: string;
-  date: string;
-  partner_id: string;
-  status: 'draft' | 'completed' | 'cancelled';
-  total_amount: number;
-  created_at: string;
-  updated_at: string;
 }
 
 export interface DocumentItem {
@@ -64,6 +39,70 @@ export interface DocumentItem {
   created_at: string;
 }
 
+
+export interface Warehouse {
+  id: string;
+  code: string;
+  name: string;
+  location: string;
+  created_at: string;
+}
+
+export interface WarehouseStock {
+  product_id: string;
+  warehouse_id: string;
+  stock_quantity: number;
+  updated_at: string;
+}
+
+export interface Agent {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  vat_number?: string;
+  default_commission_percent: number;
+  created_at: string;
+}
+
+export interface AgentCommission {
+  id: string;
+  agent_id: string;
+  document_id: string;
+  amount: number;
+  commission_percent: number;
+  status: 'unpaid' | 'paid' | 'cancelled';
+  calculated_at: string;
+}
+
+export interface Partner {
+  id: string;
+  type: 'client' | 'supplier' | 'both';
+  name: string;
+  vat_number: string;
+  tax_code?: string;
+  sdi_code: string;
+  email?: string;
+  address?: string;
+  phone?: string;
+  agent_id?: string; // Associated agent
+  created_at: string;
+}
+
+export interface Document {
+  id: string;
+  type: 'order_supplier' | 'ddt_in' | 'ddt_out' | 'stock_load' | 'invoice_sale' | 'invoice_purchase';
+  number: string;
+  date: string;
+  partner_id: string;
+  warehouse_id?: string; // Target warehouse
+  status: 'draft' | 'completed' | 'cancelled';
+  total_amount: number;
+  created_at: string;
+  updated_at: string;
+}
+
+
 @Injectable()
 export class MockStore {
   public products: Product[] = [];
@@ -73,9 +112,16 @@ export class MockStore {
   public documents: Document[] = [];
   public documentItems: DocumentItem[] = [];
 
+  // Enterprise additions
+  public warehouses: Warehouse[] = [];
+  public warehouseStock: WarehouseStock[] = [];
+  public agents: Agent[] = [];
+  public agentCommissions: AgentCommission[] = [];
+
   constructor() {
     this.seed();
   }
+
 
   private seed() {
     // 1. Seed Partners
@@ -243,6 +289,85 @@ export class MockStore {
         lot_number: 'L052026',
         expiry_date: undefined,
         created_at: new Date().toISOString(),
+      }
+    ];
+
+    // 5. Seed Warehouses
+    const wh1Id = 'w1111111-1111-1111-1111-111111111111';
+    const wh2Id = 'w2222222-2222-2222-2222-222222222222';
+    this.warehouses = [
+      {
+        id: wh1Id,
+        code: 'DEP-PRINCIPALE',
+        name: 'Deposito Principale Cantina',
+        location: 'Via della Cantina 1, Valpolicella',
+        created_at: new Date().toISOString()
+      },
+      {
+        id: wh2Id,
+        code: 'DEP-ESTERNO',
+        name: 'Deposito Logistico Esterno',
+        location: 'Interporto Quadrante Europa, Verona',
+        created_at: new Date().toISOString()
+      }
+    ];
+
+    // Seed Warehouse Stock
+    this.products.forEach(p => {
+      this.warehouseStock.push({
+        product_id: p.id,
+        warehouse_id: wh1Id,
+        stock_quantity: p.stock_quantity,
+        updated_at: new Date().toISOString()
+      });
+    });
+
+    // 6. Seed Agents
+    const agent1Id = 'ag111111-1111-1111-1111-111111111111';
+    const agent2Id = 'ag222222-2222-2222-2222-222222222222';
+    this.agents = [
+      {
+        id: agent1Id,
+        name: 'Mario Rossi',
+        email: 'mario.rossi@cantinaprivilege.it',
+        phone: '333-1234567',
+        vat_number: 'IT01234567890',
+        default_commission_percent: 10.00,
+        created_at: new Date().toISOString()
+      },
+      {
+        id: agent2Id,
+        name: 'Luigi Bianchi',
+        email: 'luigi.bianchi@cantinaprivilege.it',
+        phone: '333-7654321',
+        vat_number: 'IT09876543210',
+        default_commission_percent: 8.50,
+        created_at: new Date().toISOString()
+      }
+    ];
+
+    // Associate agents to seeded partners
+    const client1 = this.partners.find(p => p.id === '22222222-2222-2222-2222-222222222222');
+    if (client1) client1.agent_id = agent1Id;
+
+    const client2 = this.partners.find(p => p.id === '33333333-3333-3333-3333-333333333333');
+    if (client2) client2.agent_id = agent2Id;
+
+    // Seed document warehouse association
+    this.documents.forEach(d => {
+      d.warehouse_id = wh1Id;
+    });
+
+    // Seed Agent Commissions
+    this.agentCommissions = [
+      {
+        id: 'c1111111-1111-1111-1111-111111111111',
+        agent_id: agent1Id,
+        document_id: docId,
+        amount: 90.53, // 10% of 905.30
+        commission_percent: 10.00,
+        status: 'unpaid',
+        calculated_at: new Date().toISOString()
       }
     ];
   }

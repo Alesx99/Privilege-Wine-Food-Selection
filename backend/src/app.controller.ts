@@ -175,6 +175,49 @@ export class AppController {
     return this.appService.importXmlInvoice(xml);
   }
 
+  // ==========================================
+  // 8. ENDPOINTS ENTERPRISE (DEPOSITI / AGENTI / EXPORTS / RICONCILIAZIONE)
+  // ==========================================
+  @Get('warehouses')
+  async getWarehouses() {
+    return this.appService.getWarehouses();
+  }
+
+  @Get('agents')
+  async getAgents() {
+    return this.appService.getAgents();
+  }
+
+  @Post('agents')
+  async saveAgent(@Body() agentData: any) {
+    return this.appService.saveAgent(agentData);
+  }
+
+  @Get('agents/commissions')
+  async getCommissions() {
+    return this.appService.getCommissions();
+  }
+
+  @Get('documents/:id/sian')
+  @Header('Content-Type', 'application/xml')
+  @Header('Content-Disposition', 'attachment; filename=dichiarazione_sian.xml')
+  async exportSian(@Param('id') id: string) {
+    return this.appService.exportSianXml(id);
+  }
+
+  @Get('documents/:id/accise')
+  @Header('Content-Type', 'application/xml')
+  @Header('Content-Disposition', 'attachment; filename=documento_ead_accise.xml')
+  async exportAccise(@Param('id') id: string) {
+    return this.appService.exportAcciseXml(id);
+  }
+
+  @Post('reconciliation/upload')
+  async reconcileBankFile(@Body('fileContent') fileContent: string) {
+    if (!fileContent) throw new BadRequestException('Contenuto del file bancario richiesto.');
+    return this.appService.reconcileBankFile(fileContent);
+  }
+
   @Post('documents/approve-all-drafts')
   async approveAllDrafts() {
     return this.appService.approveAllDrafts();
