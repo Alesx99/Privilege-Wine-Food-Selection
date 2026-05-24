@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, handleFetchError } from '../config';
 import { Landmark, ArrowLeftRight, Plus, RefreshCw } from 'lucide-react';
 
-export default function Warehouses() {
+export default function Warehouses({ userRole }) {
+  const isMaster = userRole === 'master';
   const [warehouses, setWarehouses] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -132,61 +133,72 @@ export default function Warehouses() {
             <h3>Trasferimento Interno Merci</h3>
             <ArrowLeftRight size={20} style={{ color: 'var(--accent-light)' }} />
           </div>
-          <p className="muted-text" style={{ marginBottom: '20px' }}>Emetti un DDT di storno logistico per movimentare scorte tra depositi differenti.</p>
-
-          <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div className="form-group">
-              <label>Deposito Origine</label>
-              <select className="erp-select" value={fromWarehouse} onChange={e => setFromWarehouse(e.target.value)} required>
-                <option value="">Seleziona origine...</option>
-                {warehouses.map(wh => (
-                  <option key={wh.id} value={wh.id}>{wh.name}</option>
-                ))}
-              </select>
+          {!isMaster ? (
+            <div style={{ textAlign: 'center', padding: '30px 10px', border: '1px dashed var(--border-color)', borderRadius: 'var(--radius-md)' }}>
+              <Landmark size={32} style={{ color: 'var(--status-warning)', marginBottom: '12px' }} />
+              <p className="muted-text" style={{ fontSize: '0.85rem' }}>
+                La visualizzazione autorizzata in sola lettura non consente la movimentazione interna delle scorte tra i depositi.
+              </p>
             </div>
+          ) : (
+            <>
+              <p className="muted-text" style={{ marginBottom: '20px' }}>Emetti un DDT di storno logistico per movimentare scorte tra depositi differenti.</p>
 
-            <div className="form-group">
-              <label>Deposito Destinazione</label>
-              <select className="erp-select" value={toWarehouse} onChange={e => setToWarehouse(e.target.value)} required>
-                <option value="">Seleziona destinazione...</option>
-                {warehouses.map(wh => (
-                  <option key={wh.id} value={wh.id}>{wh.name}</option>
-                ))}
-              </select>
-            </div>
+              <form onSubmit={handleTransfer} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div className="form-group">
+                  <label>Deposito Origine</label>
+                  <select className="erp-select" value={fromWarehouse} onChange={e => setFromWarehouse(e.target.value)} required>
+                    <option value="">Seleziona origine...</option>
+                    {warehouses.map(wh => (
+                      <option key={wh.id} value={wh.id}>{wh.name}</option>
+                    ))}
+                  </select>
+                </div>
 
-            <div className="form-group">
-              <label>Vino da Trasferire</label>
-              <select className="erp-select" value={selectedProduct} onChange={e => setSelectedProduct(e.target.value)} required>
-                <option value="">Seleziona vino...</option>
-                {products.map(p => (
-                  <option key={p.id} value={p.id}>{p.name} ({p.vintage} - {p.format})</option>
-                ))}
-              </select>
-            </div>
+                <div className="form-group">
+                  <label>Deposito Destinazione</label>
+                  <select className="erp-select" value={toWarehouse} onChange={e => setToWarehouse(e.target.value)} required>
+                    <option value="">Seleziona destinazione...</option>
+                    {warehouses.map(wh => (
+                      <option key={wh.id} value={wh.id}>{wh.name}</option>
+                    ))}
+                  </select>
+                </div>
 
-            <div className="form-group">
-              <label>Quantità (Bottiglie)</label>
-              <input 
-                type="number" 
-                className="erp-input"
-                value={transferQty}
-                onChange={e => setTransferQty(e.target.value)}
-                required
-              />
-            </div>
+                <div className="form-group">
+                  <label>Vino da Trasferire</label>
+                  <select className="erp-select" value={selectedProduct} onChange={e => setSelectedProduct(e.target.value)} required>
+                    <option value="">Seleziona vino...</option>
+                    {products.map(p => (
+                      <option key={p.id} value={p.id}>{p.name} ({p.vintage} - {p.format})</option>
+                    ))}
+                  </select>
+                </div>
 
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '12px' }} disabled={processing}>
-              {processing ? (
-                <>
-                  <RefreshCw size={16} className="rotating-icon" />
-                  <span>Elaborazione storno logistico...</span>
-                </>
-              ) : (
-                <span>Registra Trasferimento</span>
-              )}
-            </button>
-          </form>
+                <div className="form-group">
+                  <label>Quantità (Bottiglie)</label>
+                  <input 
+                    type="number" 
+                    className="erp-input"
+                    value={transferQty}
+                    onChange={e => setTransferQty(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '12px' }} disabled={processing}>
+                  {processing ? (
+                    <>
+                      <RefreshCw size={16} className="rotating-icon" />
+                      <span>Elaborazione storno logistico...</span>
+                    </>
+                  ) : (
+                    <span>Registra Trasferimento</span>
+                  )}
+                </button>
+              </form>
+            </>
+          )}
         </div>
       </div>
     </div>

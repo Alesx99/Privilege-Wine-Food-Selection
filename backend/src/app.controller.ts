@@ -36,6 +36,14 @@ export class AppController {
     return this.appService.saveProduct(productData);
   }
 
+  @Post('products/merge')
+  async mergeProducts(@Body() body: { targetProductId: string, sourceProductId: string }) {
+    if (!body.targetProductId || !body.sourceProductId) {
+      throw new BadRequestException('I parametri targetProductId e sourceProductId sono obbligatori.');
+    }
+    return this.appService.mergeProducts(body.targetProductId, body.sourceProductId);
+  }
+
   @Delete('products/:id')
   async deleteProduct(@Param('id') id: string) {
     return this.appService.deleteProduct(id);

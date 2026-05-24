@@ -2,11 +2,16 @@ import React, { useState, useMemo } from 'react';
 import { Plus, Search, Edit2, Trash2, Download } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
-export default function Products({ products, onSave, onDelete }) {
+export default function Products({ products, onSave, onDelete, userRole, loadAllData }) {
+  const isMaster = userRole === 'master';
   const [search, setSearch] = useState('');
   const [vintageFilter, setVintageFilter] = useState('');
   const [formatFilter, setFormatFilter] = useState('');
   
+  // Duplicates panel states
+  const [showMergePanel, setShowMergePanel] = useState(false);
+  const [merging, setMerging] = useState(false);
+
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -23,6 +28,68 @@ export default function Products({ products, onSave, onDelete }) {
   const [isManualPrice, setIsManualPrice] = useState(false);
   const [manualPrice, setManualPrice] = useState('');
   const [stockQuantity, setStockQuantity] = useState('0');
+
+  // Helper to extract base SKU
+  const getBaseSku = (s) => {
+    if (!s) return '';
+    return s.trim().toUpperCase().replace(/[-/_.]?[a-zA-Z0-9]{1,2}$/, '');
+  };
+
+  // Group potential duplicates (products sharing the same base SKU)
+  const duplicateGroups = useMemo(() => {
+    const groups = {};
+    products.forEach(p => {
+      const base = getBaseSku(p.sku);
+      if (!base || base.length < 3) return;
+      if (!groups[base]) groups[base] = [];
+      groups[base].push(p);
+    });
+    // Filter groups that have more than one product
+    return Object.entries(groups)
+      .filter(([_, group]) => group.length > 1)
+      .map(([base, group]) => ({ base, group }));
+  }, [products]);
+
+  const handleMerge = async (targetId, sourceId) => {
+    if (!targetId || !sourceId) {
+      alert('Seleziona entrambi i prodotti per eseguire l\'unione.');
+      return;
+    }
+    if (targetId === sourceId) {
+      alert('Impossibile unire un prodotto con se stesso.');
+      return;
+    }
+
+    const source = products.find(p => p.id === sourceId);
+    const target = products.find(p => p.id === targetId);
+    
+    if (!confirm(`Sei sicuro di voler unire il prodotto "${source?.name}" (${source?.sku}) nel prodotto "${target?.name}" (${target?.sku})?\n\nTutte le righe di documenti storici verranno riassociate e le giacenze sommate. Il prodotto sorgente verrà cancellato.`)) {
+      return;
+    }
+
+    setMerging(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/products/merge`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ targetProductId: targetId, sourceProductId: sourceId })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'Errore durante l\'unione.');
+      }
+
+      alert('Prodotti uniti con successo!');
+      if (loadAllData) {
+        await loadAllData();
+      }
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setMerging(false);
+    }
+  };
 
   // Filter lists
   const vintages = useMemo(() => {
@@ -137,12 +204,146 @@ export default function Products({ products, onSave, onDelete }) {
             <Download size={18} />
             <span>Esporta CSV</span>
           </button>
-          <button className="btn btn-primary" onClick={openAddModal}>
-            <Plus size={18} />
-            <span>Aggiungi Vino</span>
-          </button>
+          {isMaster && (
+            <>
+              <button 
+                className={`btn ${showMergePanel ? 'btn-primary' : 'btn-secondary'}`} 
+                onClick={() => setShowMergePanel(!showMergePanel)}
+              >
+                <span>Gestione Duplicati</span>
+              </button>
+              <button className="btn btn-primary" onClick={openAddModal}>
+                <Plus size={18} />
+                <span>Aggiungi Vino</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
+
+      {isMaster && showMergePanel && (
+        <div className="glass-card" style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '20px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
+          <div className="flex-between">
+            <h3 style={{ color: 'var(--accent-light)' }}>Risoluzione Prodotti Duplicati (SKU Simili)</h3>
+            <button className="btn btn-sm btn-secondary" onClick={() => setShowMergePanel(false)}>Chiudi</button>
+          </div>
+          
+          <div className="grid-2" style={{ gap: '24px' }}>
+            {/* Automatic detection list */}
+            <div style={{ borderRight: '1px solid var(--border-color)', paddingRight: '20px' }}>
+              <h4>Duplicati Rilevati Automaticamente</h4>
+              <p className="muted-text" style={{ fontSize: '0.85rem', marginBottom: '12px' }}>
+                Il sistema analizza gli SKU che differiscono solo nella parte finale (es. varianti o lotti).
+              </p>
+              
+              <div style={{ maxHeight: '300px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {duplicateGroups.length === 0 ? (
+                  <div className="muted-text" style={{ padding: '20px', textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderRadius: '6px' }}>
+                    Nessun potenziale duplicato rilevato al momento.
+                  </div>
+                ) : (
+                  duplicateGroups.map(({ base, group }) => (
+                    <div key={base} style={{ background: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <div className="flex-between" style={{ marginBottom: '8px' }}>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>Gruppo SKU Base: <code>{base}</code></span>
+                        <span className="badge badge-warning" style={{ fontSize: '0.75rem' }}>{group.length} duplicati</span>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        {group.map(prod => (
+                          <div key={prod.id} className="flex-between" style={{ padding: '6px 8px', background: 'rgba(0,0,0,0.15)', borderRadius: '4px', fontSize: '0.8rem' }}>
+                            <div>
+                              <span>{prod.name} ({prod.vintage})</span>
+                              <br />
+                              <span className="muted-text">SKU: <code>{prod.sku}</code> | Giac: {prod.stock_quantity} Btg</span>
+                            </div>
+                            <button 
+                              className="btn btn-xs btn-primary"
+                              style={{ padding: '4px 8px', fontSize: '0.75rem' }}
+                              disabled={merging}
+                              onClick={async () => {
+                                const targetId = prod.id;
+                                const sources = group.filter(p => p.id !== targetId);
+                                if (sources.length > 0) {
+                                  for (const src of sources) {
+                                    await handleMerge(targetId, src.id);
+                                  }
+                                }
+                              }}
+                            >
+                              Mantieni questo
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            {/* Manual merging */}
+            <div>
+              <h4>Unione Manuale Prodotti</h4>
+              <p className="muted-text" style={{ fontSize: '0.85rem', marginBottom: '16px' }}>
+                Seleziona manualmente un prodotto principale da conservare e un prodotto duplicato da fondere.
+              </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="form-group">
+                  <label>Prodotto Principale (da mantenere) *</label>
+                  <select 
+                    className="erp-select"
+                    id="merge-target-select"
+                    defaultValue=""
+                  >
+                    <option value="">-- Seleziona Prodotto Principale --</option>
+                    {products.map(p => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} {p.vintage} ({p.sku}) - Giac: {p.stock_quantity}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Prodotto Duplicato (da eliminare ed unire) *</label>
+                  <select 
+                    className="erp-select"
+                    id="merge-source-select"
+                    defaultValue=""
+                  >
+                    <option value="">-- Seleziona Prodotto Duplicato --</option>
+                    {products.map(p => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} {p.vintage} ({p.sku}) - Giac: {p.stock_quantity}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', background: 'rgba(244,63,94,0.05)', padding: '10px 14px', borderRadius: '6px', border: '1px solid rgba(244,63,94,0.15)', marginTop: '8px' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--status-danger)' }}>
+                    <strong>Attenzione:</strong> Le righe dei documenti storici saranno spostate sul prodotto principale. La giacenza sarà sommata e il prodotto duplicato verrà rimosso permanentemente dal catalogo.
+                  </span>
+                </div>
+
+                <button 
+                  className="btn btn-primary"
+                  style={{ alignSelf: 'flex-start', marginTop: '8px' }}
+                  disabled={merging}
+                  onClick={() => {
+                    const targetVal = document.getElementById('merge-target-select').value;
+                    const sourceVal = document.getElementById('merge-source-select').value;
+                    handleMerge(targetVal, sourceVal);
+                  }}
+                >
+                  {merging ? 'Elaborazione...' : 'Unisci Prodotti'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Filter Row */}
       <div className="glass-card search-filter-row">
@@ -197,7 +398,7 @@ export default function Products({ products, onSave, onDelete }) {
               <th>Prezzo Vend. Lordo</th>
               <th>Tipo Prezzo</th>
               <th>Giacenza</th>
-              <th style={{ textAlign: 'right' }}>Azioni</th>
+              {isMaster && <th style={{ textAlign: 'right' }}>Azioni</th>}
             </tr>
           </thead>
           <tbody>
@@ -241,16 +442,18 @@ export default function Products({ products, onSave, onDelete }) {
                       {prod.stock_quantity} Btg
                     </span>
                   </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div className="flex-row" style={{ justifyContent: 'flex-end', gap: '4px' }}>
-                      <button className="btn btn-ghost btn-sm" onClick={() => openEditModal(prod)} style={{ padding: '6px' }}>
-                        <Edit2 size={16} />
-                      </button>
-                      <button className="btn btn-ghost btn-sm btn-danger" onClick={() => handleDelete(prod.id)} style={{ padding: '6px' }}>
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
+                  {isMaster && (
+                    <td style={{ textAlign: 'right' }}>
+                      <div className="flex-row" style={{ justifyContent: 'flex-end', gap: '4px' }}>
+                        <button className="btn btn-ghost btn-sm" onClick={() => openEditModal(prod)} style={{ padding: '6px' }}>
+                          <Edit2 size={16} />
+                        </button>
+                        <button className="btn btn-ghost btn-sm btn-danger" onClick={() => handleDelete(prod.id)} style={{ padding: '6px' }}>
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))
             )}

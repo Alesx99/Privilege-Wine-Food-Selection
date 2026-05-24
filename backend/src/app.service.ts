@@ -149,6 +149,182 @@ export class AppService {
     return true;
   }
 
+  getBaseSku(sku: string): string {
+    if (!sku) return '';
+    return sku.trim().toUpperCase().replace(/[-/_.]?[a-zA-Z0-9]{1,2}$/, '');
+  }
+
+  async mergeProducts(targetProductId: string, sourceProductId: string): Promise<any> {
+    if (targetProductId === sourceProductId) {
+      throw new BadRequestException('Impossibile unire un prodotto con se stesso.');
+    }
+
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+
+      const { data: targetProduct, error: targetError } = await client
+        .from('products')
+        .select('*')
+        .eq('id', targetProductId)
+        .single();
+      const { data: sourceProduct, error: sourceError } = await client
+        .from('products')
+        .select('*')
+        .eq('id', sourceProductId)
+        .single();
+
+      if (targetError || !targetProduct) throw new NotFoundException('Prodotto di destinazione non trovato');
+      if (sourceError || !sourceProduct) throw new NotFoundException('Prodotto sorgente non trovato');
+
+      // Trova tutti i documenti completed associati al prodotto sorgente
+      const { data: affectedItems, error: itemsErr } = await client
+        .from('document_items')
+        .select('document_id')
+        .eq('product_id', sourceProductId);
+      
+      if (itemsErr) throw new BadRequestException(itemsErr.message);
+
+      const docIds = Array.from(new Set(affectedItems?.map(item => item.document_id) || []));
+
+      let completedDocIds: string[] = [];
+      if (docIds.length > 0) {
+        const { data: affectedDocs, error: docsErr } = await client
+          .from('documents')
+          .select('id, status')
+          .in('id', docIds);
+        
+        if (docsErr) throw new BadRequestException(docsErr.message);
+        completedDocIds = affectedDocs?.filter(d => d.status === 'completed').map(d => d.id) || [];
+      }
+
+      // 1. Riporta a bozze i documenti completati coinvolti
+      for (const docId of completedDocIds) {
+        const { error: updateErr } = await client
+          .from('documents')
+          .update({ status: 'draft', updated_at: new Date().toISOString() })
+          .eq('id', docId);
+        if (updateErr) throw new BadRequestException(`Errore ripristino bozza per documento ${docId}: ` + updateErr.message);
+      }
+
+      // 2. Modifica il product_id in document_items per tutte le righe collegate a sourceProductId
+      const { error: updateItemsErr } = await client
+        .from('document_items')
+        .update({ product_id: targetProductId })
+        .eq('product_id', sourceProductId);
+      
+      if (updateItemsErr) throw new BadRequestException('Errore aggiornamento righe documento: ' + updateItemsErr.message);
+
+      // 3. Riporta a completato i documenti
+      for (const docId of completedDocIds) {
+        const { error: updateErr } = await client
+          .from('documents')
+          .update({ status: 'completed', updated_at: new Date().toISOString() })
+          .eq('id', docId);
+        if (updateErr) throw new BadRequestException(`Errore ricompletamento documento ${docId}: ` + updateErr.message);
+      }
+
+      // 4. Aggiorna giacenze multi-deposito in warehouse_stock
+      const { data: sourceWhStock, error: sourceWhStockErr } = await client
+        .from('warehouse_stock')
+        .select('*')
+        .eq('product_id', sourceProductId);
+      
+      if (sourceWhStockErr) throw new BadRequestException(sourceWhStockErr.message);
+
+      for (const sourceStock of sourceWhStock || []) {
+        const { data: targetStock, error: targetStockErr } = await client
+          .from('warehouse_stock')
+          .select('*')
+          .eq('product_id', targetProductId)
+          .eq('warehouse_id', sourceStock.warehouse_id)
+          .maybeSingle();
+
+        if (targetStock) {
+          const newQty = (targetStock.stock_quantity || 0) + (sourceStock.stock_quantity || 0);
+          await client
+            .from('warehouse_stock')
+            .update({ stock_quantity: newQty, updated_at: new Date().toISOString() })
+            .eq('product_id', targetProductId)
+            .eq('warehouse_id', sourceStock.warehouse_id);
+          
+          await client
+            .from('warehouse_stock')
+            .delete()
+            .eq('product_id', sourceProductId)
+            .eq('warehouse_id', sourceStock.warehouse_id);
+        } else {
+          await client
+            .from('warehouse_stock')
+            .update({ product_id: targetProductId, updated_at: new Date().toISOString() })
+            .eq('product_id', sourceProductId)
+            .eq('warehouse_id', sourceStock.warehouse_id);
+        }
+      }
+
+      // 5. Aggiorna stock totale consolidato su products
+      const newTotalStock = (targetProduct.stock_quantity || 0) + (sourceProduct.stock_quantity || 0);
+      const { error: finalProductErr } = await client
+        .from('products')
+        .update({ stock_quantity: newTotalStock, updated_at: new Date().toISOString() })
+        .eq('id', targetProductId);
+      
+      if (finalProductErr) throw new BadRequestException(finalProductErr.message);
+
+      // 6. Elimina il prodotto sorgente
+      const { error: deleteProductErr } = await client
+        .from('products')
+        .delete()
+        .eq('id', sourceProductId);
+      
+      if (deleteProductErr) throw new BadRequestException('Errore eliminazione prodotto sorgente: ' + deleteProductErr.message);
+
+      return { success: true, mergedInto: targetProductId };
+    }
+
+    // Mock DB locale
+    const targetProduct = this.mockStore.products.find(p => p.id === targetProductId);
+    const sourceProduct = this.mockStore.products.find(p => p.id === sourceProductId);
+
+    if (!targetProduct) throw new NotFoundException('Prodotto di destinazione non trovato');
+    if (!sourceProduct) throw new NotFoundException('Prodotto sorgente non trovato');
+
+    this.mockStore.documentItems = this.mockStore.documentItems.map(item => {
+      if (item.product_id === sourceProductId) {
+        return { ...item, product_id: targetProductId };
+      }
+      return item;
+    });
+
+    const sourceStocks = this.mockStore.warehouseStock.filter(ws => ws.product_id === sourceProductId);
+    sourceStocks.forEach(sourceStock => {
+      const targetStock = this.mockStore.warehouseStock.find(
+        ws => ws.product_id === targetProductId && ws.warehouse_id === sourceStock.warehouse_id
+      );
+      if (targetStock) {
+        targetStock.stock_quantity += sourceStock.stock_quantity;
+        targetStock.updated_at = new Date().toISOString();
+      } else {
+        this.mockStore.warehouseStock.push({
+          product_id: targetProductId,
+          warehouse_id: sourceStock.warehouse_id,
+          stock_quantity: sourceStock.stock_quantity,
+          updated_at: new Date().toISOString()
+        });
+      }
+    });
+
+    this.mockStore.warehouseStock = this.mockStore.warehouseStock.filter(ws => ws.product_id !== sourceProductId);
+
+    targetProduct.stock_quantity += sourceProduct.stock_quantity;
+    targetProduct.updated_at = new Date().toISOString();
+
+    this.mockStore.products = this.mockStore.products.filter(p => p.id !== sourceProductId);
+    this.mockStore.recalculateProductPrices();
+
+    return { success: true, mergedInto: targetProductId };
+  }
+
+
   // ==========================================
   // 2. MODULO PARTNER (ANAGRAFICHE)
   // ==========================================
@@ -743,7 +919,6 @@ export class AppService {
         const existingProduct = products.find(p => p.sku === sku);
         if (existingProduct) {
           product = existingProduct;
-          // Se il prodotto esiste ma non ha un costo scontato registrato ed ora l'abbiamo rilevato, aggiorniamolo
           const itemDiscountedCost = discount > 0 && discount < 100 ? Number((price * (1 - discount / 100)).toFixed(2)) : null;
           if (itemDiscountedCost && !product.discounted_cost) {
             await this.saveProduct({
@@ -752,19 +927,44 @@ export class AppService {
             });
           }
         } else {
-          const itemDiscountedCost = discount > 0 && discount < 100 ? Number((price * (1 - discount / 100)).toFixed(2)) : null;
-          product = await this.saveProduct({
-            sku,
-            name: desc,
-            vintage,
-            format,
-            base_cost: price,
-            discounted_cost: itemDiscountedCost,
-            markup_percent: 30.00,
-            vat_percent: vat,
-            is_manual_price: false,
-            stock_quantity: 0,
-          });
+          // Prova il matching tramite base SKU per rilevare e accorpare duplicati automaticamente
+          const baseNew = this.getBaseSku(sku);
+          let foundSimilar = false;
+          if (baseNew && baseNew.length >= 3) {
+            const similarProduct = products.find(p => {
+              const baseExisting = this.getBaseSku(p.sku);
+              return baseExisting && baseExisting === baseNew;
+            });
+            if (similarProduct) {
+              product = similarProduct;
+              foundSimilar = true;
+              this.logger.log(`XML Importer: matched SKU "${sku}" to existing product "${similarProduct.name}" (SKU: "${similarProduct.sku}") by base SKU similarity.`);
+            }
+          }
+
+          if (foundSimilar) {
+            const itemDiscountedCost = discount > 0 && discount < 100 ? Number((price * (1 - discount / 100)).toFixed(2)) : null;
+            if (itemDiscountedCost && !product.discounted_cost) {
+              await this.saveProduct({
+                ...product,
+                discounted_cost: itemDiscountedCost
+              });
+            }
+          } else {
+            const itemDiscountedCost = discount > 0 && discount < 100 ? Number((price * (1 - discount / 100)).toFixed(2)) : null;
+            product = await this.saveProduct({
+              sku,
+              name: desc,
+              vintage,
+              format,
+              base_cost: price,
+              discounted_cost: itemDiscountedCost,
+              markup_percent: 30.00,
+              vat_percent: vat,
+              is_manual_price: false,
+              stock_quantity: 0,
+            });
+          }
         }
 
         items.push({
@@ -779,14 +979,44 @@ export class AppService {
         });
       }
 
+      // Aggregazione automatica all'interno del documento per prodotti accoppiati allo stesso ID
+      const aggregatedItemsMap = new Map<string, any>();
+      for (const item of items) {
+        const prodId = item.product_id;
+        if (aggregatedItemsMap.has(prodId)) {
+          const existing = aggregatedItemsMap.get(prodId);
+          const newQty = existing.quantity + item.quantity;
+          
+          const existingNet = existing.quantity * existing.unit_price * (1 - existing.discount_percent / 100);
+          const itemNet = item.quantity * item.unit_price * (1 - item.discount_percent / 100);
+          const totalNet = existingNet + itemNet;
+          
+          const existingGross = existing.quantity * existing.unit_price;
+          const itemGross = item.quantity * item.unit_price;
+          const totalGross = existingGross + itemGross;
+          
+          const averageUnitPrice = totalGross / newQty;
+          const effectiveDiscount = totalGross > 0 ? Number(((1 - totalNet / totalGross) * 100).toFixed(2)) : 0;
+          
+          existing.quantity = newQty;
+          existing.unit_price = Number(averageUnitPrice.toFixed(2));
+          existing.discount_percent = effectiveDiscount;
+          
+          this.logger.log(`XML Importer: aggregated duplicate invoice line for product ID ${prodId}. New Qty: ${newQty}, Weighted Price: ${existing.unit_price}, Discount: ${existing.discount_percent}%`);
+        } else {
+          aggregatedItemsMap.set(prodId, { ...item });
+        }
+      }
+      const aggregatedItems = Array.from(aggregatedItemsMap.values());
+
       // Create Document in Draft status
       const newDocument = await this.saveDocument({
         type: 'invoice_purchase',
         number: docNumber,
         date: finalDocDate,
         partner_id: supplier.id,
-        status: 'draft', // Saved as draft so user can review it before completing
-        items,
+        status: 'draft',
+        items: aggregatedItems,
       });
 
       return newDocument;

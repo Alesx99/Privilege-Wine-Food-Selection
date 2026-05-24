@@ -11,8 +11,10 @@ export default function Documents({
   onSave, 
   onDelete, 
   onUpdateStatus,
-  onApproveAllDrafts
+  onApproveAllDrafts,
+  userRole
 }) {
+  const isMaster = userRole === 'master';
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
 
@@ -231,47 +233,51 @@ export default function Documents({
                 <span>Accise e-AD</span>
               </button>
               
-              {viewingDoc.status === 'draft' ? (
-                <button 
-                  className="btn btn-primary btn-sm"
-                  style={{ background: 'var(--status-success)', borderColor: 'transparent' }}
-                  onClick={() => changeStatus(viewingDoc.id, 'completed')}
-                >
-                  <CheckCircle2 size={16} />
-                  <span>Approva & Carica Stock</span>
-                </button>
-              ) : (
-                <button 
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => changeStatus(viewingDoc.id, 'draft')}
-                >
-                  <RotateCcw size={16} />
-                  <span>Riporta a Bozze</span>
-                </button>
-              )}
+              {isMaster && (
+                <>
+                  {viewingDoc.status === 'draft' ? (
+                    <button 
+                      className="btn btn-primary btn-sm"
+                      style={{ background: 'var(--status-success)', borderColor: 'transparent' }}
+                      onClick={() => changeStatus(viewingDoc.id, 'completed')}
+                    >
+                      <CheckCircle2 size={16} />
+                      <span>Approva & Carica Stock</span>
+                    </button>
+                  ) : (
+                    <button 
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => changeStatus(viewingDoc.id, 'draft')}
+                    >
+                      <RotateCcw size={16} />
+                      <span>Riporta a Bozze</span>
+                    </button>
+                  )}
 
-              {viewingDoc.status !== 'cancelled' && (
-                <button 
-                  className="btn btn-danger btn-sm"
-                  onClick={() => changeStatus(viewingDoc.id, 'cancelled')}
-                >
-                  <XCircle size={16} />
-                  <span>Annulla Doc.</span>
-                </button>
-              )}
+                  {viewingDoc.status !== 'cancelled' && (
+                    <button 
+                      className="btn btn-danger btn-sm"
+                      onClick={() => changeStatus(viewingDoc.id, 'cancelled')}
+                    >
+                      <XCircle size={16} />
+                      <span>Annulla Doc.</span>
+                    </button>
+                  )}
 
-              <button 
-                className="btn btn-danger btn-sm"
-                onClick={async () => {
-                  if (confirm('Sei sicuro di voler cancellare definitivamente questo documento? Lo stock verrà ricalcolato.')) {
-                    await onDelete(viewingDoc.id);
-                    setViewingDoc(null);
-                    setSelectedDocId(null);
-                  }
-                }}
-              >
-                <Trash2 size={16} />
-              </button>
+                  <button 
+                    className="btn btn-danger btn-sm"
+                    onClick={async () => {
+                      if (confirm('Sei sicuro di voler cancellare definitivamente questo documento? Lo stock verrà ricalcolato.')) {
+                        await onDelete(viewingDoc.id);
+                        setViewingDoc(null);
+                        setSelectedDocId(null);
+                      }
+                    }}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
@@ -529,24 +535,28 @@ export default function Documents({
               <p>Emissione e storico di Fatture Vendita/Acquisto, DDT e Ordini Fornitore</p>
             </div>
             <div className="flex-row" style={{ gap: '10px' }}>
-              {draftCount > 0 && (
-                <button 
-                  className="btn btn-secondary" 
-                  style={{ borderColor: 'rgba(74,222,128,0.4)', color: 'var(--status-success)', display: 'flex', alignItems: 'center', gap: '8px' }}
-                  onClick={() => {
-                    if (window.confirm(`Sei sicuro di voler approvare ed eseguire il carico/scarico stock per tutte le ${draftCount} bozze di documenti presenti?`)) {
-                      onApproveAllDrafts();
-                    }
-                  }}
-                >
-                  <CheckCircle2 size={18} />
-                  <span>Approva Bulk Bozze ({draftCount})</span>
-                </button>
+              {isMaster && (
+                <>
+                  {draftCount > 0 && (
+                    <button 
+                      className="btn btn-secondary" 
+                      style={{ borderColor: 'rgba(74,222,128,0.4)', color: 'var(--status-success)', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      onClick={() => {
+                        if (window.confirm(`Sei sicuro di voler approvare ed eseguire il carico/scarico stock per tutte le ${draftCount} bozze di documenti presenti?`)) {
+                          onApproveAllDrafts();
+                        }
+                      }}
+                    >
+                      <CheckCircle2 size={18} />
+                      <span>Approva Bulk Bozze ({draftCount})</span>
+                    </button>
+                  )}
+                  <button className="btn btn-primary" onClick={startCreate}>
+                    <Plus size={18} />
+                    <span>Nuovo Documento</span>
+                  </button>
+                </>
               )}
-              <button className="btn btn-primary" onClick={startCreate}>
-                <Plus size={18} />
-                <span>Nuovo Documento</span>
-              </button>
             </div>
           </div>
 

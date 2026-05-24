@@ -16,7 +16,8 @@ const partnerSchema = z.object({
   price_list_id: z.string().optional().or(z.literal(''))
 });
 
-export default function Partners({ partners, priceLists, onSave, onDelete }) {
+export default function Partners({ partners, priceLists, onSave, onDelete, userRole }) {
+  const isMaster = userRole === 'master';
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   
@@ -140,10 +141,12 @@ export default function Partners({ partners, priceLists, onSave, onDelete }) {
             <Download size={18} />
             <span>Esporta CSV</span>
           </button>
-          <button className="btn btn-primary" onClick={openAddModal}>
-            <Plus size={18} />
-            <span>Nuova Anagrafica</span>
-          </button>
+          {isMaster && (
+            <button className="btn btn-primary" onClick={openAddModal}>
+              <Plus size={18} />
+              <span>Nuova Anagrafica</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -183,7 +186,7 @@ export default function Partners({ partners, priceLists, onSave, onDelete }) {
               <th>Codice SDI</th>
               <th>Email</th>
               <th>Listino Ricarico</th>
-              <th style={{ textAlign: 'right' }}>Azioni</th>
+              {isMaster && <th style={{ textAlign: 'right' }}>Azioni</th>}
             </tr>
           </thead>
           <tbody>
@@ -215,16 +218,18 @@ export default function Partners({ partners, priceLists, onSave, onDelete }) {
                       </span>
                     )}
                   </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div className="flex-row" style={{ justifyContent: 'flex-end', gap: '4px' }}>
-                      <button className="btn btn-ghost btn-sm" onClick={() => openEditModal(p)} style={{ padding: '6px' }}>
-                        <Edit2 size={16} />
-                      </button>
-                      <button className="btn btn-ghost btn-sm btn-danger" onClick={() => handleDelete(p.id)} style={{ padding: '6px' }}>
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
+                  {isMaster && (
+                    <td style={{ textAlign: 'right' }}>
+                      <div className="flex-row" style={{ justifyContent: 'flex-end', gap: '4px' }}>
+                        <button className="btn btn-ghost btn-sm" onClick={() => openEditModal(p)} style={{ padding: '6px' }}>
+                          <Edit2 size={16} />
+                        </button>
+                        <button className="btn btn-ghost btn-sm btn-danger" onClick={() => handleDelete(p.id)} style={{ padding: '6px' }}>
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))
             )}

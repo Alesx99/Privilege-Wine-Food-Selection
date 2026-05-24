@@ -15,6 +15,8 @@ export default function Login({ onLogin, onCancel }) {
 
     if (trimmedUser === 'master' && trimmedPass === 'master') {
       onLogin('master');
+    } else if (trimmedUser === 'autorizzato' && trimmedPass === 'autorizzato') {
+      onLogin('viewer');
     } else {
       setError('Credenziali non valide. Riprova.');
     }
@@ -72,7 +74,7 @@ export default function Login({ onLogin, onCancel }) {
 
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <p className="muted-text" style={{ fontSize: '0.75rem', textAlign: 'center' }}>
-            💡 Accedi come <strong>master</strong> (pass: <code>master</code>) per la gestione commerciale completa.
+            💡 Accedi come <strong>master</strong> (pass: <code>master</code>) o come <strong>autorizzato</strong> (pass: <code>autorizzato</code>) per sola lettura.
           </p>
           <p className="muted-text" style={{ fontSize: '0.65rem', textAlign: 'center', opacity: 0.6, marginTop: '4px', borderTop: '1px dashed rgba(255,255,255,0.05)', paddingTop: '8px' }}>
             © Alesx99. Tutti i diritti riservati. Proprietà esclusiva.

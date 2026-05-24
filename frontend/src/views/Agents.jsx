@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { API_BASE_URL, handleFetchError } from '../config';
 import { Users, DollarSign, Plus, Check, Loader2, Sparkles } from 'lucide-react';
 
-export default function Agents() {
+export default function Agents({ userRole }) {
+  const isMaster = userRole === 'master';
   const [agents, setAgents] = useState([]);
   const [commissions, setCommissions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -135,10 +136,12 @@ export default function Agents() {
           <h1>Gestione Agenti & Provvigioni</h1>
           <p>Supervisiona la rete commerciale, configura i ricarichi e monitora lo scadenziario delle provvigioni cantina</p>
         </div>
-        <button className="btn btn-primary" onClick={handleAddNew}>
-          <Plus size={16} />
-          <span>Nuovo Agente</span>
-        </button>
+        {isMaster && (
+          <button className="btn btn-primary" onClick={handleAddNew}>
+            <Plus size={16} />
+            <span>Nuovo Agente</span>
+          </button>
+        )}
       </div>
 
       {/* Stats Cards */}
@@ -195,7 +198,7 @@ export default function Agents() {
                   <th>Nome Agente</th>
                   <th>E-mail</th>
                   <th>Provvigione Base</th>
-                  <th style={{ textAlign: 'right' }}>Azioni</th>
+                  {isMaster && <th style={{ textAlign: 'right' }}>Azioni</th>}
                 </tr>
               </thead>
               <tbody>
@@ -215,11 +218,13 @@ export default function Agents() {
                           {agent.default_commission_percent}%
                         </span>
                       </td>
-                      <td style={{ textAlign: 'right' }}>
-                        <button className="btn btn-secondary btn-sm" onClick={() => handleEdit(agent)}>
-                          Modifica
-                        </button>
-                      </td>
+                      {isMaster && (
+                        <td style={{ textAlign: 'right' }}>
+                          <button className="btn btn-secondary btn-sm" onClick={() => handleEdit(agent)}>
+                            Modifica
+                          </button>
+                        </td>
+                      )}
                     </tr>
                   ))
                 )}

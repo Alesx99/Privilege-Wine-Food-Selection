@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { API_BASE_URL, handleFetchError } from '../config';
 import { Landmark, UploadCloud, FileCode, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
 
-export default function Reconciliation() {
+export default function Reconciliation({ userRole }) {
+  const isMaster = userRole === 'master';
   const [fileContent, setFileContent] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -97,44 +98,54 @@ export default function Reconciliation() {
       </div>
 
       {results.length === 0 ? (
-        /* Upload Area */
-        <div 
-          className={`glass-card import-zone ${isDragging ? 'dragging' : ''}`}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-          onClick={() => document.getElementById('cbi-input-file').click()}
-          style={{ padding: '60px 40px', textAlign: 'center' }}
-        >
-          <input 
-            type="file" 
-            id="cbi-input-file" 
-            style={{ display: 'none' }} 
-            accept=".txt,.xml" 
-            onChange={handleFileSelect}
-          />
-          <div className="import-icon">
-            <Landmark size={32} />
-          </div>
-          <div>
-            <h3>Trascina qui il file CBI della banca (.txt o .xml)</h3>
-            <p className="muted-text" style={{ marginTop: '6px' }}>
-              Oppure clicca per sfogliare i tuoi file. Supporta estratti conto a tracciato CBI a 120 caratteri.
+        !isMaster ? (
+          <div className="glass-card" style={{ padding: '60px 40px', textAlign: 'center', border: '1px dashed var(--border-color)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+            <Landmark size={48} style={{ color: 'var(--status-warning)' }} />
+            <h3>Modalità Sola Lettura</h3>
+            <p className="muted-text">
+              Non disponi delle autorizzazioni necessarie per importare estratti conto ed eseguire riconciliazioni bancarie.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '20px' }}>
-            <button 
-              type="button" 
-              className="btn btn-secondary btn-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleLoadMockCbi();
-              }}
-            >
-              Genera Estratto Conto CBI di Esempio
-            </button>
+        ) : (
+          /* Upload Area */
+          <div 
+            className={`glass-card import-zone ${isDragging ? 'dragging' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={() => document.getElementById('cbi-input-file').click()}
+            style={{ padding: '60px 40px', textAlign: 'center' }}
+          >
+            <input 
+              type="file" 
+              id="cbi-input-file" 
+              style={{ display: 'none' }} 
+              accept=".txt,.xml" 
+              onChange={handleFileSelect}
+            />
+            <div className="import-icon">
+              <Landmark size={32} />
+            </div>
+            <div>
+              <h3>Trascina qui il file CBI della banca (.txt o .xml)</h3>
+              <p className="muted-text" style={{ marginTop: '6px' }}>
+                Oppure clicca per sfogliare i tuoi file. Supporta estratti conto a tracciato CBI a 120 caratteri.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '20px' }}>
+              <button 
+                type="button" 
+                className="btn btn-secondary btn-sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleLoadMockCbi();
+                }}
+              >
+                Genera Estratto Conto CBI di Esempio
+              </button>
+            </div>
           </div>
-        </div>
+        )
       ) : (
         /* Reconcile Matcher Dashboard */
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -204,7 +215,11 @@ export default function Reconciliation() {
                             </span>
                           </td>
                           <td style={{ textAlign: 'right' }}>
-                            {res.status === 'reconciled' ? (
+                            {!isMaster ? (
+                              <button className="btn btn-secondary btn-sm" disabled>
+                                Sola Lettura
+                              </button>
+                            ) : res.status === 'reconciled' ? (
                               <button className="btn btn-primary btn-sm" onClick={() => handleConfirmReconcile(res.matchedInvoiceNumber)}>
                                 <CheckCircle size={14} style={{ marginRight: '4px' }} />
                                 <span>Riconcilia</span>

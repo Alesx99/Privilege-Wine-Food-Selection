@@ -12,7 +12,8 @@ import {
   Loader2 
 } from 'lucide-react';
 
-export default function ImportArea({ onImportSuccess, setActivePage, setSelectedDocId }) {
+export default function ImportArea({ onImportSuccess, setActivePage, setSelectedDocId, userRole }) {
+  const isMaster = userRole === 'master';
   const [activeTab, setActiveTab] = useState('single'); // 'single' | 'bulk'
 
   // ==========================================
@@ -420,37 +421,47 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
         // =====================================================================
         <>
           {!parsedInvoice ? (
-            /* Drag and Drop Zone */
-            <div 
-              className={`glass-card import-zone ${isDragging ? 'dragging' : ''}`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              onClick={() => document.getElementById('xml-input-file').click()}
-            >
-              <input 
-                type="file" 
-                id="xml-input-file" 
-                style={{ display: 'none' }} 
-                accept=".xml" 
-                onChange={handleFileSelect}
-              />
-              <div className="import-icon">
-                <UploadCloud size={32} />
-              </div>
-              <div>
-                <h3>Trascina qui il file XML (.xml)</h3>
-                <p className="muted-text" style={{ marginTop: '6px' }}>
-                  Oppure clicca per sfogliare i tuoi file. Supporta il formato Fattura Elettronica FPR12.
+            !isMaster ? (
+              <div className="glass-card" style={{ padding: '60px 40px', textAlign: 'center', border: '1px dashed var(--border-color)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                <ShieldAlert size={48} style={{ color: 'var(--status-warning)' }} />
+                <h3>Modalità Sola Lettura</h3>
+                <p className="muted-text">
+                  Non disponi delle autorizzazioni necessarie per importare nuovi file XML e caricare lo stock.
                 </p>
               </div>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '16px', backgroundColor: 'rgba(255,255,255,0.03)', padding: '8px 16px', borderRadius: '4px' }}>
-                <ShieldAlert size={16} style={{ color: 'var(--accent-light)' }} />
-                <span className="muted-text" style={{ fontSize: '0.8rem' }}>
-                  I dati fiscali del fornitore e le etichette dei vini verranno compilati automaticamente.
-                </span>
+            ) : (
+              /* Drag and Drop Zone */
+              <div 
+                className={`glass-card import-zone ${isDragging ? 'dragging' : ''}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById('xml-input-file').click()}
+              >
+                <input 
+                  type="file" 
+                  id="xml-input-file" 
+                  style={{ display: 'none' }} 
+                  accept=".xml" 
+                  onChange={handleFileSelect}
+                />
+                <div className="import-icon">
+                  <UploadCloud size={32} />
+                </div>
+                <div>
+                  <h3>Trascina qui il file XML (.xml)</h3>
+                  <p className="muted-text" style={{ marginTop: '6px' }}>
+                    Oppure clicca per sfogliare i tuoi file. Supporta il formato Fattura Elettronica FPR12.
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '16px', backgroundColor: 'rgba(255,255,255,0.03)', padding: '8px 16px', borderRadius: '4px' }}>
+                  <ShieldAlert size={16} style={{ color: 'var(--accent-light)' }} />
+                  <span className="muted-text" style={{ fontSize: '0.8rem' }}>
+                    I dati fiscali del fornitore e le etichette dei vini verranno compilati automaticamente.
+                  </span>
+                </div>
               </div>
-            </div>
+            )
           ) : (
             /* Preview Zone */
             <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -553,38 +564,48 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
         // =====================================================================
         <>
           {bulkFiles.length === 0 ? (
-            /* Drag and Drop Zone Bulk */
-            <div 
-              className={`glass-card import-zone ${isDraggingBulk ? 'dragging' : ''}`}
-              onDragOver={handleDragOverBulk}
-              onDragLeave={handleDragLeaveBulk}
-              onDrop={handleDropBulk}
-              onClick={() => document.getElementById('xml-input-bulk').click()}
-            >
-              <input 
-                type="file" 
-                id="xml-input-bulk" 
-                style={{ display: 'none' }} 
-                accept=".xml" 
-                multiple
-                onChange={handleFileSelectBulk}
-              />
-              <div className="import-icon">
-                <UploadCloud size={32} style={{ color: 'var(--accent-light)' }} />
-              </div>
-              <div>
-                <h3>Seleziona o trascina più file XML (.xml)</h3>
-                <p className="muted-text" style={{ marginTop: '6px' }}>
-                  Supporta il caricamento simultaneo di decine o centinaia di fatture elettroniche di acquisto.
+            !isMaster ? (
+              <div className="glass-card" style={{ padding: '60px 40px', textAlign: 'center', border: '1px dashed var(--border-color)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                <ShieldAlert size={48} style={{ color: 'var(--status-warning)' }} />
+                <h3>Modalità Sola Lettura</h3>
+                <p className="muted-text">
+                  Non disponi delle autorizzazioni necessarie per importare nuovi file XML e caricare lo stock.
                 </p>
               </div>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '16px', backgroundColor: 'rgba(255,255,255,0.03)', padding: '8px 16px', borderRadius: '4px' }}>
-                <ShieldAlert size={16} style={{ color: 'var(--accent-light)' }} />
-                <span className="muted-text" style={{ fontSize: '0.8rem' }}>
-                  I file verranno processati in sequenza per garantire l'integrità del database.
-                </span>
+            ) : (
+              /* Drag and Drop Zone Bulk */
+              <div 
+                className={`glass-card import-zone ${isDraggingBulk ? 'dragging' : ''}`}
+                onDragOver={handleDragOverBulk}
+                onDragLeave={handleDragLeaveBulk}
+                onDrop={handleDropBulk}
+                onClick={() => document.getElementById('xml-input-bulk').click()}
+              >
+                <input 
+                  type="file" 
+                  id="xml-input-bulk" 
+                  style={{ display: 'none' }} 
+                  accept=".xml" 
+                  multiple
+                  onChange={handleFileSelectBulk}
+                />
+                <div className="import-icon">
+                  <UploadCloud size={32} style={{ color: 'var(--accent-light)' }} />
+                </div>
+                <div>
+                  <h3>Seleziona o trascina più file XML (.xml)</h3>
+                  <p className="muted-text" style={{ marginTop: '6px' }}>
+                    Supporta il caricamento simultaneo di decine o centinaia di fatture elettroniche di acquisto.
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '16px', backgroundColor: 'rgba(255,255,255,0.03)', padding: '8px 16px', borderRadius: '4px' }}>
+                  <ShieldAlert size={16} style={{ color: 'var(--accent-light)' }} />
+                  <span className="muted-text" style={{ fontSize: '0.8rem' }}>
+                    I file verranno processati in sequenza per garantire l'integrità del database.
+                  </span>
+                </div>
               </div>
-            </div>
+            )
           ) : (
             /* Coda dei File Caricati */
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>

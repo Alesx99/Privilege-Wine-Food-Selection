@@ -219,6 +219,8 @@ export default function App() {
             products={products}
             onSave={handleSaveProduct}
             onDelete={handleDeleteProduct}
+            userRole={userRole}
+            loadAllData={loadAllData}
           />
         );
       case 'partners':
@@ -228,6 +230,7 @@ export default function App() {
             priceLists={priceLists}
             onSave={handleSavePartner}
             onDelete={handleDeletePartner}
+            userRole={userRole}
           />
         );
       case 'documents':
@@ -242,6 +245,7 @@ export default function App() {
             onDelete={handleDeleteDocument}
             onUpdateStatus={handleUpdateDocStatus}
             onApproveAllDrafts={handleApproveAllDrafts}
+            userRole={userRole}
           />
         );
       case 'import':
@@ -250,14 +254,15 @@ export default function App() {
             onImportSuccess={loadAllData}
             setActivePage={setActivePage}
             setSelectedDocId={setSelectedDocId}
+            userRole={userRole}
           />
         );
       case 'warehouses':
-        return <Warehouses />;
+        return <Warehouses userRole={userRole} />;
       case 'agents':
-        return <Agents />;
+        return <Agents userRole={userRole} />;
       case 'reconciliation':
-        return <Reconciliation />;
+        return <Reconciliation userRole={userRole} />;
       default:
         return <div>Pagina non trovata</div>;
     }
@@ -269,8 +274,8 @@ export default function App() {
     setIsLoggingIn(false);
   };
 
-  // Se l'utente non è loggato come master, mostra il listino pubblico o la schermata di login
-  if (userRole !== 'master') {
+  // Se l'utente non è loggato come master o viewer, mostra il listino pubblico o la schermata di login
+  if (userRole !== 'master' && userRole !== 'viewer') {
     if (isLoggingIn) {
       return (
         <Login 
