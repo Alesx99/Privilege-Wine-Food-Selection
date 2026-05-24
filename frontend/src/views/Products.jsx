@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Plus, Search, Edit2, Trash2, Download } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Download, HelpCircle } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
 export default function Products({ products, onSave, onDelete, userRole, loadAllData }) {
@@ -7,6 +7,7 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
   const [search, setSearch] = useState('');
   const [vintageFilter, setVintageFilter] = useState('');
   const [formatFilter, setFormatFilter] = useState('');
+  const [showHelp, setShowHelp] = useState(false);
   
   // Duplicates panel states
   const [showMergePanel, setShowMergePanel] = useState(false);
@@ -196,9 +197,20 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
     <div className="products-view">
       <div className="page-header">
         <div>
-          <h1>Magazzino Vini</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>Magazzino Vini</span>
+            <button 
+              type="button" 
+              className="help-toggle-btn"
+              onClick={() => setShowHelp(!showHelp)}
+              title="Mostra guida"
+            >
+              <HelpCircle size={20} />
+            </button>
+          </h1>
           <p>Gestione del catalogo prodotti, prezzi e scorte di magazzino</p>
         </div>
+        
         <div className="flex-row">
           <button className="btn btn-secondary" onClick={handleExportCsv}>
             <Download size={18} />
@@ -220,6 +232,21 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
           )}
         </div>
       </div>
+
+      {showHelp && (
+        <div className="help-callout">
+          <h4><HelpCircle size={16} /> Guida Rapida - Magazzino Vini</h4>
+          <p>
+            Benvenuto nel modulo di gestione catalogo e scorte. Qui puoi:
+          </p>
+          <ul>
+            <li><strong>Prezzo Formula:</strong> Calcolato partendo dal costo unitario fornitore (base o scontato) applicando la percentuale di ricarico impostata.</li>
+            <li><strong>Prezzo Manuale:</strong> Consente di bloccare ed inserire liberamente il prezzo di vendita netto scavalcando le formule automatiche.</li>
+            <li><strong>Soglia di Sottoscorta:</strong> I prodotti con giacenza 0 compaiono in rosso, quelli sotto le 12 bottiglie in giallo per facilitare i riassortimenti.</li>
+            <li><strong>Gestione Duplicati:</strong> Unisci due schede vino con codici simili o errati. L'operazione ricalcolerà lo stock e aggiornerà lo storico dei DDT e delle fatture in automatico.</li>
+          </ul>
+        </div>
+      )}
 
       {isMaster && showMergePanel && (
         <div className="glass-card" style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '20px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>

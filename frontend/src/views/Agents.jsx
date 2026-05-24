@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { API_BASE_URL, handleFetchError } from '../config';
-import { Users, DollarSign, Plus, Check, Loader2, Sparkles } from 'lucide-react';
+import { Users, DollarSign, Plus, Check, Loader2, Sparkles, HelpCircle } from 'lucide-react';
 
 export default function Agents({ userRole }) {
   const isMaster = userRole === 'master';
   const [agents, setAgents] = useState([]);
   const [commissions, setCommissions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showHelp, setShowHelp] = useState(false);
 
   // Edit / Form state
   const [showForm, setShowForm] = useState(false);
@@ -133,7 +134,17 @@ export default function Agents({ userRole }) {
     <div className="agents-view">
       <div className="page-header" style={{ marginBottom: '24px' }}>
         <div>
-          <h1>Gestione Agenti & Provvigioni</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>Gestione Agenti & Provvigioni</span>
+            <button 
+              type="button" 
+              className="help-toggle-btn"
+              onClick={() => setShowHelp(!showHelp)}
+              title="Mostra guida"
+            >
+              <HelpCircle size={20} />
+            </button>
+          </h1>
           <p>Supervisiona la rete commerciale, configura i ricarichi e monitora lo scadenziario delle provvigioni cantina</p>
         </div>
         {isMaster && (
@@ -143,6 +154,21 @@ export default function Agents({ userRole }) {
           </button>
         )}
       </div>
+
+      {showHelp && (
+        <div className="help-callout">
+          <h4><HelpCircle size={16} /> Guida Rapida - Agenti e Provvigioni</h4>
+          <p>
+            Questo modulo consente di gestire la forza vendita esterna e calcolarne le provvigioni sulle vendite:
+          </p>
+          <ul>
+            <li><strong>Anagrafica Agenti:</strong> Definisce i recapiti di ciascun agente e la percentuale di provvigione predefinita (es. 10%).</li>
+            <li><strong>Associazione Clienti:</strong> Nella scheda dei clienti (Partners) puoi legare ciascun cliente a un agente specifico.</li>
+            <li><strong>Provvigioni Maturate:</strong> Quando completi una fattura o un DDT di vendita associati ad un cliente, il sistema calcola la provvigione sul totale imponibile netto e crea un record nello scadenziario.</li>
+            <li><strong>Stato Provvigioni:</strong> Le provvigioni possono essere monitorate come non pagate ("unpaid") o pagate ("paid") al saldo della fattura.</li>
+          </ul>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="dashboard-grid" style={{ marginBottom: '24px' }}>

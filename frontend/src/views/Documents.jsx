@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Plus, Search, FileText, Download, Trash2, CheckCircle2, RotateCcw, XCircle, ArrowLeft } from 'lucide-react';
+import { Plus, Search, FileText, Download, Trash2, CheckCircle2, RotateCcw, XCircle, ArrowLeft, HelpCircle } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
 export default function Documents({ 
@@ -17,6 +17,7 @@ export default function Documents({
   const isMaster = userRole === 'master';
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
+  const [showHelp, setShowHelp] = useState(false);
 
   const draftCount = useMemo(() => {
     return documents.filter(doc => doc.status === 'draft').length;
@@ -531,7 +532,17 @@ export default function Documents({
         <>
           <div className="page-header">
             <div>
-              <h1>Fatturazione & Documenti</h1>
+              <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>Fatturazione & Documenti</span>
+                <button 
+                  type="button" 
+                  className="help-toggle-btn"
+                  onClick={() => setShowHelp(!showHelp)}
+                  title="Mostra guida"
+                >
+                  <HelpCircle size={20} />
+                </button>
+              </h1>
               <p>Emissione e storico di Fatture Vendita/Acquisto, DDT e Ordini Fornitore</p>
             </div>
             <div className="flex-row" style={{ gap: '10px' }}>
@@ -559,6 +570,21 @@ export default function Documents({
               )}
             </div>
           </div>
+
+          {showHelp && (
+            <div className="help-callout" style={{ marginBottom: '24px' }}>
+              <h4><HelpCircle size={16} /> Guida Rapida - Fatturazione & Documenti</h4>
+              <p>
+                Questo pannello raccoglie tutti i documenti commerciali (Fatture e DDT) emessi o registrati:
+              </p>
+              <ul>
+                <li><strong>Tipo Documento:</strong> Gestisce Fatture di vendita/acquisto (carico e scarico stock), DDT (documenti di trasporto) e Ordini Fornitore.</li>
+                <li><strong>Stato Bozza (Draft):</strong> Consente di salvare e modificare le righe del documento liberamente senza variare la giacenza di magazzino.</li>
+                <li><strong>Stato Completato (Completed):</strong> Consolida il documento e aggiorna automaticamente le giacenze del magazzino fisico selezionato.</li>
+                <li><strong>Esportazione Fiscale:</strong> Per ciascun documento completato puoi scaricare il tracciato XML per la dichiarazione SIAN o il registro e-AD delle Accise Doganali.</li>
+              </ul>
+            </div>
+          )}
 
           {/* Filters */}
           <div className="glass-card search-filter-row">

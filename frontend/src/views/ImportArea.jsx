@@ -9,12 +9,14 @@ import {
   Play, 
   Trash2, 
   AlertCircle, 
-  Loader2 
+  Loader2,
+  HelpCircle 
 } from 'lucide-react';
 
 export default function ImportArea({ onImportSuccess, setActivePage, setSelectedDocId, userRole }) {
   const isMaster = userRole === 'master';
   const [activeTab, setActiveTab] = useState('single'); // 'single' | 'bulk'
+  const [showHelp, setShowHelp] = useState(false);
 
   // ==========================================
   // STATO - CARICAMENTO SINGOLO
@@ -391,10 +393,35 @@ export default function ImportArea({ onImportSuccess, setActivePage, setSelected
     <div className="import-area-view">
       <div className="page-header" style={{ marginBottom: '16px' }}>
         <div>
-          <h1>Import Area SDI (XML)</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>Import Area SDI (XML)</span>
+            <button 
+              type="button" 
+              className="help-toggle-btn"
+              onClick={() => setShowHelp(!showHelp)}
+              title="Mostra guida"
+            >
+              <HelpCircle size={20} />
+            </button>
+          </h1>
           <p>Importa le fatture elettroniche in formato XML per caricare il magazzino e aggiornare i listini</p>
         </div>
       </div>
+
+      {showHelp && (
+        <div className="help-callout">
+          <h4><HelpCircle size={16} /> Guida Rapida - Importazione Fatture XML</h4>
+          <p>
+            Questo modulo ti consente di caricare le scorte in magazzino partendo dal file XML di una fattura elettronica di acquisto:
+          </p>
+          <ul>
+            <li><strong>Riconoscimento automatico:</strong> Il sistema rileva la partita IVA del fornitore (creando l'anagrafica se mancante) e gli articoli.</li>
+            <li><strong>Filtro SKU intelligenti:</strong> Se lo SKU rilevato ha una parte finale variabile (lotto, annata, etc.), il sistema associa la riga al prodotto principale corretto evitando duplicazioni.</li>
+            <li><strong>Aggregazione automatica:</strong> Più righe collegate allo stesso prodotto vengono fuse in un'unica riga con prezzo medio e sconto ponderato.</li>
+            <li><strong>Bozza:</strong> I documenti vengono importati come "Bozze" in modo da poter essere controllati prima di aggiornare effettivamente lo stock.</li>
+          </ul>
+        </div>
+      )}
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px' }}>

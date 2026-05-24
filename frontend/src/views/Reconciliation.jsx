@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { API_BASE_URL, handleFetchError } from '../config';
-import { Landmark, UploadCloud, FileCode, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
+import { Landmark, UploadCloud, FileCode, CheckCircle, AlertTriangle, Loader2, HelpCircle } from 'lucide-react';
 
 export default function Reconciliation({ userRole }) {
   const isMaster = userRole === 'master';
@@ -9,6 +9,7 @@ export default function Reconciliation({ userRole }) {
   const [loading, setLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [fileName, setFileName] = useState('');
+  const [showHelp, setShowHelp] = useState(false);
 
   const processTextContent = async (text) => {
     setLoading(true);
@@ -92,10 +93,34 @@ export default function Reconciliation({ userRole }) {
     <div className="reconciliation-view">
       <div className="page-header" style={{ marginBottom: '24px' }}>
         <div>
-          <h1>Riconciliazione Bancaria</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>Riconciliazione Bancaria</span>
+            <button 
+              type="button" 
+              className="help-toggle-btn"
+              onClick={() => setShowHelp(!showHelp)}
+              title="Mostra guida"
+            >
+              <HelpCircle size={20} />
+            </button>
+          </h1>
           <p>Importa gli estratti conto telematici della banca (tracciato CBI standard) per chiudere automaticamente le fatture aperte</p>
         </div>
       </div>
+
+      {showHelp && (
+        <div className="help-callout">
+          <h4><HelpCircle size={16} /> Guida Rapida - Riconciliazione Bancaria</h4>
+          <p>
+            Questo modulo ti permette di abbinare i flussi finanziari ricevuti in banca con le fatture commerciali emesse:
+          </p>
+          <ul>
+            <li><strong>Tracciato Standard CBI:</strong> Supporta il caricamento di file XML o TXT prodotti dalle banche italiane aderenti allo standard CBI (Corporate Banking Interbancario).</li>
+            <li><strong>Abbinamento Intelligente:</strong> L'algoritmo confronta l'importo e analizza la causale del bonifico (ricercando corrispondenze con numeri di fatture, codici fiscali o ragioni sociali).</li>
+            <li><strong>Conferma Incasso:</strong> Cliccando su "Conferma Riconciliazione" lo stato della fattura viene aggiornato automaticamente nel sistema e l'incasso viene registrato in contabilità.</li>
+          </ul>
+        </div>
+      )}
 
       {results.length === 0 ? (
         !isMaster ? (

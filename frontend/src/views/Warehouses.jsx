@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, handleFetchError } from '../config';
-import { Landmark, ArrowLeftRight, Plus, RefreshCw } from 'lucide-react';
+import { Landmark, ArrowLeftRight, Plus, RefreshCw, HelpCircle } from 'lucide-react';
 
 export default function Warehouses({ userRole }) {
   const isMaster = userRole === 'master';
   const [warehouses, setWarehouses] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showHelp, setShowHelp] = useState(false);
 
   // Transfer state
   const [fromWarehouse, setFromWarehouse] = useState('');
@@ -77,10 +78,34 @@ export default function Warehouses({ userRole }) {
     <div className="warehouses-view">
       <div className="page-header" style={{ marginBottom: '24px' }}>
         <div>
-          <h1>Multi-Deposito & Trasferimenti</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>Multi-Deposito & Trasferimenti</span>
+            <button 
+              type="button" 
+              className="help-toggle-btn"
+              onClick={() => setShowHelp(!showHelp)}
+              title="Mostra guida"
+            >
+              <HelpCircle size={20} />
+            </button>
+          </h1>
           <p>Supervisiona lo stoccaggio nei vari punti di stoccaggio fisici e logistici esterni della cantina</p>
         </div>
       </div>
+
+      {showHelp && (
+        <div className="help-callout">
+          <h4><HelpCircle size={16} /> Guida Rapida - Logistica Multi-Deposito</h4>
+          <p>
+            Questo pannello gestisce la dislocazione delle scorte della cantina tra i vari depositi fisici:
+          </p>
+          <ul>
+            <li><strong>Depositi Configurati:</strong> Mostra lo stock presente nel Deposito Principale e nel Deposito Logistico Esterno.</li>
+            <li><strong>Trasferimento Merci:</strong> Consente di movimentare fisicamente stock da un deposito all'altro emettendo un DDT (Documento di Trasporto) di storno interno.</li>
+            <li><strong>Filtro Giacenze:</strong> La griglia mostra la giacenza in tempo reale divisa per ciascuna referenza ed annata in ogni magazzino.</li>
+          </ul>
+        </div>
+      )}
 
       <div className="grid-2" style={{ alignItems: 'start', gap: '24px' }}>
         {/* Left: Warehouses List */}
