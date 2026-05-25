@@ -7,6 +7,9 @@ import { SianService } from './sian.service';
 import { AcciseService } from './accise.service';
 import { ReconciliationService } from './reconciliation.service';
 import { EcommerceController } from './ecommerce.controller';
+import { ProductsService } from './products.service';
+import { PartnersService } from './partners.service';
+import { DocumentsService } from './documents.service';
 
 @Module({
   imports: [],
@@ -17,7 +20,10 @@ import { EcommerceController } from './ecommerce.controller';
     MockStore, 
     SianService, 
     AcciseService, 
-    ReconciliationService
+    ReconciliationService,
+    ProductsService,
+    PartnersService,
+    DocumentsService
   ],
 })
 export class AppModule {}
