@@ -1,5 +1,6 @@
-import { Controller, Post, Body, Headers, BadRequestException, HttpCode, Logger } from '@nestjs/common';
+import { Controller, Post, Body, Headers, BadRequestException, HttpCode, Logger, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
+import { WooCommerceWebhookDto } from './dto/woocommerce-webhook.dto';
 
 @Controller('api/ecommerce')
 export class EcommerceController {
@@ -13,8 +14,9 @@ export class EcommerceController {
    */
   @Post('woocommerce/webhook')
   @HttpCode(200)
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
   async handleWooCommerceWebhook(
-    @Body() payload: any,
+    @Body() payload: WooCommerceWebhookDto,
     @Headers('x-wc-webhook-topic') topic: string,
     @Headers('x-wc-webhook-signature') signature: string,
   ) {
