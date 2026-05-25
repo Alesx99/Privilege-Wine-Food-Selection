@@ -8,10 +8,12 @@ import {
   Landmark,
   DollarSign,
   LogOut,
-  Layers
+  Layers,
+  Sun,
+  Moon
 } from 'lucide-react';
 
-export default function Sidebar({ activePage, setActivePage, onLogout }) {
+export default function Sidebar({ activePage, setActivePage, onLogout, theme, onToggleTheme }) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'products', label: 'Magazzino Vini', icon: Wine },
@@ -78,9 +80,21 @@ export default function Sidebar({ activePage, setActivePage, onLogout }) {
         </li>
       </ul>
 
-      {/* Logout button at the bottom of the sidebar */}
+      {/* Logout & Theme toggle at the bottom of the sidebar */}
       <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border-color)' }}>
-        <ul className="sidebar-menu">
+        <ul className="sidebar-menu" style={{ gap: '4px' }}>
+          <li className="sidebar-item" style={{ marginBottom: '8px' }}>
+            <a 
+              href="#toggle-theme" 
+              onClick={(e) => {
+                e.preventDefault();
+                onToggleTheme();
+              }}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              <span>{theme === 'dark' ? 'Modalità Chiara' : 'Modalità Scura'}</span>
+            </a>
+          </li>
           <li className="sidebar-item">
             <a 
               href="#logout" 

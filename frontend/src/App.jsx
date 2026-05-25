@@ -19,6 +19,19 @@ export default function App() {
   const [activePage, setActivePage] = useState('dashboard');
   const [selectedDocId, setSelectedDocId] = useState(null);
 
+  // Theme state
+  const [theme, setTheme] = useState(() => localStorage.getItem('privilege_theme') || 'dark');
+
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('privilege_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   // Data states
   const [products, setProducts] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -318,6 +331,8 @@ export default function App() {
         activePage={activePage} 
         setActivePage={setActivePage} 
         onLogout={handleLogout}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
       <main className="main-content">
         {renderPage()}

@@ -42,7 +42,39 @@
   --radius-lg: 18px;
   
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Theme-specific variables default (Dark) */
+  --bg-input: rgba(0, 0, 0, 0.3);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+  --bg-table-header: rgba(0, 0, 0, 0.2);
+  --bg-table-hover: rgba(255, 255, 255, 0.02);
+  --border-card-hover: rgba(255, 255, 255, 0.12);
 }
+
+[data-theme="light"] {
+  /* Light Theme Variables */
+  --bg-primary: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.98);
+  
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-focus: rgba(197, 160, 89, 0.8);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  
+  --bg-input: rgba(255, 255, 255, 0.95);
+  --scrollbar-thumb: rgba(15, 23, 42, 0.15);
+  --bg-table-header: rgba(15, 23, 42, 0.04);
+  --bg-table-hover: rgba(15, 23, 42, 0.02);
+  --border-card-hover: rgba(197, 160, 89, 0.2);
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 10px 40px rgba(15, 23, 42, 0.06);
+  --shadow-glow: 0 0 20px rgba(197, 160, 89, 0.1);
+}
+
 
 /* Base Reset & Layout */
 * {
@@ -79,7 +111,7 @@ body {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -101,6 +133,21 @@ body {
   flex-direction: column;
   padding: 24px 16px;
   flex-shrink: 0;
+
+  /* Force dark variables for the sidebar to keep it black as requested */
+  --bg-primary: #050505;
+  --bg-secondary: #0c0c0c;
+  --bg-card: rgba(18, 18, 18, 0.75);
+  --bg-card-hover: rgba(28, 28, 28, 0.85);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-primary: #fcfbf9;
+  --text-secondary: #b8b29f;
+  --text-muted: #7b776c;
+  --bg-input: rgba(0, 0, 0, 0.3);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+  --bg-table-header: rgba(0, 0, 0, 0.2);
+  --bg-table-hover: rgba(255, 255, 255, 0.02);
+  --border-card-hover: rgba(255, 255, 255, 0.12);
 }
 
 .main-content {
@@ -213,7 +260,7 @@ p {
 
 .glass-card:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: var(--border-card-hover);
 }
 
 /* KPIS Dashboard Grid */
@@ -277,7 +324,7 @@ label {
 }
 
 .erp-input, .erp-select, .erp-textarea {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--bg-input);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 12px 16px;
@@ -398,7 +445,7 @@ label {
 }
 
 .erp-table th {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--bg-table-header);
   color: var(--text-secondary);
   font-weight: 600;
   text-transform: uppercase;
@@ -411,7 +458,7 @@ label {
 }
 
 .erp-table tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: var(--bg-table-hover);
 }
 
 .erp-table tbody tr:last-child td {
