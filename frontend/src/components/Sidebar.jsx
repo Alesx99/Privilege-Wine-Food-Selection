@@ -7,7 +7,8 @@ import {
   UploadCloud,
   Landmark,
   DollarSign,
-  LogOut
+  LogOut,
+  Layers
 } from 'lucide-react';
 
 export default function Sidebar({ activePage, setActivePage, onLogout }) {
@@ -55,6 +56,26 @@ export default function Sidebar({ activePage, setActivePage, onLogout }) {
             </li>
           );
         })}
+        
+        {/* Separatore per Gestione Classica */}
+        <li style={{ borderTop: '1px solid var(--border-color)', margin: '12px 0 8px 0', listStyle: 'none' }}></li>
+        
+        <li className={`sidebar-item ${activePage === 'classic' ? 'active' : ''}`}>
+          <a 
+            href="#classic" 
+            onClick={(e) => {
+              e.preventDefault();
+              setActivePage('classic');
+            }}
+            style={{ 
+              borderColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.3)' : 'transparent',
+              backgroundColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.08)' : 'transparent'
+            }}
+          >
+            <Layers size={20} style={{ color: activePage === 'classic' ? '#60a5fa' : 'inherit' }} />
+            <span style={{ fontWeight: 'bold' }}>Gestione Classica</span>
+          </a>
+        </li>
       </ul>
 
       {/* Logout button at the bottom of the sidebar */}

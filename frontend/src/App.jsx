@@ -11,6 +11,7 @@ import ClientCatalog from './views/ClientCatalog';
 import Warehouses from './views/Warehouses';
 import Agents from './views/Agents';
 import Reconciliation from './views/Reconciliation';
+import ClassicInvoicex from './views/ClassicInvoicex';
 
 export default function App() {
   const [userRole, setUserRole] = useState(() => localStorage.getItem('privilege_user_role') || null);
@@ -263,6 +264,20 @@ export default function App() {
         return <Agents userRole={userRole} />;
       case 'reconciliation':
         return <Reconciliation userRole={userRole} />;
+      case 'classic':
+        return (
+          <ClassicInvoicex 
+            products={products}
+            partners={partners}
+            documents={documents}
+            priceLists={priceLists}
+            userRole={userRole}
+            loadAllData={loadAllData}
+            onSaveDocument={handleSaveDocument}
+            onDeleteDocument={handleDeleteDocument}
+            onUpdateDocStatus={handleUpdateDocStatus}
+          />
+        );
       default:
         return <div>Pagina non trovata</div>;
     }
