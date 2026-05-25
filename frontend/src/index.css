@@ -668,24 +668,169 @@ label {
   gap: 20px;
 }
 
+/* Mobile Header and responsive drawer styles */
+.mobile-header {
+  display: none;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .app-container {
-    flex-direction: column;
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background-color: #0c0c0c;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
   }
+
+  [data-theme="light"] .mobile-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .hamburger-btn, .mobile-theme-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+
+  .hamburger-btn:hover, .mobile-theme-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  [data-theme="light"] .hamburger-btn:hover, 
+  [data-theme="light"] .mobile-theme-btn:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .mobile-logo-text {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 950;
+  }
+
   .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-top: 60px; /* Push below mobile header */
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  /* Responsive Grid systems */
+  .grid-2, .dashboard-grid, .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  /* Table styling on mobile to prevent overflow */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+  }
+
+  /* Optimize document item row layout on mobile */
+  .doc-item-row {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .doc-item-row > *:nth-child(1) { /* Product select */
+    grid-column: span 2;
+  }
+  
+  .doc-item-row > *:nth-child(2),
+  .doc-item-row > *:nth-child(3),
+  .doc-item-row > *:nth-child(4),
+  .doc-item-row > *:nth-child(5) {
+    grid-column: span 1;
+  }
+  
+  .doc-item-row > *:nth-child(6) { /* Delete button */
+    grid-column: span 2;
     width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0 !important;
+  }
+
+  /* Classic Invoicex Mobile Overrides */
+  .classic-header-bar {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    align-items: center;
     padding: 16px;
   }
-  .main-content {
-    max-width: 100%;
-    padding: 20px;
+  
+  .classic-header-bar > div {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  .grid-2 {
-    grid-template-columns: 1fr;
+  
+  .classic-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .classic-tab-btn {
+    flex: 0 0 calc(50% - 6px); /* 2 columns of tabs */
+    font-size: 0.78rem;
+    padding: 8px;
   }
 }
+
 
 /* ==========================================
    SCHERMATA DI LOGIN

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Menu, Sun, Moon } from 'lucide-react';
 import { API_BASE_URL, handleFetchError } from './config';
 import Sidebar from './components/Sidebar';
 import Dashboard from './views/Dashboard';
@@ -21,6 +22,7 @@ export default function App() {
 
   // Theme state
   const [theme, setTheme] = useState(() => localStorage.getItem('privilege_theme') || 'dark');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Apply theme to document
   useEffect(() => {
@@ -327,12 +329,28 @@ export default function App() {
   // Altrimenti mostra il pannello ERP completo (Master)
   return (
     <div className="app-container">
+      {/* Mobile Top Header */}
+      <header className="mobile-header">
+        <button className="hamburger-btn" onClick={() => setIsSidebarOpen(!isSidebarOpen)} aria-label="Menu">
+          <Menu size={24} />
+        </button>
+        <span className="mobile-logo-text">Privilege ERP</span>
+        <button className="mobile-theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+      </header>
+
+      {/* Backdrop overlay for mobile drawer */}
+      {isSidebarOpen && <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />}
+
       <Sidebar 
         activePage={activePage} 
         setActivePage={setActivePage} 
         onLogout={handleLogout}
         theme={theme}
         onToggleTheme={toggleTheme}
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
       />
       <main className="main-content">
         {renderPage()}

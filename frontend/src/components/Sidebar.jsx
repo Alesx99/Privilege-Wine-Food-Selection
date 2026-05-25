@@ -13,7 +13,7 @@ import {
   Moon
 } from 'lucide-react';
 
-export default function Sidebar({ activePage, setActivePage, onLogout, theme, onToggleTheme }) {
+export default function Sidebar({ activePage, setActivePage, onLogout, theme, onToggleTheme, isOpen, setIsOpen }) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'products', label: 'Magazzino Vini', icon: Wine },
@@ -27,7 +27,7 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
 
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '24px', padding: '8px' }}>
         <img 
           src={`${import.meta.env.BASE_URL}logo.jpeg`} 
@@ -50,6 +50,7 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
                 onClick={(e) => {
                   e.preventDefault();
                   setActivePage(item.id);
+                  if (setIsOpen) setIsOpen(false);
                 }}
               >
                 <Icon size={20} />
@@ -68,6 +69,7 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
             onClick={(e) => {
               e.preventDefault();
               setActivePage('classic');
+              if (setIsOpen) setIsOpen(false);
             }}
             style={{ 
               borderColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.3)' : 'transparent',

@@ -319,6 +319,31 @@ export default function ClassicInvoicex({
         .status-badge.draft { background-color: #fef3c7; color: #d97706; }
         .status-badge.completed { background-color: #d1fae5; color: #059669; }
         .status-badge.cancelled { background-color: #fee2e2; color: #dc2626; }
+
+        @media (max-width: 768px) {
+          .classic-header-bar {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+            align-items: center;
+            padding: 16px;
+          }
+          .classic-header-bar > div {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .classic-tabs {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+          }
+          .classic-tab-btn {
+            flex: 0 0 calc(50% - 6px); /* 2 columns of tabs */
+            font-size: 0.78rem;
+            padding: 8px;
+          }
+        }
       `}} />
 
       {/* TOP HEADER BAR */}
