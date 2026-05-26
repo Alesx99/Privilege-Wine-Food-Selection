@@ -46,9 +46,8 @@ export class EcommerceController {
           throw new BadRequestException(`SKU mancante per l'articolo ${item.name} nell'ordine WooCommerce.`);
         }
 
-        // Recuperiamo il prodotto dal gestionale per SKU
-        const products = await this.appService.getProducts();
-        const product = products.find(p => p.sku === sku);
+        // Recuperiamo il prodotto dal gestionale per SKU o per Alias (Criticità #2)
+        const product = await this.appService.getProductBySkuOrAlias(sku);
 
         if (!product) {
           this.logger.warn(`Prodotto con SKU "${sku}" non trovato nel magazzino dell'ERP. Saltato.`);

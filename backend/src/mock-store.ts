@@ -89,6 +89,13 @@ export interface Partner {
   created_at: string;
 }
 
+export interface ProductSkuAlias {
+  id: string;
+  product_id: string;
+  sku: string;
+  created_at: string;
+}
+
 export interface Document {
   id: string;
   type: 'order_supplier' | 'ddt_in' | 'ddt_out' | 'stock_load' | 'invoice_sale' | 'invoice_purchase';
@@ -111,6 +118,7 @@ export class MockStore {
   public partnerPriceLists: Record<string, string> = {}; // partner_id -> price_list_id
   public documents: Document[] = [];
   public documentItems: DocumentItem[] = [];
+  public productSkuAliases: ProductSkuAlias[] = [];
 
   // Enterprise additions
   public warehouses: Warehouse[] = [];

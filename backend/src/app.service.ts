@@ -44,6 +44,10 @@ export class AppService {
     return this.productsService.mergeProducts(targetProductId, sourceProductId);
   }
 
+  getProductBySkuOrAlias(sku: string) {
+    return this.productsService.getProductBySkuOrAlias(sku);
+  }
+
   // ==========================================
   // DELEGATE 2. PARTNER
   // ==========================================

@@ -140,7 +140,46 @@ export class ProductsService {
 
   getBaseSku(sku: string): string {
     if (!sku) return '';
-    return sku.trim().toUpperCase().replace(/[-/_.]?[a-zA-Z0-9]{1,2}$/, '');
+    const clean = sku.trim().toUpperCase();
+    let base = clean.replace(/[-/_.]+[A-Z0-9]{1,2}$/, '');
+    base = base.replace(/([0-9]+)[A-Z]{1,2}$/, '$1');
+    return base;
+  }
+
+  async getProductBySkuOrAlias(sku: string): Promise<any | null> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      // Cerca per SKU diretto
+      const { data: directData } = await client
+        .from('products')
+        .select('*')
+        .eq('sku', sku)
+        .maybeSingle();
+      
+      if (directData) return directData;
+      
+      // Cerca nella tabella degli alias
+      const { data: aliasData } = await client
+        .from('product_sku_aliases')
+        .select('product_id')
+        .eq('sku', sku)
+        .maybeSingle();
+      
+      if (aliasData) {
+        return this.getProductById(aliasData.product_id);
+      }
+      return null;
+    }
+    
+    // Mock DB locale
+    const directProd = this.mockStore.products.find(p => p.sku === sku);
+    if (directProd) return directProd;
+    
+    const alias = this.mockStore.productSkuAliases.find(a => a.sku === sku);
+    if (alias) {
+      return this.mockStore.products.find(p => p.id === alias.product_id) || null;
+    }
+    return null;
   }
 
   async mergeProducts(targetProductId: string, sourceProductId: string): Promise<any> {
@@ -151,121 +190,15 @@ export class ProductsService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
 
-      const { data: targetProduct, error: targetError } = await client
-        .from('products')
-        .select('*')
-        .eq('id', targetProductId)
-        .single();
-      const { data: sourceProduct, error: sourceError } = await client
-        .from('products')
-        .select('*')
-        .eq('id', sourceProductId)
-        .single();
+      // Invoca la funzione PostgreSQL transazionale tramite RPC (Criticità #1)
+      const { error } = await client.rpc('merge_products', {
+        target_id: targetProductId,
+        source_id: sourceProductId,
+      });
 
-      if (targetError || !targetProduct) throw new NotFoundException('Prodotto di destinazione non trovato');
-      if (sourceError || !sourceProduct) throw new NotFoundException('Prodotto sorgente non trovato');
-
-      // Trova tutti i documenti completed associati al prodotto sorgente
-      const { data: affectedItems, error: itemsErr } = await client
-        .from('document_items')
-        .select('document_id')
-        .eq('product_id', sourceProductId);
-      
-      if (itemsErr) throw new BadRequestException(itemsErr.message);
-
-      const docIds = Array.from(new Set(affectedItems?.map(item => item.document_id) || []));
-
-      let completedDocIds: string[] = [];
-      if (docIds.length > 0) {
-        const { data: affectedDocs, error: docsErr } = await client
-          .from('documents')
-          .select('id, status')
-          .in('id', docIds);
-        
-        if (docsErr) throw new BadRequestException(docsErr.message);
-        completedDocIds = affectedDocs?.filter(d => d.status === 'completed').map(d => d.id) || [];
+      if (error) {
+        throw new BadRequestException('Errore durante la fusione transazionale del prodotto: ' + error.message);
       }
-
-      // 1. Riporta a bozze i documenti completati coinvolti
-      for (const docId of completedDocIds) {
-        const { error: updateErr } = await client
-          .from('documents')
-          .update({ status: 'draft', updated_at: new Date().toISOString() })
-          .eq('id', docId);
-        if (updateErr) throw new BadRequestException(`Errore ripristino bozza per documento ${docId}: ` + updateErr.message);
-      }
-
-      // 2. Modifica il product_id in document_items per tutte le righe collegate a sourceProductId
-      const { error: updateItemsErr } = await client
-        .from('document_items')
-        .update({ product_id: targetProductId })
-        .eq('product_id', sourceProductId);
-      
-      if (updateItemsErr) throw new BadRequestException('Errore aggiornamento righe documento: ' + updateItemsErr.message);
-
-      // 3. Riporta a completato i documenti
-      for (const docId of completedDocIds) {
-        const { error: updateErr } = await client
-          .from('documents')
-          .update({ status: 'completed', updated_at: new Date().toISOString() })
-          .eq('id', docId);
-        if (updateErr) throw new BadRequestException(`Errore ricompletamento documento ${docId}: ` + updateErr.message);
-      }
-
-      // 4. Aggiorna giacenze multi-deposito in warehouse_stock
-      const { data: sourceWhStock, error: sourceWhStockErr } = await client
-        .from('warehouse_stock')
-        .select('*')
-        .eq('product_id', sourceProductId);
-      
-      if (sourceWhStockErr) throw new BadRequestException(sourceWhStockErr.message);
-
-      for (const sourceStock of sourceWhStock || []) {
-        const { data: targetStock, error: targetStockErr } = await client
-          .from('warehouse_stock')
-          .select('*')
-          .eq('product_id', targetProductId)
-          .eq('warehouse_id', sourceStock.warehouse_id)
-          .maybeSingle();
-
-        if (targetStock) {
-          const newQty = (targetStock.stock_quantity || 0) + (sourceStock.stock_quantity || 0);
-          await client
-            .from('warehouse_stock')
-            .update({ stock_quantity: newQty, updated_at: new Date().toISOString() })
-            .eq('product_id', targetProductId)
-            .eq('warehouse_id', sourceStock.warehouse_id);
-          
-          await client
-            .from('warehouse_stock')
-            .delete()
-            .eq('product_id', sourceProductId)
-            .eq('warehouse_id', sourceStock.warehouse_id);
-        } else {
-          await client
-            .from('warehouse_stock')
-            .update({ product_id: targetProductId, updated_at: new Date().toISOString() })
-            .eq('product_id', sourceProductId)
-            .eq('warehouse_id', sourceStock.warehouse_id);
-        }
-      }
-
-      // 5. Aggiorna stock totale consolidato su products
-      const newTotalStock = (targetProduct.stock_quantity || 0) + (sourceProduct.stock_quantity || 0);
-      const { error: finalProductErr } = await client
-        .from('products')
-        .update({ stock_quantity: newTotalStock, updated_at: new Date().toISOString() })
-        .eq('id', targetProductId);
-      
-      if (finalProductErr) throw new BadRequestException(finalProductErr.message);
-
-      // 6. Elimina il prodotto sorgente
-      const { error: deleteProductErr } = await client
-        .from('products')
-        .delete()
-        .eq('id', sourceProductId);
-      
-      if (deleteProductErr) throw new BadRequestException('Errore eliminazione prodotto sorgente: ' + deleteProductErr.message);
 
       return { success: true, mergedInto: targetProductId };
     }
@@ -306,6 +239,22 @@ export class ProductsService {
 
     targetProduct.stock_quantity += sourceProduct.stock_quantity;
     targetProduct.updated_at = new Date().toISOString();
+
+    // Archivia lo SKU alias locale in memoria (Criticità #2)
+    this.mockStore.productSkuAliases.push({
+      id: crypto.randomUUID(),
+      product_id: targetProductId,
+      sku: sourceProduct.sku,
+      created_at: new Date().toISOString()
+    });
+
+    // Sposta eventuali alias preesistenti associati al sorgente verso il target
+    this.mockStore.productSkuAliases = this.mockStore.productSkuAliases.map(alias => {
+      if (alias.product_id === sourceProductId) {
+        return { ...alias, product_id: targetProductId };
+      }
+      return alias;
+    });
 
     this.mockStore.products = this.mockStore.products.filter(p => p.id !== sourceProductId);
     this.mockStore.recalculateProductPrices();

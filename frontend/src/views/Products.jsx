@@ -33,22 +33,32 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
   // Helper to extract base SKU
   const getBaseSku = (s) => {
     if (!s) return '';
-    return s.trim().toUpperCase().replace(/[-/_.]?[a-zA-Z0-9]{1,2}$/, '');
+    const clean = s.trim().toUpperCase();
+    let base = clean.replace(/[-/_.]+[A-Z0-9]{1,2}$/, '');
+    base = base.replace(/([0-9]+)[A-Z]{1,2}$/, '$1');
+    return base;
   };
 
-  // Group potential duplicates (products sharing the same base SKU)
+  // Group potential duplicates (products sharing the same base SKU, vintage, and format)
   const duplicateGroups = useMemo(() => {
     const groups = {};
     products.forEach(p => {
       const base = getBaseSku(p.sku);
       if (!base || base.length < 3) return;
-      if (!groups[base]) groups[base] = [];
-      groups[base].push(p);
+      
+      // key includes base SKU, vintage, and format to prevent mixing vintages/formats!
+      const key = `${base}|${p.vintage || 'NV'}|${p.format || '0.75L'}`;
+      
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(p);
     });
     // Filter groups that have more than one product
     return Object.entries(groups)
       .filter(([_, group]) => group.length > 1)
-      .map(([base, group]) => ({ base, group }));
+      .map(([key, group]) => {
+        const [base] = key.split('|');
+        return { base, group };
+      });
   }, [products]);
 
   const handleMerge = async (targetId, sourceId) => {
@@ -79,6 +89,30 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.message || 'Errore durante l\'unione.');
+      }
+
+      // Aggiorna riferimenti nei Kit locali in localStorage (Criticità #3)
+      const savedKits = localStorage.getItem('privilege_kits');
+      if (savedKits) {
+        try {
+          const kits = JSON.parse(savedKits);
+          let modified = false;
+          const updatedKits = kits.map(kit => {
+            const updatedComponents = kit.components.map(comp => {
+              if (comp.product_id === sourceId) {
+                modified = true;
+                return { ...comp, product_id: targetId };
+              }
+              return comp;
+            });
+            return { ...kit, components: updatedComponents };
+          });
+          if (modified) {
+            localStorage.setItem('privilege_kits', JSON.stringify(updatedKits));
+          }
+        } catch (e) {
+          console.error('Errore aggiornamento kit locali:', e);
+        }
       }
 
       alert('Prodotti uniti con successo!');
