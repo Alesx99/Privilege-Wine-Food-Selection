@@ -230,4 +230,39 @@ export class AppController {
   async approveAllDrafts() {
     return this.appService.approveAllDrafts();
   }
+
+  // ==========================================
+  // 9. ENDPOINTS AUTENTICAZIONE & SEGNALAZIONI
+  // ==========================================
+  @Post('auth/login')
+  async login(@Body() body: { username?: string; password?: string }) {
+    if (!body.username || !body.password) {
+      throw new BadRequestException('Username e password sono richiesti.');
+    }
+    return this.appService.login(body.username, body.password);
+  }
+
+  @Get('product-suggestions')
+  async getProductSuggestions(@Query('agentId') agentId?: string) {
+    return this.appService.getProductSuggestions(agentId);
+  }
+
+  @Post('product-suggestions')
+  async createProductSuggestion(@Body() suggestionData: any) {
+    if (!suggestionData.product_name || !suggestionData.winery || !suggestionData.price_list || !suggestionData.recommended_price) {
+      throw new BadRequestException('Tutti i campi obbligatori della segnalazione devono essere compilati.');
+    }
+    return this.appService.createProductSuggestion(suggestionData);
+  }
+
+  @Put('product-suggestions/:id/status')
+  async updateProductSuggestionStatus(
+    @Param('id') id: string,
+    @Body('status') status: 'accepted' | 'refused',
+  ) {
+    if (!status || !['accepted', 'refused'].includes(status)) {
+      throw new BadRequestException('Stato non valido o mancante.');
+    }
+    return this.appService.updateProductSuggestionStatus(id, status);
+  }
 }

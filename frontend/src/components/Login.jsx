@@ -1,24 +1,43 @@
 import React, { useState } from 'react';
 import { Lock, Home } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Login({ onLogin, onCancel }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     const trimmedUser = username.trim().toLowerCase();
     const trimmedPass = password.trim();
 
-    if (trimmedUser === 'master' && trimmedPass === 'master') {
-      onLogin('master');
-    } else if (trimmedUser === 'autorizzato' && trimmedPass === 'autorizzato') {
-      onLogin('viewer');
-    } else {
-      setError('Credenziali non valide. Riprova.');
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        onLogin(data.role, data.agentId, data.name);
+        return;
+      }
+
+      const errData = await res.json();
+      setError(errData.message || 'Credenziali non valide. Riprova.');
+    } catch (err) {
+      console.warn('Autenticazione API fallita, provo offline fallback...', err);
+      if (trimmedUser === 'master' && trimmedPass === 'master') {
+        onLogin('master');
+      } else if (trimmedUser === 'autorizzato' && trimmedPass === 'autorizzato') {
+        onLogin('viewer');
+      } else {
+        setError('Impossibile connettersi al server per validare le credenziali dell\'agente.');
+      }
     }
   };
 

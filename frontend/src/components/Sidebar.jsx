@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   LayoutDashboard, 
   Wine, 
@@ -10,10 +9,11 @@ import {
   LogOut,
   Layers,
   Sun,
-  Moon
+  Moon,
+  Lightbulb
 } from 'lucide-react';
 
-export default function Sidebar({ activePage, setActivePage, onLogout, theme, onToggleTheme, isOpen, setIsOpen }) {
+export default function Sidebar({ activePage, setActivePage, onLogout, theme, onToggleTheme, isOpen, setIsOpen, userRole }) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'products', label: 'Magazzino Vini', icon: Wine },
@@ -21,6 +21,7 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
     { id: 'partners', label: 'Anagrafiche', icon: Users },
     { id: 'agents', label: 'Agenti & Provvigioni', icon: DollarSign },
     { id: 'documents', label: 'Documenti', icon: FileText },
+    { id: 'suggestions', label: 'Segnalazioni Prodotti', icon: Lightbulb },
     { id: 'import', label: 'Import Area', icon: UploadCloud },
     { id: 'reconciliation', label: 'Riconciliazione', icon: Landmark },
   ];

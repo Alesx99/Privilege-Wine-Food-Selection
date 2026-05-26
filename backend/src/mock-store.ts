@@ -63,7 +63,21 @@ export interface Agent {
   vat_number?: string;
   default_commission_percent: number;
   created_at: string;
+  password?: string;
 }
+
+export interface ProductSuggestion {
+  id: string;
+  agent_id: string | null;
+  product_name: string;
+  winery: string;
+  price_list: string;
+  recommended_price: number;
+  notes?: string;
+  status: 'pending' | 'accepted' | 'refused';
+  created_at: string;
+}
+
 
 export interface AgentCommission {
   id: string;
@@ -125,6 +139,7 @@ export class MockStore {
   public warehouseStock: WarehouseStock[] = [];
   public agents: Agent[] = [];
   public agentCommissions: AgentCommission[] = [];
+  public productSuggestions: ProductSuggestion[] = [];
 
   constructor() {
     this.seed();
@@ -341,7 +356,8 @@ export class MockStore {
         phone: '333-1234567',
         vat_number: 'IT01234567890',
         default_commission_percent: 10.00,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        password: 'rossi123'
       },
       {
         id: agent2Id,
@@ -350,7 +366,8 @@ export class MockStore {
         phone: '333-7654321',
         vat_number: 'IT09876543210',
         default_commission_percent: 8.50,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        password: 'bianchi123'
       }
     ];
 

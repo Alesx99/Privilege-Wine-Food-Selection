@@ -13,9 +13,11 @@ import Warehouses from './views/Warehouses';
 import Agents from './views/Agents';
 import Reconciliation from './views/Reconciliation';
 import ClassicInvoicex from './views/ClassicInvoicex';
+import ProductSuggestions from './views/ProductSuggestions';
 
 export default function App() {
   const [userRole, setUserRole] = useState(() => localStorage.getItem('privilege_user_role') || null);
+  const [agentId, setAgentId] = useState(() => localStorage.getItem('privilege_agent_id') || null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [activePage, setActivePage] = useState('dashboard');
   const [selectedDocId, setSelectedDocId] = useState(null);
@@ -277,6 +279,8 @@ export default function App() {
         return <Warehouses userRole={userRole} />;
       case 'agents':
         return <Agents userRole={userRole} />;
+      case 'suggestions':
+        return <ProductSuggestions userRole={userRole} agentId={agentId} loadAllData={loadAllData} />;
       case 'reconciliation':
         return <Reconciliation userRole={userRole} />;
       case 'classic':
@@ -300,18 +304,27 @@ export default function App() {
 
   const handleLogout = () => {
     setUserRole(null);
+    setAgentId(null);
     localStorage.removeItem('privilege_user_role');
+    localStorage.removeItem('privilege_agent_id');
     setIsLoggingIn(false);
   };
 
-  // Se l'utente non è loggato come master o viewer, mostra il listino pubblico o la schermata di login
-  if (userRole !== 'master' && userRole !== 'viewer') {
+  // Se l'utente non è loggato come master, viewer o agent, mostra il listino pubblico o la schermata di login
+  if (userRole !== 'master' && userRole !== 'viewer' && userRole !== 'agent') {
     if (isLoggingIn) {
       return (
         <Login 
-          onLogin={(role) => {
+          onLogin={(role, id, name) => {
             setUserRole(role);
             localStorage.setItem('privilege_user_role', role);
+            if (id) {
+              setAgentId(id);
+              localStorage.setItem('privilege_agent_id', id);
+            } else {
+              setAgentId(null);
+              localStorage.removeItem('privilege_agent_id');
+            }
             setIsLoggingIn(false);
           }} 
           onCancel={() => setIsLoggingIn(false)} 
@@ -351,6 +364,7 @@ export default function App() {
         onToggleTheme={toggleTheme}
         isOpen={isSidebarOpen}
         setIsOpen={setIsSidebarOpen}
+        userRole={userRole}
       />
       <main className="main-content">
         {renderPage()}

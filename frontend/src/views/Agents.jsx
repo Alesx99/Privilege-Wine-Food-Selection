@@ -17,6 +17,7 @@ export default function Agents({ userRole }) {
   const [phone, setPhone] = useState('');
   const [vatNumber, setVatNumber] = useState('');
   const [commissionPercent, setCommissionPercent] = useState('10.00');
+  const [password, setPassword] = useState('');
 
   const [saving, setSaving] = useState(false);
 
@@ -55,6 +56,7 @@ export default function Agents({ userRole }) {
     setPhone(agent.phone || '');
     setVatNumber(agent.vat_number || '');
     setCommissionPercent(String(agent.default_commission_percent));
+    setPassword(agent.password || '');
     setShowForm(true);
   };
 
@@ -65,6 +67,7 @@ export default function Agents({ userRole }) {
     setPhone('');
     setVatNumber('');
     setCommissionPercent('10.00');
+    setPassword('');
     setShowForm(true);
   };
 
@@ -79,6 +82,7 @@ export default function Agents({ userRole }) {
       phone,
       vat_number: vatNumber,
       default_commission_percent: Number(commissionPercent) || 10.00,
+      password: password || undefined,
     };
 
     try {
@@ -323,6 +327,18 @@ export default function Agents({ userRole }) {
                     value={commissionPercent} 
                     onChange={e => setCommissionPercent(e.target.value)} 
                     required 
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Password di Accesso</label>
+                  <input 
+                    type="password" 
+                    className="erp-input"
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    placeholder={editingAgent ? "Lascia vuoto per mantenere quella attuale" : "Imposta password..."}
+                    required={!editingAgent} 
                   />
                 </div>
 

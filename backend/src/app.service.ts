@@ -135,13 +135,17 @@ export class AppService {
     const isEdit = !!agentData.id;
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
-      const payload = {
+      const payload: any = {
         name: agentData.name,
         email: agentData.email,
         phone: agentData.phone,
         vat_number: agentData.vat_number,
         default_commission_percent: Number(agentData.default_commission_percent) || 10.00,
       };
+
+      if (agentData.password) {
+        payload.password = agentData.password;
+      }
 
       let result;
       if (isEdit) {
@@ -156,11 +160,16 @@ export class AppService {
     if (isEdit) {
       const idx = this.mockStore.agents.findIndex(a => a.id === agentData.id);
       if (idx === -1) throw new Error('Agente non trovato');
-      this.mockStore.agents[idx] = {
+      const updatedAgent = {
         ...this.mockStore.agents[idx],
         ...agentData,
         default_commission_percent: Number(agentData.default_commission_percent) || 10.00
       };
+      if (!agentData.password) {
+        // preserve existing password
+        updatedAgent.password = this.mockStore.agents[idx].password;
+      }
+      this.mockStore.agents[idx] = updatedAgent;
       return this.mockStore.agents[idx];
     } else {
       const newAgent = {
@@ -170,6 +179,7 @@ export class AppService {
         phone: agentData.phone,
         vat_number: agentData.vat_number,
         default_commission_percent: Number(agentData.default_commission_percent) || 10.00,
+        password: agentData.password || '',
         created_at: new Date().toISOString()
       };
       this.mockStore.agents.push(newAgent);
@@ -209,5 +219,150 @@ export class AppService {
   // ==========================================
   reconcileBankFile(fileContent: string) {
     return this.documentsService.reconcileBankFile(fileContent);
+  }
+
+  // ==========================================
+  // 9. AUTENTICAZIONE E SEGNALAZIONE PRODOTTI
+  // ==========================================
+  async login(username: string, password: string): Promise<any> {
+    const trimmedUser = username.trim().toLowerCase();
+    const trimmedPass = password.trim();
+
+    if (trimmedUser === 'master' && trimmedPass === 'master') {
+      return { success: true, role: 'master', name: 'Master' };
+    }
+
+    if (trimmedUser === 'autorizzato' && trimmedPass === 'autorizzato') {
+      return { success: true, role: 'viewer', name: 'Visualizzatore' };
+    }
+
+    // Cerca tra gli agenti
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client
+        .from('agents')
+        .select('*')
+        .or(`email.ilike.${trimmedUser},name.ilike.${trimmedUser}`);
+
+      if (error) {
+        throw new BadRequestException(error.message);
+      }
+
+      const agent = data?.find(a => a.password === trimmedPass);
+      if (agent) {
+        return { success: true, role: 'agent', agentId: agent.id, name: agent.name };
+      }
+    } else {
+      const agent = this.mockStore.agents.find(
+        a =>
+          (a.email.toLowerCase() === trimmedUser || a.name.toLowerCase() === trimmedUser) &&
+          a.password === trimmedPass
+      );
+      if (agent) {
+        return { success: true, role: 'agent', agentId: agent.id, name: agent.name };
+      }
+    }
+
+    throw new BadRequestException('Credenziali non valide. Riprova.');
+  }
+
+  async getProductSuggestions(agentId?: string): Promise<any[]> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      let query = client.from('product_suggestions').select('*, agent:agents(name)');
+      if (agentId) {
+        query = query.eq('agent_id', agentId);
+      }
+      const { data, error } = await query.order('created_at', { ascending: false });
+      if (error) throw new BadRequestException(error.message);
+      return data;
+    }
+
+    let suggestions = this.mockStore.productSuggestions;
+    if (agentId) {
+      suggestions = suggestions.filter(s => s.agent_id === agentId);
+    }
+    return suggestions.map(s => {
+      const agent = this.mockStore.agents.find(a => a.id === s.agent_id);
+      return {
+        ...s,
+        agent: agent ? { name: agent.name } : null
+      };
+    });
+  }
+
+  async createProductSuggestion(suggestionData: any): Promise<any> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const payload = {
+        agent_id: suggestionData.agent_id || null,
+        product_name: suggestionData.product_name,
+        winery: suggestionData.winery,
+        price_list: suggestionData.price_list,
+        recommended_price: Number(suggestionData.recommended_price),
+        notes: suggestionData.notes || '',
+        status: 'pending'
+      };
+      const { data, error } = await client.from('product_suggestions').insert([payload]).select().single();
+      if (error) throw new BadRequestException(error.message);
+      return data;
+    }
+
+    const newSuggestion = {
+      id: crypto.randomUUID(),
+      agent_id: suggestionData.agent_id || null,
+      product_name: suggestionData.product_name,
+      winery: suggestionData.winery,
+      price_list: suggestionData.price_list,
+      recommended_price: Number(suggestionData.recommended_price),
+      notes: suggestionData.notes || '',
+      status: 'pending' as const,
+      created_at: new Date().toISOString()
+    };
+    this.mockStore.productSuggestions.push(newSuggestion);
+    return newSuggestion;
+  }
+
+  async updateProductSuggestionStatus(id: string, status: 'accepted' | 'refused'): Promise<any> {
+    let suggestion: any = null;
+
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client
+        .from('product_suggestions')
+        .update({ status })
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new BadRequestException(error.message);
+      suggestion = data;
+    } else {
+      const idx = this.mockStore.productSuggestions.findIndex(s => s.id === id);
+      if (idx === -1) throw new BadRequestException('Segnalazione non trovata');
+      this.mockStore.productSuggestions[idx].status = status;
+      suggestion = this.mockStore.productSuggestions[idx];
+    }
+
+    // Se accettata, creiamo il prodotto in bozza nel catalogo
+    if (status === 'accepted' && suggestion) {
+      const productPayload = {
+        sku: `SEG-${Date.now().toString().slice(-6)}`,
+        name: suggestion.product_name.toUpperCase(),
+        vintage: 'NV',
+        format: '0.75L',
+        base_cost: Number((suggestion.recommended_price * 0.7).toFixed(2)),
+        discounted_cost: null,
+        markup_percent: 43.0,
+        vat_percent: 22.0,
+        is_manual_price: true,
+        manual_price: Number(suggestion.recommended_price),
+        stock_quantity: 0,
+        notes: `Inserito da segnalazione agente. Cantina: ${suggestion.winery}. Note: ${suggestion.notes || ''}`
+      };
+      
+      await this.productsService.saveProduct(productPayload);
+    }
+
+    return suggestion;
   }
 }
