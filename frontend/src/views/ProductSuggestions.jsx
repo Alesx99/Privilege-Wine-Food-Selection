@@ -28,7 +28,16 @@ export default function ProductSuggestions({ userRole, agentId, loadAllData }) {
         : `${API_BASE_URL}/api/product-suggestions`;
 
       const res = await fetch(url);
-      if (!res.ok) throw new Error('Errore nel caricamento delle segnalazioni.');
+      if (!res.ok) {
+        let errMessage = 'Errore nel caricamento delle segnalazioni.';
+        try {
+          const errData = await res.json();
+          if (errData && errData.message) {
+            errMessage = errData.message;
+          }
+        } catch (_) {}
+        throw new Error(errMessage);
+      }
       const data = await res.json();
       setSuggestions(data);
     } catch (err) {

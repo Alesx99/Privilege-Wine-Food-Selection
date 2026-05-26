@@ -153,7 +153,14 @@ export class AppService {
       } else {
         result = await client.from('agents').insert([payload]).select().single();
       }
-      if (result.error) throw new BadRequestException(result.error.message);
+      if (result.error) {
+        if (result.error.code === '42703') {
+          throw new BadRequestException(
+            "La colonna 'password' non esiste nella tabella 'agents'. Assicurati di aver eseguito la migrazione SQL (20260526010000_agent_roles_and_suggestions.sql) su Supabase."
+          );
+        }
+        throw new BadRequestException(result.error.message);
+      }
       return result.data;
     }
 
@@ -274,7 +281,14 @@ export class AppService {
         query = query.eq('agent_id', agentId);
       }
       const { data, error } = await query.order('created_at', { ascending: false });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        if (error.code === '42P01') {
+          throw new BadRequestException(
+            "La tabella 'product_suggestions' non esiste a database. Assicurati di aver eseguito la migrazione SQL (20260526010000_agent_roles_and_suggestions.sql) nel pannello SQL Editor su Supabase."
+          );
+        }
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
 
@@ -304,7 +318,14 @@ export class AppService {
         status: 'pending'
       };
       const { data, error } = await client.from('product_suggestions').insert([payload]).select().single();
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        if (error.code === '42P01') {
+          throw new BadRequestException(
+            "La tabella 'product_suggestions' non esiste a database. Esegui la migrazione SQL su Supabase."
+          );
+        }
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
 
@@ -334,7 +355,14 @@ export class AppService {
         .eq('id', id)
         .select()
         .single();
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        if (error.code === '42P01') {
+          throw new BadRequestException(
+            "La tabella 'product_suggestions' non esiste a database. Esegui la migrazione SQL su Supabase."
+          );
+        }
+        throw new BadRequestException(error.message);
+      }
       suggestion = data;
     } else {
       const idx = this.mockStore.productSuggestions.findIndex(s => s.id === id);
