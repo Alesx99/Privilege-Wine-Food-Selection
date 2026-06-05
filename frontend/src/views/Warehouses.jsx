@@ -31,8 +31,14 @@ export default function Warehouses({ userRole }) {
       const whData = await whRes.json();
       const prodData = await prodRes.json();
 
+      const filteredProds = isMaster ? prodData : prodData.filter(p => {
+        const name = (p.name || '').toLowerCase();
+        const sku = (p.sku || '').toLowerCase();
+        return !name.includes('sconto') && !sku.includes('sconto');
+      });
+
       setWarehouses(whData);
-      setProducts(prodData);
+      setProducts(filteredProds);
     } catch (err) {
       alert(handleFetchError(err, 'Caricamento depositi'));
     } finally {

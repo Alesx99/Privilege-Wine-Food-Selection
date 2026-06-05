@@ -43,6 +43,16 @@ export default function App() {
   const [priceLists, setPriceLists] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Filter out "Sconto" / "Sconto Merce" products for non-master roles
+  const visibleProducts = React.useMemo(() => {
+    if (userRole === 'master') return products;
+    return products.filter(p => {
+      const name = (p.name || '').toLowerCase();
+      const sku = (p.sku || '').toLowerCase();
+      return !name.includes('sconto') && !sku.includes('sconto');
+    });
+  }, [products, userRole]);
+
   // Load database tables from backend
   const loadAllData = async () => {
     try {
@@ -243,7 +253,7 @@ export default function App() {
       case 'dashboard':
         return (
           <Dashboard 
-            products={products}
+            products={visibleProducts}
             partners={partners}
             documents={documents}
             setActivePage={setActivePage}
@@ -253,7 +263,7 @@ export default function App() {
       case 'products':
         return (
           <Products 
-            products={products}
+            products={visibleProducts}
             onSave={handleSaveProduct}
             onDelete={handleDeleteProduct}
             userRole={userRole}
@@ -275,7 +285,7 @@ export default function App() {
           <Documents 
             documents={documents}
             partners={partners}
-            products={products}
+            products={visibleProducts}
             selectedDocId={selectedDocId}
             setSelectedDocId={setSelectedDocId}
             onSave={handleSaveDocument}
@@ -305,7 +315,7 @@ export default function App() {
       case 'classic':
         return (
           <ClassicInvoicex 
-            products={products}
+            products={visibleProducts}
             partners={partners}
             documents={documents}
             priceLists={priceLists}
@@ -357,7 +367,7 @@ export default function App() {
     }
     return (
       <ClientCatalog 
-        products={products} 
+        products={visibleProducts} 
         onLoginClick={() => setIsLoggingIn(true)} 
       />
     );
