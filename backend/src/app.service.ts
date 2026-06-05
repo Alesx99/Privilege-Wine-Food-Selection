@@ -445,4 +445,42 @@ export class AppService {
 
     return suggestion;
   }
+
+  async getSettings(): Promise<Record<string, string>> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client.from('system_settings').select('*');
+      if (error) {
+        this.logger.error(`Errore nel recupero delle impostazioni da Supabase: ${error.message}`);
+        return { hide_prices_globally: 'false' };
+      }
+      const settingsObj: Record<string, string> = {};
+      data?.forEach(row => {
+        settingsObj[row.key] = row.value;
+      });
+      if (!settingsObj.hasOwnProperty('hide_prices_globally')) {
+        settingsObj.hide_prices_globally = 'false';
+      }
+      return settingsObj;
+    }
+    return this.mockStore.settings;
+  }
+
+  async saveSetting(key: string, value: string): Promise<any> {
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client
+        .from('system_settings')
+        .upsert({ key, value, updated_at: new Date().toISOString() })
+        .select()
+        .single();
+      if (error) {
+        this.logger.error(`Errore nel salvataggio dell'impostazione ${key} in Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
+      return data;
+    }
+    this.mockStore.settings[key] = value;
+    return { key, value };
+  }
 }

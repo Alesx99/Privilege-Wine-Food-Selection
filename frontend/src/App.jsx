@@ -41,6 +41,7 @@ export default function App() {
   const [partners, setPartners] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [priceLists, setPriceLists] = useState([]);
+  const [hidePricesGlobally, setHidePricesGlobally] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Filter out "Sconto", "Omaggio", "Secchiello" and 0€ products for non-master roles
@@ -64,11 +65,12 @@ export default function App() {
   const loadAllData = async () => {
     try {
       setLoading(true);
-      const [prodRes, partRes, docRes, listRes] = await Promise.all([
+      const [prodRes, partRes, docRes, listRes, settingsRes] = await Promise.all([
         fetch(`${API_BASE_URL}/api/products`),
         fetch(`${API_BASE_URL}/api/partners`),
         fetch(`${API_BASE_URL}/api/documents`),
         fetch(`${API_BASE_URL}/api/price-lists`),
+        fetch(`${API_BASE_URL}/api/settings`).catch(() => null),
       ]);
 
       if (!prodRes.ok || !partRes.ok || !docRes.ok || !listRes.ok) {
@@ -101,6 +103,11 @@ export default function App() {
       setPartners(parts);
       setDocuments(docs);
       setPriceLists(lists);
+
+      if (settingsRes && settingsRes.ok) {
+        const settings = await settingsRes.json().catch(() => ({}));
+        setHidePricesGlobally(settings.hide_prices_globally === 'true');
+      }
     } catch (err) {
       console.error('Data load error:', err);
     } finally {
@@ -275,6 +282,8 @@ export default function App() {
             onDelete={handleDeleteProduct}
             userRole={userRole}
             loadAllData={loadAllData}
+            hidePricesGlobally={hidePricesGlobally}
+            onToggleHidePrices={handleToggleHidePrices}
           />
         );
       case 'partners':
@@ -346,6 +355,21 @@ export default function App() {
     setIsLoggingIn(false);
   };
 
+  const handleToggleHidePrices = async (newValue) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/settings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: 'hide_prices_globally', value: newValue ? 'true' : 'false' }),
+      });
+
+      if (!res.ok) throw new Error("Errore nel salvataggio dell'impostazione.");
+      setHidePricesGlobally(newValue);
+    } catch (err) {
+      alert(handleFetchError(err, 'Salvataggio impostazione'));
+    }
+  };
+
   // Se l'utente non è loggato come master, viewer, agent o ristoratore, mostra il listino pubblico o la schermata di login
   if (userRole !== 'master' && userRole !== 'viewer' && userRole !== 'agent' && userRole !== 'ristoratore') {
     if (isLoggingIn) {
@@ -376,6 +400,7 @@ export default function App() {
       <ClientCatalog 
         products={visibleProducts} 
         onLoginClick={() => setIsLoggingIn(true)} 
+        hidePricesGlobally={hidePricesGlobally}
       />
     );
   }

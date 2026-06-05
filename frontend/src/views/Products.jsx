@@ -2,8 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { Plus, Search, Edit2, Trash2, Download, HelpCircle } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
-export default function Products({ products, onSave, onDelete, userRole, loadAllData }) {
+export default function Products({ products, onSave, onDelete, userRole, loadAllData, hidePricesGlobally, onToggleHidePrices }) {
   const isMaster = userRole === 'master';
+  const shouldShowPrices = isMaster || !hidePricesGlobally;
   const [search, setSearch] = useState('');
   const [vintageFilter, setVintageFilter] = useState('');
   const [formatFilter, setFormatFilter] = useState('');
@@ -245,7 +246,43 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
           <p>Gestione del catalogo prodotti, prezzi e scorte di magazzino</p>
         </div>
         
-        <div className="flex-row">
+        <div className="flex-row" style={{ alignItems: 'center', gap: '12px' }}>
+          {isMaster && (
+            <div className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px 12px', margin: 0, height: '38px', borderColor: hidePricesGlobally ? 'rgba(239, 68, 68, 0.4)' : 'rgba(255,255,255,0.05)', background: hidePricesGlobally ? 'rgba(239, 68, 68, 0.05)' : 'rgba(255,255,255,0.02)' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: '500', color: hidePricesGlobally ? 'var(--status-danger)' : 'var(--text-secondary)' }}>
+                Nascondi prezzi a clienti/agenti:
+              </span>
+              <label className="switch" style={{ position: 'relative', display: 'inline-block', width: '38px', height: '20px', margin: 0 }}>
+                <input 
+                  type="checkbox" 
+                  checked={hidePricesGlobally} 
+                  onChange={(e) => onToggleHidePrices(e.target.checked)}
+                  style={{ opacity: 0, width: 0, height: 0 }}
+                />
+                <span className="slider round" style={{
+                  position: 'absolute',
+                  cursor: 'pointer',
+                  top: 0, left: 0, right: 0, bottom: 0,
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  transition: '.3s',
+                  borderRadius: '34px',
+                  border: '1px solid rgba(255,255,255,0.1)'
+                }}>
+                  <span style={{
+                    position: 'absolute',
+                    content: '""',
+                    height: '12px', width: '12px',
+                    left: hidePricesGlobally ? '21px' : '3px',
+                    bottom: '3px',
+                    backgroundColor: hidePricesGlobally ? '#f87171' : '#93c5fd',
+                    transition: '.3s',
+                    borderRadius: '50%',
+                    boxShadow: hidePricesGlobally ? '0 0 8px rgba(239, 68, 68, 0.5)' : 'none'
+                  }} />
+                </span>
+              </label>
+            </div>
+          )}
           {userRole !== 'ristoratore' && (
             <button className="btn btn-secondary" onClick={handleExportCsv}>
               <Download size={18} />
@@ -454,7 +491,7 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
               <th>SKU</th>
               <th>Prodotto</th>
               <th>Formato</th>
-              {userRole !== 'ristoratore' && (
+              {userRole !== 'ristoratore' && shouldShowPrices && (
                 <>
                   <th>Costo Base</th>
                   <th>Costo Scontato</th>
@@ -471,7 +508,7 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
           <tbody>
             {filteredProducts.length === 0 ? (
               <tr>
-                <td colSpan={userRole === 'ristoratore' ? 5 : 11} style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
+                <td colSpan={userRole === 'ristoratore' ? 5 : (shouldShowPrices ? (isMaster ? 11 : 10) : 6)} style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
                   Nessun vino trovato in catalogo.
                 </td>
               </tr>
@@ -487,7 +524,7 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
                   </td>
                   <td><span className="muted-text">{prod.format}</span></td>
                   
-                  {userRole !== 'ristoratore' && (
+                  {userRole !== 'ristoratore' && shouldShowPrices && (
                     <>
                       <td>€ {Number(prod.base_cost).toFixed(2)}</td>
                       <td>
@@ -504,7 +541,13 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
                     </>
                   )}
                   
-                  <td>€ {Number(prod.selling_price_gross).toFixed(2)}</td>
+                  <td>
+                    {shouldShowPrices ? (
+                      `€ ${Number(prod.selling_price_gross).toFixed(2)}`
+                    ) : (
+                      <span className="badge badge-warning" style={{ fontSize: '0.8rem', padding: '4px 8px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>Prezzo Riservato</span>
+                    )}
+                  </td>
                   
                   {userRole !== 'ristoratore' && (
                     <td>

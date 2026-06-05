@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Lock, Home } from 'lucide-react';
 
-export default function ClientCatalog({ products, onLoginClick }) {
+export default function ClientCatalog({ products, onLoginClick, hidePricesGlobally }) {
   const [search, setSearch] = useState('');
   const [vintageFilter, setVintageFilter] = useState('');
   const [formatFilter, setFormatFilter] = useState('');
@@ -123,18 +123,35 @@ export default function ClientCatalog({ products, onLoginClick }) {
                   </div>
 
                   <div className="client-product-price-box">
-                    <span className="muted-text" style={{ fontSize: '0.85rem' }}>Disponibilità:</span>
-                    {isAvailable ? (
-                      <div>
-                        <span className="client-price-value">
-                          € {Number(prod.selling_price_gross).toFixed(2)}
+                    {hidePricesGlobally ? (
+                      isAvailable ? (
+                        <div style={{ textAlign: 'right' }}>
+                          <span className="client-price-value" style={{ color: 'var(--status-warning)', fontSize: '1.2rem' }}>
+                            Riservato
+                          </span>
+                          <span className="client-price-label">Accedi per i prezzi</span>
+                        </div>
+                      ) : (
+                        <span className="badge badge-danger" style={{ border: '1px solid rgba(239,68,68,0.3)', padding: '6px 12px' }}>
+                          Non disponibile
                         </span>
-                        <span className="client-price-label">Lordo IVA</span>
-                      </div>
+                      )
                     ) : (
-                      <span className="badge badge-danger" style={{ border: '1px solid rgba(239,68,68,0.3)', padding: '6px 12px' }}>
-                        Non disponibile
-                      </span>
+                      <>
+                        <span className="muted-text" style={{ fontSize: '0.85rem' }}>Disponibilità:</span>
+                        {isAvailable ? (
+                          <div>
+                            <span className="client-price-value">
+                              € {Number(prod.selling_price_gross).toFixed(2)}
+                            </span>
+                            <span className="client-price-label">Lordo IVA</span>
+                          </div>
+                        ) : (
+                          <span className="badge badge-danger" style={{ border: '1px solid rgba(239,68,68,0.3)', padding: '6px 12px' }}>
+                            Non disponibile
+                          </span>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>

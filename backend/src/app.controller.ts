@@ -265,4 +265,20 @@ export class AppController {
     }
     return this.appService.updateProductSuggestionStatus(id, status);
   }
+
+  // ==========================================
+  // 10. ENDPOINTS IMPOSTAZIONI DI SISTEMA (SYSTEM SETTINGS)
+  // ==========================================
+  @Get('settings')
+  async getSettings() {
+    return this.appService.getSettings();
+  }
+
+  @Post('settings')
+  async saveSetting(@Body() body: { key: string; value: string }) {
+    if (!body.key || body.value === undefined) {
+      throw new BadRequestException('I parametri key e value sono richiesti.');
+    }
+    return this.appService.saveSetting(body.key, body.value);
+  }
 }

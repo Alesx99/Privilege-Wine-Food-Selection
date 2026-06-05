@@ -141,6 +141,9 @@ export class MockStore {
   public agents: Agent[] = [];
   public agentCommissions: AgentCommission[] = [];
   public productSuggestions: ProductSuggestion[] = [];
+  public settings: Record<string, string> = {
+    hide_prices_globally: 'false'
+  };
 
   constructor() {
     this.seed();
