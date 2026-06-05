@@ -106,7 +106,7 @@ export default function App() {
 
       if (settingsRes && settingsRes.ok) {
         const settings = await settingsRes.json().catch(() => ({}));
-        setHidePricesGlobally(settings.hide_prices_globally === 'true');
+        setHidePricesGlobally(String(settings.hide_prices_globally) === 'true' || settings.hide_prices_globally === true);
       }
     } catch (err) {
       console.error('Data load error:', err);

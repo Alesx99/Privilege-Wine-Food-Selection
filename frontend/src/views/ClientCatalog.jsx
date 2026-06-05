@@ -123,7 +123,7 @@ export default function ClientCatalog({ products, onLoginClick, hidePricesGlobal
                   </div>
 
                   <div className="client-product-price-box">
-                    {hidePricesGlobally ? (
+                    {(String(hidePricesGlobally) === 'true' || hidePricesGlobally === true) ? (
                       isAvailable ? (
                         <div style={{ textAlign: 'right' }}>
                           <span className="client-price-value" style={{ color: 'var(--status-warning)', fontSize: '1.2rem' }}>

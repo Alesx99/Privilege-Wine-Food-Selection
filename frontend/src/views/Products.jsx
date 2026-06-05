@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../config';
 
 export default function Products({ products, onSave, onDelete, userRole, loadAllData, hidePricesGlobally, onToggleHidePrices }) {
   const isMaster = userRole === 'master';
-  const shouldShowPrices = isMaster || !hidePricesGlobally;
+  const shouldShowPrices = isMaster || (String(hidePricesGlobally) !== 'true' && hidePricesGlobally !== true);
   const [search, setSearch] = useState('');
   const [vintageFilter, setVintageFilter] = useState('');
   const [formatFilter, setFormatFilter] = useState('');
