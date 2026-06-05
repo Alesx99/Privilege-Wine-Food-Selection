@@ -43,13 +43,20 @@ export default function App() {
   const [priceLists, setPriceLists] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filter out "Sconto" / "Sconto Merce" products for non-master roles
+  // Filter out "Sconto", "Omaggio", "Secchiello" and 0€ products for non-master roles
   const visibleProducts = React.useMemo(() => {
     if (userRole === 'master') return products;
     return products.filter(p => {
       const name = (p.name || '').toLowerCase();
       const sku = (p.sku || '').toLowerCase();
-      return !name.includes('sconto') && !sku.includes('sconto');
+      const priceGross = Number(p.selling_price_gross) || 0;
+      const priceNet = Number(p.selling_price_net) || 0;
+      
+      const excludeKeywords = ['sconto', 'omaggio', 'omaggi', 'secchiello', 'secchielli'];
+      const matchesKeyword = excludeKeywords.some(keyword => name.includes(keyword) || sku.includes(keyword));
+      const isZeroPrice = priceGross <= 0 || priceNet <= 0;
+      
+      return !matchesKeyword && !isZeroPrice;
     });
   }, [products, userRole]);
 
