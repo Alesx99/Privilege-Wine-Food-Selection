@@ -26,6 +26,12 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
     { id: 'reconciliation', label: 'Riconciliazione', icon: Landmark },
   ];
 
+  const filteredMenuItems = menuItems.filter(item => {
+    if (userRole === 'ristoratore') {
+      return item.id === 'products';
+    }
+    return true;
+  });
 
   return (
     <aside className={`sidebar ${isOpen ? 'mobile-open' : ''}`}>
@@ -39,7 +45,7 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
       </div>
 
       <ul className="sidebar-menu">
-        {menuItems.map((item) => {
+        {filteredMenuItems.map((item) => {
           const Icon = item.icon;
           return (
             <li 
@@ -62,25 +68,29 @@ export default function Sidebar({ activePage, setActivePage, onLogout, theme, on
         })}
         
         {/* Separatore per Gestione Classica */}
-        <li style={{ borderTop: '1px solid var(--border-color)', margin: '12px 0 8px 0', listStyle: 'none' }}></li>
-        
-        <li className={`sidebar-item ${activePage === 'classic' ? 'active' : ''}`}>
-          <a 
-            href="#classic" 
-            onClick={(e) => {
-              e.preventDefault();
-              setActivePage('classic');
-              if (setIsOpen) setIsOpen(false);
-            }}
-            style={{ 
-              borderColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.3)' : 'transparent',
-              backgroundColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.08)' : 'transparent'
-            }}
-          >
-            <Layers size={20} style={{ color: activePage === 'classic' ? '#60a5fa' : 'inherit' }} />
-            <span style={{ fontWeight: 'bold' }}>Gestione Classica</span>
-          </a>
-        </li>
+        {userRole !== 'ristoratore' && (
+          <>
+            <li style={{ borderTop: '1px solid var(--border-color)', margin: '12px 0 8px 0', listStyle: 'none' }}></li>
+            
+            <li className={`sidebar-item ${activePage === 'classic' ? 'active' : ''}`}>
+              <a 
+                href="#classic" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActivePage('classic');
+                  if (setIsOpen) setIsOpen(false);
+                }}
+                style={{ 
+                  borderColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.3)' : 'transparent',
+                  backgroundColor: activePage === 'classic' ? 'rgba(59, 130, 246, 0.08)' : 'transparent'
+                }}
+              >
+                <Layers size={20} style={{ color: activePage === 'classic' ? '#60a5fa' : 'inherit' }} />
+                <span style={{ fontWeight: 'bold' }}>Gestione Classica</span>
+              </a>
+            </li>
+          </>
+        )}
       </ul>
 
       {/* Logout & Theme toggle at the bottom of the sidebar */}

@@ -24,7 +24,10 @@ export class PartnersService {
         .from('partners')
         .select('*')
         .order('name', { ascending: true });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero dei partner da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     return this.mockStore.partners;
@@ -52,7 +55,10 @@ export class PartnersService {
       } else {
         result = await client.from('partners').insert([payload]).select().single();
       }
-      if (result.error) throw new BadRequestException(result.error.message);
+      if (result.error) {
+        this.logger.error(`Errore nel salvataggio del partner in Supabase: ${result.error.message}`);
+        throw new BadRequestException(result.error.message);
+      }
       
       // Update price list association
       if (partnerData.price_list_id) {
@@ -106,7 +112,10 @@ export class PartnersService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { error } = await client.from('partners').delete().eq('id', id);
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nella cancellazione del partner ${id} in Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return true;
     }
     const idx = this.mockStore.partners.findIndex(p => p.id === id);
@@ -123,7 +132,10 @@ export class PartnersService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { data, error } = await client.from('price_lists').select('*');
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero dei listini da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     return this.mockStore.priceLists;
@@ -136,7 +148,10 @@ export class PartnersService {
         p_partner_id: partnerId,
         p_product_id: productId,
       });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel calcolo del prezzo personalizzato in Supabase (RPC get_partner_product_price): ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
 
       // We also need the product VAT to calculate gross price
       const prod = await this.productsService.getProductById(productId);

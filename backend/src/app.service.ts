@@ -112,7 +112,10 @@ export class AppService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { data, error } = await client.from('warehouses').select('*').order('name', { ascending: true });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero dei depositi da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     return this.mockStore.warehouses;
@@ -125,7 +128,10 @@ export class AppService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { data, error } = await client.from('agents').select('*').order('name', { ascending: true });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero degli agenti da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     return this.mockStore.agents;
@@ -154,6 +160,7 @@ export class AppService {
         result = await client.from('agents').insert([payload]).select().single();
       }
       if (result.error) {
+        this.logger.error(`Errore nel salvataggio dell'agente in Supabase: ${result.error.message}`);
         if (result.error.code === '42703') {
           throw new BadRequestException(
             "La colonna 'password' non esiste nella tabella 'agents'. Assicurati di aver eseguito la migrazione SQL (20260526010000_agent_roles_and_suggestions.sql) su Supabase."
@@ -198,7 +205,10 @@ export class AppService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { data, error } = await client.from('agent_commissions').select('*, agent:agents(name)');
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero delle provvigioni da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     return this.mockStore.agentCommissions.map(c => {
@@ -243,6 +253,10 @@ export class AppService {
       return { success: true, role: 'viewer', name: 'Visualizzatore' };
     }
 
+    if (trimmedUser === 'ristoratore' && trimmedPass === 'ristoratore') {
+      return { success: true, role: 'ristoratore', name: 'Ristoratore' };
+    }
+
     // Cerca tra gli agenti
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
@@ -252,6 +266,7 @@ export class AppService {
         .or(`email.ilike.${trimmedUser},name.ilike.${trimmedUser}`);
 
       if (error) {
+        this.logger.error(`Errore nel login agente da Supabase: ${error.message}`);
         throw new BadRequestException(error.message);
       }
 
@@ -282,6 +297,7 @@ export class AppService {
       }
       const { data, error } = await query.order('created_at', { ascending: false });
       if (error) {
+        this.logger.error(`Errore nel recupero delle segnalazioni da Supabase: ${error.message}`);
         if (error.code === '42P01') {
           throw new BadRequestException(
             "La tabella 'product_suggestions' non esiste a database. Assicurati di aver eseguito la migrazione SQL (20260526010000_agent_roles_and_suggestions.sql) nel pannello SQL Editor su Supabase."
@@ -319,6 +335,7 @@ export class AppService {
       };
       const { data, error } = await client.from('product_suggestions').insert([payload]).select().single();
       if (error) {
+        this.logger.error(`Errore nella creazione della segnalazione in Supabase: ${error.message}`);
         if (error.code === '42P01') {
           throw new BadRequestException(
             "La tabella 'product_suggestions' non esiste a database. Esegui la migrazione SQL su Supabase."
@@ -356,6 +373,7 @@ export class AppService {
         .select()
         .single();
       if (error) {
+        this.logger.error(`Errore nell'aggiornamento dello stato della segnalazione in Supabase: ${error.message}`);
         if (error.code === '42P01') {
           throw new BadRequestException(
             "La tabella 'product_suggestions' non esiste a database. Esegui la migrazione SQL su Supabase."

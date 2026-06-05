@@ -55,7 +55,24 @@ export default function App() {
       ]);
 
       if (!prodRes.ok || !partRes.ok || !docRes.ok || !listRes.ok) {
-        throw new Error('Errore nel caricamento dei dati dal server NestJS.');
+        const errors = [];
+        if (!prodRes.ok) {
+          const body = await prodRes.json().catch(() => ({}));
+          errors.push(`Prodotti: ${body.message || prodRes.statusText}`);
+        }
+        if (!partRes.ok) {
+          const body = await partRes.json().catch(() => ({}));
+          errors.push(`Partner: ${body.message || partRes.statusText}`);
+        }
+        if (!docRes.ok) {
+          const body = await docRes.json().catch(() => ({}));
+          errors.push(`Documenti: ${body.message || docRes.statusText}`);
+        }
+        if (!listRes.ok) {
+          const body = await listRes.json().catch(() => ({}));
+          errors.push(`Listini: ${body.message || listRes.statusText}`);
+        }
+        throw new Error(`Errore nel caricamento dei dati dal server NestJS:\n${errors.join('\n')}`);
       }
 
       const prods = await prodRes.json();
@@ -220,7 +237,9 @@ export default function App() {
       );
     }
 
-    switch (activePage) {
+    const resolvedPage = userRole === 'ristoratore' ? 'products' : activePage;
+
+    switch (resolvedPage) {
       case 'dashboard':
         return (
           <Dashboard 
@@ -310,14 +329,19 @@ export default function App() {
     setIsLoggingIn(false);
   };
 
-  // Se l'utente non è loggato come master, viewer o agent, mostra il listino pubblico o la schermata di login
-  if (userRole !== 'master' && userRole !== 'viewer' && userRole !== 'agent') {
+  // Se l'utente non è loggato come master, viewer, agent o ristoratore, mostra il listino pubblico o la schermata di login
+  if (userRole !== 'master' && userRole !== 'viewer' && userRole !== 'agent' && userRole !== 'ristoratore') {
     if (isLoggingIn) {
       return (
         <Login 
           onLogin={(role, id, name) => {
             setUserRole(role);
             localStorage.setItem('privilege_user_role', role);
+            if (role === 'ristoratore') {
+              setActivePage('products');
+            } else {
+              setActivePage('dashboard');
+            }
             if (id) {
               setAgentId(id);
               localStorage.setItem('privilege_agent_id', id);

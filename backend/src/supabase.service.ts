@@ -1,8 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
-export class SupabaseService {
+export class SupabaseService implements OnModuleInit {
   private readonly logger = new Logger(SupabaseService.name);
   private client: SupabaseClient | null = null;
 
@@ -28,6 +28,33 @@ export class SupabaseService {
     }
   }
 
+  async onModuleInit() {
+    if (this.client) {
+      try {
+        // Query di test per verificare la connessione e la presenza delle tabelle
+        const { error } = await this.client.from('products').select('id').limit(1);
+        if (error) {
+          this.logger.error(
+            `⚠️ SUPABASE CONNECTION ERROR: Query fallita sulla tabella 'products'. Dettagli: ${error.message} (Codice: ${error.code})`
+          );
+          if (error.code === '42P01') {
+            this.logger.error(
+              `👉 SUGGERIMENTO: La tabella 'products' non esiste. Assicurati di aver eseguito le migrazioni SQL contenute nella cartella 'supabase/migrations/' sul pannello SQL Editor di Supabase.`
+            );
+          } else {
+            this.logger.error(
+              `👉 SUGGERIMENTO: Verifica che il tuo progetto Supabase non sia in pausa e che le chiavi SUPABASE_URL e SUPABASE_KEY siano corrette.`
+            );
+          }
+        } else {
+          this.logger.log('✨ Connessione a Supabase verificata con successo (le tabelle esistono).');
+        }
+      } catch (err) {
+        this.logger.error('Errore imprevisto durante il ping di test di Supabase:', err);
+      }
+    }
+  }
+
   getClient(): SupabaseClient {
     if (!this.client) {
       throw new Error(
@@ -41,3 +68,4 @@ export class SupabaseService {
     return this.client !== null;
   }
 }
+

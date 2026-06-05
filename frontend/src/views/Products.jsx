@@ -246,10 +246,12 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
         </div>
         
         <div className="flex-row">
-          <button className="btn btn-secondary" onClick={handleExportCsv}>
-            <Download size={18} />
-            <span>Esporta CSV</span>
-          </button>
+          {userRole !== 'ristoratore' && (
+            <button className="btn btn-secondary" onClick={handleExportCsv}>
+              <Download size={18} />
+              <span>Esporta CSV</span>
+            </button>
+          )}
           {isMaster && (
             <>
               <button 
@@ -452,12 +454,16 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
               <th>SKU</th>
               <th>Prodotto</th>
               <th>Formato</th>
-              <th>Costo Base</th>
-              <th>Costo Scontato</th>
-              <th>Ricarico</th>
-              <th>Prezzo Vend. Netto</th>
+              {userRole !== 'ristoratore' && (
+                <>
+                  <th>Costo Base</th>
+                  <th>Costo Scontato</th>
+                  <th>Ricarico</th>
+                  <th>Prezzo Vend. Netto</th>
+                </>
+              )}
               <th>Prezzo Vend. Lordo</th>
-              <th>Tipo Prezzo</th>
+              {userRole !== 'ristoratore' && <th>Tipo Prezzo</th>}
               <th>Giacenza</th>
               {isMaster && <th style={{ textAlign: 'right' }}>Azioni</th>}
             </tr>
@@ -465,7 +471,7 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
           <tbody>
             {filteredProducts.length === 0 ? (
               <tr>
-                <td colSpan="11" style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
+                <td colSpan={userRole === 'ristoratore' ? 5 : 11} style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
                   Nessun vino trovato in catalogo.
                 </td>
               </tr>
@@ -480,24 +486,34 @@ export default function Products({ products, onSave, onDelete, userRole, loadAll
                     </span>
                   </td>
                   <td><span className="muted-text">{prod.format}</span></td>
-                  <td>€ {Number(prod.base_cost).toFixed(2)}</td>
-                  <td>
-                    {prod.discounted_cost !== null && prod.discounted_cost !== undefined ? (
-                      <strong style={{ color: 'var(--status-success)' }}>
-                        € {Number(prod.discounted_cost).toFixed(2)}
-                      </strong>
-                    ) : (
-                      <span className="muted-text">-</span>
-                    )}
-                  </td>
-                  <td>{prod.is_manual_price ? '-' : `${prod.markup_percent}%`}</td>
-                  <td><strong>€ {Number(prod.selling_price_net).toFixed(2)}</strong></td>
+                  
+                  {userRole !== 'ristoratore' && (
+                    <>
+                      <td>€ {Number(prod.base_cost).toFixed(2)}</td>
+                      <td>
+                        {prod.discounted_cost !== null && prod.discounted_cost !== undefined ? (
+                          <strong style={{ color: 'var(--status-success)' }}>
+                            € {Number(prod.discounted_cost).toFixed(2)}
+                          </strong>
+                        ) : (
+                          <span className="muted-text">-</span>
+                        )}
+                      </td>
+                      <td>{prod.is_manual_price ? '-' : `${prod.markup_percent}%`}</td>
+                      <td><strong>€ {Number(prod.selling_price_net).toFixed(2)}</strong></td>
+                    </>
+                  )}
+                  
                   <td>€ {Number(prod.selling_price_gross).toFixed(2)}</td>
-                  <td>
-                    <span className={`badge ${prod.is_manual_price ? 'badge-warning' : 'badge-success'}`}>
-                      {prod.is_manual_price ? 'MANUALE' : 'FORMULA'}
-                    </span>
-                  </td>
+                  
+                  {userRole !== 'ristoratore' && (
+                    <td>
+                      <span className={`badge ${prod.is_manual_price ? 'badge-warning' : 'badge-success'}`}>
+                        {prod.is_manual_price ? 'MANUALE' : 'FORMULA'}
+                      </span>
+                    </td>
+                  )}
+                  
                   <td>
                     <span className={`badge ${Number(prod.stock_quantity) === 0 ? 'badge-danger' : Number(prod.stock_quantity) < 12 ? 'badge-warning' : 'badge-success'}`}>
                       {prod.stock_quantity} Btg

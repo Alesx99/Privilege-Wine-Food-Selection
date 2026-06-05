@@ -22,7 +22,10 @@ export class ProductsService {
         .from('products')
         .select('*')
         .order('name', { ascending: true });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero dei prodotti da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     return this.mockStore.products;
@@ -78,7 +81,10 @@ export class ProductsService {
       } else {
         result = await client.from('products').insert([payload]).select().single();
       }
-      if (result.error) throw new BadRequestException(result.error.message);
+      if (result.error) {
+        this.logger.error(`Errore nel salvataggio del prodotto in Supabase: ${result.error.message}`);
+        throw new BadRequestException(result.error.message);
+      }
       return result.data;
     }
 
@@ -128,7 +134,10 @@ export class ProductsService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { error } = await client.from('products').delete().eq('id', id);
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nella cancellazione del prodotto ${id} in Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return true;
     }
 
@@ -197,6 +206,7 @@ export class ProductsService {
       });
 
       if (error) {
+        this.logger.error(`Errore nell'esecuzione della RPC merge_products in Supabase: ${error.message}`);
         throw new BadRequestException('Errore durante la fusione transazionale del prodotto: ' + error.message);
       }
 

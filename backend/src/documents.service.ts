@@ -36,7 +36,10 @@ export class DocumentsService {
           partner:partners(name, vat_number)
         `)
         .order('date', { ascending: false });
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nel recupero dei documenti da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return data;
     }
     
@@ -131,13 +134,19 @@ export class DocumentsService {
         docResult = await client.from('documents').insert([payload]).select().single();
       }
 
-      if (docResult.error) throw new BadRequestException(docResult.error.message);
+      if (docResult.error) {
+        this.logger.error(`Errore nel salvataggio della testata del documento in Supabase: ${docResult.error.message}`);
+        throw new BadRequestException(docResult.error.message);
+      }
       const documentId = docResult.data.id;
 
       // Handle items update
       if (isEdit) {
         const deleteRes = await client.from('document_items').delete().eq('document_id', documentId);
-        if (deleteRes.error) throw new BadRequestException('Errore nella modifica delle righe del documento: ' + deleteRes.error.message);
+        if (deleteRes.error) {
+          this.logger.error(`Errore nell'eliminazione delle righe precedenti in Supabase: ${deleteRes.error.message}`);
+          throw new BadRequestException('Errore nella modifica delle righe del documento: ' + deleteRes.error.message);
+        }
       }
 
       if (items.length > 0) {
@@ -152,7 +161,10 @@ export class DocumentsService {
           expiry_date: item.expiry_date || null
         }));
         const itemsResult = await client.from('document_items').insert(itemsPayload);
-        if (itemsResult.error) throw new BadRequestException('Errore inserimento righe: ' + itemsResult.error.message);
+        if (itemsResult.error) {
+          this.logger.error(`Errore nell'inserimento delle righe del documento in Supabase: ${itemsResult.error.message}`);
+          throw new BadRequestException('Errore inserimento righe: ' + itemsResult.error.message);
+        }
       }
 
       return this.getDocumentById(documentId);
@@ -234,7 +246,10 @@ export class DocumentsService {
         .eq('id', id)
         .select()
         .single();
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nell'aggiornamento dello stato del documento ${id} in Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return this.getDocumentById(id);
     }
 
@@ -270,7 +285,10 @@ export class DocumentsService {
         .from('documents')
         .select('id')
         .eq('status', 'draft');
-      if (findError) throw new BadRequestException(findError.message);
+      if (findError) {
+        this.logger.error(`Errore nella ricerca dei documenti in bozza da approvare in Supabase: ${findError.message}`);
+        throw new BadRequestException(findError.message);
+      }
 
       if (!drafts || drafts.length === 0) return { count: 0 };
 
@@ -279,7 +297,10 @@ export class DocumentsService {
         .update({ status: 'completed', updated_at: new Date().toISOString() })
         .eq('status', 'draft');
 
-      if (updateError) throw new BadRequestException(updateError.message);
+      if (updateError) {
+        this.logger.error(`Errore nell'approvazione massiva dei documenti in bozza in Supabase: ${updateError.message}`);
+        throw new BadRequestException(updateError.message);
+      }
       return { count: drafts.length };
     }
 
@@ -300,7 +321,10 @@ export class DocumentsService {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
       const { error } = await client.from('documents').delete().eq('id', id);
-      if (error) throw new BadRequestException(error.message);
+      if (error) {
+        this.logger.error(`Errore nella cancellazione del documento ${id} in Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
       return true;
     }
 

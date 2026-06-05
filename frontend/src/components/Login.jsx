@@ -35,6 +35,8 @@ export default function Login({ onLogin, onCancel }) {
         onLogin('master');
       } else if (trimmedUser === 'autorizzato' && trimmedPass === 'autorizzato') {
         onLogin('viewer');
+      } else if (trimmedUser === 'ristoratore' && trimmedPass === 'ristoratore') {
+        onLogin('ristoratore');
       } else {
         setError('Impossibile connettersi al server per validare le credenziali dell\'agente.');
       }
@@ -50,7 +52,7 @@ export default function Login({ onLogin, onCancel }) {
             alt="Privilege Selection Logo" 
             style={{ width: '100%', maxWidth: '180px', height: 'auto', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '8px' }} 
           />
-          <p className="muted-text" style={{ fontSize: '0.85rem' }}>Area Riservata Gestionale ERP</p>
+          <p className="muted-text" style={{ fontSize: '0.85rem' }}>Area Riservata ERP</p>
         </div>
 
         {error && <div className="login-error">{error}</div>}
@@ -93,7 +95,7 @@ export default function Login({ onLogin, onCancel }) {
 
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <p className="muted-text" style={{ fontSize: '0.75rem', textAlign: 'center' }}>
-            💡 Accedi come <strong>master</strong> (pass: <code>master</code>) o come <strong>autorizzato</strong> (pass: <code>autorizzato</code>) per sola lettura.
+            💡 Accedi come <strong>master</strong> (pass: <code>master</code>), come <strong>autorizzato</strong> (pass: <code>autorizzato</code>) per sola lettura, o come <strong>ristoratore</strong> (pass: <code>ristoratore</code>).
           </p>
           <p className="muted-text" style={{ fontSize: '0.65rem', textAlign: 'center', opacity: 0.6, marginTop: '4px', borderTop: '1px dashed rgba(255,255,255,0.05)', paddingTop: '8px' }}>
             © Alesx99. Tutti i diritti riservati. Proprietà esclusiva.
