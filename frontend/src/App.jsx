@@ -363,7 +363,10 @@ export default function App() {
         body: JSON.stringify({ key: 'hide_prices_globally', value: newValue ? 'true' : 'false' }),
       });
 
-      if (!res.ok) throw new Error("Errore nel salvataggio dell'impostazione.");
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.message || "Errore nel salvataggio dell'impostazione.");
+      }
       setHidePricesGlobally(newValue);
     } catch (err) {
       alert(handleFetchError(err, 'Salvataggio impostazione'));

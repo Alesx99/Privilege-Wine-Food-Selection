@@ -469,16 +469,14 @@ export class AppService {
   async saveSetting(key: string, value: string): Promise<any> {
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
-      const { data, error } = await client
+      const { error } = await client
         .from('system_settings')
-        .upsert({ key, value, updated_at: new Date().toISOString() })
-        .select()
-        .single();
+        .upsert({ key, value, updated_at: new Date().toISOString() });
       if (error) {
         this.logger.error(`Errore nel salvataggio dell'impostazione ${key} in Supabase: ${error.message}`);
         throw new BadRequestException(error.message);
       }
-      return data;
+      return { key, value };
     }
     this.mockStore.settings[key] = value;
     return { key, value };
