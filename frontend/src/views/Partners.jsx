@@ -13,7 +13,8 @@ const partnerSchema = z.object({
   email: z.string().email('Indirizzo e-mail non valido').optional().or(z.literal('')),
   address: z.string().optional().or(z.literal('')),
   phone: z.string().optional().or(z.literal('')),
-  price_list_id: z.string().optional().or(z.literal(''))
+  price_list_id: z.string().optional().or(z.literal('')),
+  password: z.string().optional().or(z.literal(''))
 });
 
 export default function Partners({ partners, priceLists, onSave, onDelete, userRole }) {
@@ -35,6 +36,7 @@ export default function Partners({ partners, priceLists, onSave, onDelete, userR
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [priceListId, setPriceListId] = useState('');
+  const [password, setPassword] = useState('');
   
   const [errors, setErrors] = useState({});
 
@@ -59,6 +61,7 @@ export default function Partners({ partners, priceLists, onSave, onDelete, userR
     setAddress('');
     setPhone('');
     setPriceListId('');
+    setPassword('');
     setErrors({});
     setIsModalOpen(true);
   };
@@ -74,6 +77,7 @@ export default function Partners({ partners, priceLists, onSave, onDelete, userR
     setAddress(p.address || '');
     setPhone(p.phone || '');
     setPriceListId(p.price_list_id || '');
+    setPassword(p.password || '');
     setErrors({});
     setIsModalOpen(true);
   };
@@ -91,7 +95,8 @@ export default function Partners({ partners, priceLists, onSave, onDelete, userR
       email,
       address,
       phone,
-      price_list_id: priceListId
+      price_list_id: priceListId,
+      password
     };
 
     const result = partnerSchema.safeParse(dataToValidate);
@@ -349,6 +354,20 @@ export default function Partners({ partners, priceLists, onSave, onDelete, userR
                 />
                 {errors.email && <span className="muted-text" style={{ color: 'red', fontSize: '0.8rem' }}>{errors.email}</span>}
               </div>
+
+              {(type === 'client' || type === 'both') && (
+                <div className="form-group">
+                  <label>Chiave di Accesso / Password Ristoratore (Opzionale, visibile all'amministratore)</label>
+                  <input 
+                    type="text" 
+                    className="erp-input" 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    placeholder="Imposta una password per consentire il login come Ristoratore..."
+                  />
+                  {errors.password && <span className="muted-text" style={{ color: 'red', fontSize: '0.8rem' }}>{errors.password}</span>}
+                </div>
+              )}
 
               <div className="form-group">
                 <label>Sede Legale / Indirizzo (Opzionale)</label>

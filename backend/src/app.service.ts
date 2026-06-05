@@ -285,6 +285,40 @@ export class AppService {
       }
     }
 
+    // Cerca tra i partner (ristoratori)
+    if (this.useSupabase()) {
+      const client = this.supabaseService.getClient();
+      const { data, error } = await client
+        .from('partners')
+        .select('*')
+        .or(`email.ilike.${trimmedUser},name.ilike.${trimmedUser}`);
+
+      if (error) {
+        this.logger.error(`Errore nel login partner da Supabase: ${error.message}`);
+        throw new BadRequestException(error.message);
+      }
+
+      const partner = data?.find(
+        p =>
+          (p.type === 'client' || p.type === 'both') &&
+          p.password === trimmedPass
+      );
+      if (partner) {
+        return { success: true, role: 'ristoratore', name: partner.name };
+      }
+    } else {
+      const partner = this.mockStore.partners.find(
+        p =>
+          (p.type === 'client' || p.type === 'both') &&
+          p.email &&
+          (p.email.toLowerCase() === trimmedUser || p.name.toLowerCase() === trimmedUser) &&
+          p.password === trimmedPass
+      );
+      if (partner) {
+        return { success: true, role: 'ristoratore', name: partner.name };
+      }
+    }
+
     throw new BadRequestException('Credenziali non valide. Riprova.');
   }
 

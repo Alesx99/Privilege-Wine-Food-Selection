@@ -101,6 +101,7 @@ export interface Partner {
   phone?: string;
   agent_id?: string; // Associated agent
   created_at: string;
+  password?: string;
 }
 
 export interface ProductSkuAlias {
@@ -176,6 +177,7 @@ export class MockStore {
         address: 'VIA ROMA 12, 70121 BARI (BA)',
         phone: '080-5214433',
         created_at: new Date().toISOString(),
+        password: 'enoteca123',
       },
       {
         id: client2Id,

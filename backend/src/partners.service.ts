@@ -37,7 +37,7 @@ export class PartnersService {
     const isEdit = !!partnerData.id;
     if (this.useSupabase()) {
       const client = this.supabaseService.getClient();
-      const payload = {
+      const payload: any = {
         type: partnerData.type,
         name: partnerData.name,
         vat_number: partnerData.vat_number,
@@ -48,6 +48,10 @@ export class PartnersService {
         phone: partnerData.phone,
         updated_at: new Date().toISOString(),
       };
+
+      if (partnerData.password !== undefined) {
+        payload.password = partnerData.password;
+      }
 
       let result;
       if (isEdit) {
@@ -98,6 +102,7 @@ export class PartnersService {
         email: partnerData.email,
         address: partnerData.address,
         phone: partnerData.phone,
+        password: partnerData.password || undefined,
         created_at: new Date().toISOString(),
       };
       this.mockStore.partners.push(newPartner);
